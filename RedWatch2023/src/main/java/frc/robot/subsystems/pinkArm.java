@@ -28,7 +28,11 @@ public class pinkArm extends SubsystemBase {
   public final CANSparkMax m_pivot;
 
   public final RelativeEncoder m_pivotEncoder;
-  /** Creates a new ExampleSubsystem. */
+  
+  /** Creates a new Subystem for the pink arm called pinkArm.  
+  * Note!!! this subsystem covers the pivot joint of the pink arm Telescoping is stored seperately
+  */
+
   public pinkArm() {
       m_pivot = new CANSparkMax(kJoint1Port, MotorType.kBrushless);
       
