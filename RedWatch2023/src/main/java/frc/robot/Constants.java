@@ -14,12 +14,9 @@ package frc.robot;
  */
 public final class Constants {
   public static class OperatorConstants {
-
     // creates constant class for the Red Arm
-    
-
-
     public static final int kDriverControllerPort = 0;
+ 
   }
   public static final class pinkArmConstants {
     // Can change the port of the motors
@@ -32,5 +29,9 @@ public final class Constants {
     public static final double kClimberRightSize = 12.0;
     public static final double kAnglePerRevolution = kPivotingGearRatio * 3.14;
 
+  }
+  public static final class IOPorts{
+    public static final int kDriverController = 1;
+    public static final int kWeaponsContoller = 2;
   }
 }
