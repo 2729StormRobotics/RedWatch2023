@@ -49,7 +49,7 @@ public class RobotContainer {
    */
 
   m_PinkArm.setDefaultCommand(
-    new armJoint(() -> m_wepons.getLeftY(),() -> m_wepons.getRightBumper(),m_PinkArm));
+    new armJoint(() -> m_wepons.getLeftY(),() -> m_wepons.getLeftBumper(), () -> m_wepons.getRightBumper(),m_PinkArm));
 
    }
 

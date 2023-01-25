@@ -20,7 +20,7 @@ public final class Constants {
   }
   public static final class pinkArmConstants {
     // Can change the port of the motors
-    public static final int kJoint1Port = 2;
+    public static final int kJoint1Port = 1;
     // pivoting gearbox = 1:125 
     public static final double kTelescopingGearRatio = 1.0 / 16.0;
     public static final double kPivotingGearRatio = 1.0 / 125.0;
@@ -28,6 +28,8 @@ public final class Constants {
     public static final double kDistancePerRevolution = kTelescopingGearRatio * (7.0 / 8.0) * 3.14; //TODO: put in gear ratio for the climbers!!!
     public static final double kClimberRightSize = 12.0;
     public static final double kAnglePerRevolution = kPivotingGearRatio * 3.14;
+    public static final int kCurrentLimit = 60;
+    public static final int kStallLimit = 45;
 
   }
   public static final class IOPorts{

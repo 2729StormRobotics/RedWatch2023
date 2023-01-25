@@ -6,6 +6,8 @@ package frc.robot.subsystems;
 
 import static frc.robot.Constants.pinkArmConstants.*;
 
+import java.util.Map;
+
 import edu.wpi.first.wpilibj2.command.CommandBase;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import com.revrobotics.CANSparkMax;
@@ -17,6 +19,10 @@ import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import edu.wpi.first.wpilibj.SPI;
 import com.kauailabs.navx.frc.AHRS;
 
+import edu.wpi.first.wpilibj.shuffleboard.BuiltInLayouts;
+import edu.wpi.first.wpilibj.shuffleboard.Shuffleboard;
+import edu.wpi.first.wpilibj.shuffleboard.ShuffleboardLayout;
+import edu.wpi.first.wpilibj.shuffleboard.ShuffleboardTab;
 
 
 
@@ -29,6 +35,9 @@ public class pinkArm extends SubsystemBase {
 
   public final RelativeEncoder m_pivotEncoder;
   
+  private final ShuffleboardLayout m_controlPanelStatus;
+  private final ShuffleboardTab m_controlPanelTab;
+
   /** Creates a new Subystem for the pink arm called pinkArm.  
   * Note!!! this subsystem covers the pivot joint of the pink arm Telescoping is stored seperately
   */
@@ -36,9 +45,14 @@ public class pinkArm extends SubsystemBase {
   public pinkArm() {
       m_pivot = new CANSparkMax(kJoint1Port, MotorType.kBrushless);
       
-      setMotor(m_pivot, false);
+      setMotor(m_pivot, false, true);
       m_pivotEncoder = m_pivot.getEncoder();
       positionEncoderInit(m_pivotEncoder);
+
+      m_controlPanelTab = Shuffleboard.getTab("Arm");
+      m_controlPanelStatus = m_controlPanelTab.getLayout("Encoder", BuiltInLayouts.kList)
+        .withSize(3, 3)
+        .withProperties(Map.of("Label Position", "TOP"));
       
       try {
         m_ahrs = new AHRS(SPI.Port.kMXP);
@@ -46,6 +60,12 @@ public class pinkArm extends SubsystemBase {
       catch (RuntimeException ex){
         DriverStation.reportError("Error instantiating navX MXP: " + ex.getMessage(), true);
       }
+
+      shuffleboardInit();
+    }
+
+    private void shuffleboardInit() {
+      m_controlPanelStatus.addNumber("Pivot Encoder", () -> m_pivotEncoder.getPosition());
     }
   
     public void changeMode(String mode) {
@@ -80,10 +100,12 @@ public class pinkArm extends SubsystemBase {
       encoderReset(encoder);
     }
 
-    public void setMotor(CANSparkMax motor, boolean inverse) {
+    public void setMotor(CANSparkMax motor, boolean inverse, boolean pivot) {
       motor.restoreFactoryDefaults();
       motor.setIdleMode(IdleMode.kBrake);
       motor.setInverted(inverse);
+      if (pivot)
+        motor.setSmartCurrentLimit(kStallLimit, kCurrentLimit);
     }
   
     public double getGyroAngle(){
