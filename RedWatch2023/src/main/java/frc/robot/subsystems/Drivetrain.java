@@ -37,9 +37,10 @@ import edu.wpi.first.wpilibj.SPI;
 
 public class Drivetrain extends SubsystemBase {
   /** Creates a new Drivetrain. */
-  public static double speedLimiter = 3.5;
-  public static double rotationLimiter = 1.75; 
+  public static double speedLimiter = 3.5; // the forward drive power gets divided by this value to reduce the speed
+  public static double rotationLimiter = 1.75; // the rotational drive power gets divided by this value to reduce the speed
 
+  // delare motors
   public final com.revrobotics.CANSparkMax leftMotor;
   public final com.revrobotics.CANSparkMax rightMotor;
   public final com.revrobotics.CANSparkMax leftMotor2;
@@ -52,10 +53,9 @@ public class Drivetrain extends SubsystemBase {
   
   //public final com.revrobotics.CANSparkMax rightMotor2;
 
+  // declare encoders
   public final RelativeEncoder m_leftEncoder;
   public final RelativeEncoder m_rightEncoder;
-
-  private boolean m_highGear = true;
 
  // private final ADIS16470_IMU m_imu;
 
@@ -71,11 +71,13 @@ public class Drivetrain extends SubsystemBase {
 
 
   public Drivetrain() {
+    // define motors
     leftMotor = new com.revrobotics.CANSparkMax(Constants.LEFT_MOTOR_ID, MotorType.kBrushless);
     leftMotor2 = new com.revrobotics.CANSparkMax(Constants.LEFT_MOTOR2_ID, MotorType.kBrushless);
     rightMotor = new com.revrobotics.CANSparkMax(Constants.RIGHT_MOTOR_ID, MotorType.kBrushless);
     rightMotor2 = new com.revrobotics.CANSparkMax(Constants.RIGHT_MOTOR2_ID, MotorType.kBrushless);
 
+    // initialize motors
     motorInit(leftMotor, Constants.kLeftReversedDefault);
     motorInit(leftMotor2, Constants.kLeftReversedDefault);
     motorInit(rightMotor, Constants.kRightReversedDefault);
@@ -92,23 +94,24 @@ public class Drivetrain extends SubsystemBase {
     rightMotor.setIdleMode(IdleMode.kBrake);
     rightMotor2.setIdleMode(IdleMode.kBrake);
 
+    // group the left and right motors together as two groups
     leftMotor2.follow(leftMotor);
     rightMotor2.follow(rightMotor);
-
+    
+    // initialize encoders
     m_leftEncoder = leftMotor.getEncoder();
     m_rightEncoder = rightMotor.getEncoder();
 
-   // m_imu = new ADIS16470_IMU();
-   // m_imu.reset();
-
+    // initiailze drivetrain
     m_drive = new DifferentialDrive(leftMotor, rightMotor);
 
-    
+    // initialize shuffleboard for drivetrain
     m_drivetrainTab = Shuffleboard.getTab(Constants.kShuffleboardTab);
     m_drivetrainStatus = m_drivetrainTab.getLayout("Status", BuiltInLayouts.kList)
       .withProperties(Map.of("Label position", "TOP"));
     shuffleboardInit();
 
+    // initialize NavX gyro
     try {
       ahrs = new AHRS(SPI.Port.kMXP);
     } catch (RuntimeException ex){
@@ -120,7 +123,7 @@ public class Drivetrain extends SubsystemBase {
     //   ahrs.getRotation2d(), getLeftDistance(), getRightDistance());
     
   }
-//this is aayush hi broski
+
   public void motorInit(CANSparkMax motor, boolean invert) {
     motor.restoreFactoryDefaults();
     motor.setIdleMode(IdleMode.kBrake);
@@ -131,16 +134,9 @@ public class Drivetrain extends SubsystemBase {
   }
 
   private void encoderInit(RelativeEncoder encoder) {
-    // set conversion factor and velocity factor for high gear
-    if (m_highGear) {
-      encoder.setPositionConversionFactor(Constants.kEncoderDistanceRatio);
-      encoder.setVelocityConversionFactor(Constants.kHighSpeedPerPulseEncoderRatio);
-    } 
-    // set conversion factor and velocity factor for low gear
-    else {
-      encoder.setPositionConversionFactor(Constants.kLowDistancePerPulse);
-      encoder.setVelocityConversionFactor(Constants.kLowSpeedPerPulse);
-    }
+    // set conversion factor and velocity factor (converting encoder ticks to real units)
+    encoder.setPositionConversionFactor(Constants.kEncoderDistanceRatio);
+    encoder.setVelocityConversionFactor(Constants.kHighSpeedPerPulseEncoderRatio);
     encoderReset(encoder);
 
   }
@@ -150,6 +146,7 @@ public class Drivetrain extends SubsystemBase {
     encoderReset(m_leftEncoder);
   }
 
+  // resets encoder count/position
   public void encoderReset(RelativeEncoder encoder) {
     encoder.setPosition(0);
   }
@@ -177,15 +174,16 @@ public class Drivetrain extends SubsystemBase {
   public double getAverageSpeed() {
     return (getRightSpeed() + getLeftSpeed())/2;
   }
-  
-  public double getGyroAngle(){
-    return ahrs.getPitch();
-  }
 
   public void resetGyroAngle(){
     ahrs.reset();
   }
 
+  public double getPitch() {
+    return ahrs.getPitch();
+}
+
+  // squares the MAGNITUDE of the value
   public static double sqaureInput(double input) {
     return Math.copySign(input * input, input);
   }
@@ -199,16 +197,13 @@ public class Drivetrain extends SubsystemBase {
   public void curvatureDrive(double stickY, double stickX, boolean stickButton) {
     m_drive.curvatureDrive(stickY, stickX, stickButton);
   }
-  //public double getRobotAngle() {
-    //return m_imu.getAngle();
- // }
 
   private void shuffleboardInit() {
     m_drivetrainStatus.addNumber("Left Speed", () -> getLeftSpeed());
     m_drivetrainStatus.addNumber("Right Speed", () -> getRightSpeed());
     m_drivetrainStatus.addNumber("Left Position", () -> getLeftDistance());
     m_drivetrainStatus.addNumber("Right Position", () -> getRightDistance());
-    m_drivetrainStatus.addNumber("Angle", () -> getGyroAngle());
+    m_drivetrainStatus.addNumber("Angle", () -> getPitch());
     m_drivetrainStatus.addBoolean("Reversed?", () -> m_reverseDrive);
 
     m_drivetrainStatus.addNumber("Average Distance", () -> getAverageDistance());
@@ -217,6 +212,7 @@ public class Drivetrain extends SubsystemBase {
 
   }
 
+  // Tankdrive command
   public void tankDrive(double leftPower, double rightPower, boolean squareInputs) {
     if (m_reverseDrive) {
       m_drive.tankDrive(leftPower/2, rightPower/2, squareInputs);
@@ -226,9 +222,9 @@ public class Drivetrain extends SubsystemBase {
     }
   }
 
-    public void stopDrive() {
-      m_drive.tankDrive(0, 0);
-    }
+  public void stopDrive() {
+    m_drive.tankDrive(0, 0);
+  }
     // public Pose2d getPose() {
     //   return m_odometry.getPoseMeters();
     // }
@@ -236,21 +232,17 @@ public class Drivetrain extends SubsystemBase {
     //   resetEncoders();
     //   m_odometry.resetPosition(pose, ahrs.getRotation2d());
     // }
-    public void resetEncoders() {
-      m_leftEncoder.setPosition(0);
-      m_rightEncoder.setPosition(0);
-    }
-    public DifferentialDriveWheelSpeeds getWheelSpeeds() {
-      return new DifferentialDriveWheelSpeeds(m_leftEncoder.getVelocity(), m_rightEncoder.getVelocity());
-    }
-    public void tankDriveVolts(double leftVolts, double rightVolts) {
-      leftMotor.setVoltage(leftVolts);
-      rightMotor.setVoltage(rightVolts);
-      m_drive.feed();
-    }
-  public double getPitch() {
-      return ahrs.getPitch();
+
+  public DifferentialDriveWheelSpeeds getWheelSpeeds() {
+    return new DifferentialDriveWheelSpeeds(m_leftEncoder.getVelocity(), m_rightEncoder.getVelocity());
   }
+  public void tankDriveVolts(double leftVolts, double rightVolts) {
+    leftMotor.setVoltage(leftVolts);
+    rightMotor.setVoltage(rightVolts);
+    m_drive.feed();
+  }
+
+
   @Override
   public void periodic() {
     // This method will be called once per scheduler run

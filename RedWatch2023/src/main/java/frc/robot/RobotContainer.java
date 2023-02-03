@@ -38,21 +38,19 @@ public class RobotContainer {
   // The robot's subsystems and commands are defined here...
   private final ExampleSubsystem m_exampleSubsystem = new ExampleSubsystem();
   private final ExampleCommand m_autoCommand = new ExampleCommand(m_exampleSubsystem);
-  //private final PhotonVision m_photonvision;
+
   private final Drivetrain m_drivetrain;
   private final XboxController m_driver = new XboxController(Constants.kDriverControllerPort);
 
-  private SlewRateLimiter m_forwardLimiter = new SlewRateLimiter(1);
-  private SlewRateLimiter m_rotationLimiter = new SlewRateLimiter(0.5);
+  private SlewRateLimiter m_forwardLimiter = new SlewRateLimiter(1); // controls acceleration of forward speed
+  private SlewRateLimiter m_rotationLimiter = new SlewRateLimiter(0.5); // controls acceleration of rotational speed
 
   /** The container for the robot. Contains subsystems, OI devices, and commands. */
   public RobotContainer() {
-    //m_photonvision = new PhotonVision();
     m_drivetrain = new Drivetrain();
 
-    // m_drivetrain.setDefaultCommand(
-    //   new differentialDrive(() -> m_driver.getRightTriggerAxis(), () -> m_driver.getLeftTriggerAxis(), 
-    //   () -> m_driver.getLeftY(), () -> m_driver.getRightY(), m_drivetrain));
+    // sets the drivetrain default command to curvatureDrive, with the slewratelimiters
+    // Left Joystick: forwards/backward, Right Joystick: turn in place left/right
     m_drivetrain.setDefaultCommand(
     new curvatureDrive(
       () -> Math.copySign(Constants.kS, m_driver.getLeftY())
@@ -71,6 +69,9 @@ public class RobotContainer {
    * edu.wpi.first.wpilibj.Joystick} or {@link XboxController}), and then passing it to a {@link
    * edu.wpi.first.wpilibj2.command.button.JoystickButton}.
    */
+
+  // Sets the button bindings on the controller
+  // B brakes the drivetrain
   private void configureButtonBindings() {
     new JoystickButton(m_driver, Button.kB.value).whileTrue(
       new differentialDrive(() -> 1, () -> 1, () -> 0.0, () -> 0.0, m_drivetrain));
