@@ -4,8 +4,10 @@
 
 package frc.robot;
 
-import frc.robot.Constants.OperatorConstants;
-import frc.robot.commands.Autos;
+import edu.wpi.first.math.filter.SlewRateLimiter;
+import edu.wpi.first.wpilibj.GenericHID;
+import edu.wpi.first.wpilibj.XboxController;
+import edu.wpi.first.wpilibj.XboxController.Button; 
 import frc.robot.commands.ExampleCommand;
 import frc.robot.commands.pivotArm.armJoint;
 import frc.robot.subsystems.ExampleSubsystem;
@@ -15,12 +17,23 @@ import edu.wpi.first.wpilibj.XboxController;
 import edu.wpi.first.wpilibj2.command.button.CommandXboxController;
 import edu.wpi.first.wpilibj2.command.button.Trigger;
 import static frc.robot.Constants.IOPorts.*;
+import frc.robot.commands.curvatureDrive;
+import frc.robot.commands.differentialDrive;
+import frc.robot.commands.Gripper.CheckObjectForColorChange;
+import frc.robot.subsystems.Drivetrain;
+import frc.robot.subsystems.ExampleSubsystem;
+import frc.robot.subsystems.Gripper;
+import frc.robot.subsystems.Lights;
+import edu.wpi.first.wpilibj2.command.Command;
+import edu.wpi.first.wpilibj2.command.button.JoystickButton;
+import static frc.robot.Constants.LightConstants.*;
+import frc.robot.commands.Gripper.*;
 
 /**
  * This class is where the bulk of the robot should be declared. Since Command-based is a
  * "declarative" paradigm, very little robot logic should actually be handled in the {@link Robot}
  * periodic methods (other than the scheduler calls). Instead, the structure of the robot (including
- * subsystems, commands, and trigger mappings) should be declared here.
+ * subsystems, commands, and button mappings) should be declared here.
  */
 public class RobotContainer {
   // The robot's subsystems and commands are defined here...
@@ -37,15 +50,51 @@ public class RobotContainer {
     m_PinkArm = new pivotArm();
 
 
+  private final ExampleCommand m_autoCommand = new ExampleCommand(m_exampleSubsystem);
+
+  // Controller
+  private final XboxController m_driver = new XboxController(Constants.kDriverControllerPort);
+  private final XboxController m_weapons = new XboxController(Constants.kWeaponsControllerPort);
+
+  private SlewRateLimiter m_forwardLimiter = new SlewRateLimiter(1); // controls acceleration of forward speed
+  private SlewRateLimiter m_rotationLimiter = new SlewRateLimiter(0.5); // controls acceleration of rotational speed
+
+  // Subsystems
+  private final Lights m_lights;
+  private final Gripper m_gripper;
+  private final Drivetrain m_drivetrain;
+
+  /** The container for the robot. Contains subsystems, OI devices, and commands. */
+  public RobotContainer() {
+    // Subsystems Instantiation
+    m_gripper = new Gripper();
+    m_lights = new Lights();
+    m_drivetrain = new Drivetrain();
+
+    // Setting default commands
+
+    // Lights
+    m_lights.setDefaultCommand(new CheckObjectForColorChange(m_lights, m_gripper));
+
+    // sets the drivetrain default command to curvatureDrive, with the slewratelimiters
+    // Left Joystick: forwards/backward, Right Joystick: turn in place left/right
+    m_drivetrain.setDefaultCommand(
+    new curvatureDrive(
+      () -> Math.copySign(Constants.kS, m_driver.getLeftY())
+      + m_forwardLimiter.calculate(m_driver.getLeftY() / Drivetrain.speedLimiter), 
+      () -> Math.copySign(Constants.kS, m_driver.getRightX()) 
+      + m_rotationLimiter.calculate(m_driver.getRightX() / Drivetrain.rotationLimiter),
+      () -> true, m_drivetrain));
+    // Configure the button bindings
+
+    configureButtonBindings();
+  }
 
   /**
-   * Use this method to define your trigger->command mappings. Triggers can be created via the
-   * {@link Trigger#Trigger(java.util.function.BooleanSupplier)} constructor with an arbitrary
-   * predicate, or via the named factories in {@link
-   * edu.wpi.first.wpilibj2.command.button.CommandGenericHID}'s subclasses for {@link
-   * CommandXboxController Xbox}/{@link edu.wpi.first.wpilibj2.command.button.CommandPS4Controller
-   * PS4} controllers or {@link edu.wpi.first.wpilibj2.command.button.CommandJoystick Flight
-   * joysticks}.
+   * Use this method to define your button->command mappings. Buttons can be created by
+   * instantiating a {@link GenericHID} or one of its subclasses ({@link
+   * edu.wpi.first.wpilibj.Joystick} or {@link XboxController}), and then passing it to a {@link
+   * edu.wpi.first.wpilibj2.command.button.JoystickButton}.
    */
 
   m_PinkArm.setDefaultCommand(
@@ -61,6 +110,17 @@ public class RobotContainer {
     // Schedule `exampleMethodCommand` when the Xbox controller's B button is pressed,
     // cancelling on release.
 //    kDriverController.b().whileTrue(m_exampleSubsystem.exampleMethodCommand());
+  // Sets the button bindings on the controller
+  // B brakes the drivetrain
+  private void configureButtonBindings() {
+    new JoystickButton(m_driver, Button.kB.value).whileTrue(
+      new differentialDrive(() -> 1, () -> 1, () -> 0.0, () -> 0.0, m_drivetrain));
+    
+    new JoystickButton(m_weapons, Button.kBack.value).whenHeld(new IntakeItem(m_gripper));
+    new JoystickButton(m_weapons, Button.kStart.value).whenHeld(new EjectItem(m_gripper));
+    
+    new JoystickButton(m_weapons, Button.kLeftStick.value).whenPressed(new ChangeColor(m_lights, kYellowCone));
+    new JoystickButton(m_weapons, Button.kRightStick.value).whenPressed(new ChangeColor(m_lights, kPurpleCube));
   }
 
   /**
@@ -69,7 +129,7 @@ public class RobotContainer {
    * @return the command to run in autonomous
    */
   public Command getAutonomousCommand() {
-    // An example command will be run in autonomous
-    return Autos.exampleAuto(m_exampleSubsystem);
+    // An ExampleCommand will run in autonomous
+    return m_autoCommand;
   }
 }
