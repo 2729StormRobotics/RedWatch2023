@@ -13,18 +13,14 @@ import frc.robot.commands.pivotArm.armJoint;
 import frc.robot.subsystems.ExampleSubsystem;
 import frc.robot.subsystems.pivotArm;
 import edu.wpi.first.wpilibj2.command.Command;
-import edu.wpi.first.wpilibj.XboxController;
-import edu.wpi.first.wpilibj2.command.button.CommandXboxController;
 import edu.wpi.first.wpilibj2.command.button.Trigger;
 import static frc.robot.Constants.IOPorts.*;
 import frc.robot.commands.curvatureDrive;
 import frc.robot.commands.differentialDrive;
 import frc.robot.commands.Gripper.CheckObjectForColorChange;
 import frc.robot.subsystems.Drivetrain;
-import frc.robot.subsystems.ExampleSubsystem;
 import frc.robot.subsystems.Gripper;
 import frc.robot.subsystems.Lights;
-import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.button.JoystickButton;
 import static frc.robot.Constants.LightConstants.*;
 import frc.robot.commands.Gripper.*;
@@ -38,17 +34,7 @@ import frc.robot.commands.Gripper.*;
 public class RobotContainer {
   // The robot's subsystems and commands are defined here...
   private final ExampleSubsystem m_exampleSubsystem = new ExampleSubsystem();
-  private final pivotArm m_PinkArm;
   // Replace with CommandPS4Controller or CommandJoystick if needed
-
-  private final XboxController m_wepons = new XboxController(kWeaponsContoller);
-
-  /** The container for the robot. Contains subsystems, OI devices, and commands. */
-  public RobotContainer() {
-    // Configure the trigger bindings
-    configureBindings();
-    m_PinkArm = new pivotArm();
-
 
   private final ExampleCommand m_autoCommand = new ExampleCommand(m_exampleSubsystem);
 
@@ -63,6 +49,7 @@ public class RobotContainer {
   private final Lights m_lights;
   private final Gripper m_gripper;
   private final Drivetrain m_drivetrain;
+  private final pivotArm m_PinkArm;
 
   /** The container for the robot. Contains subsystems, OI devices, and commands. */
   public RobotContainer() {
@@ -70,6 +57,7 @@ public class RobotContainer {
     m_gripper = new Gripper();
     m_lights = new Lights();
     m_drivetrain = new Drivetrain();
+    m_PinkArm = new pivotArm();
 
     // Setting default commands
 
@@ -85,6 +73,11 @@ public class RobotContainer {
       () -> Math.copySign(Constants.kS, m_driver.getRightX()) 
       + m_rotationLimiter.calculate(m_driver.getRightX() / Drivetrain.rotationLimiter),
       () -> true, m_drivetrain));
+    
+    // Pink Arm
+    m_PinkArm.setDefaultCommand(
+      new armJoint(() -> m_weapons.getLeftY(),() -> m_weapons.getLeftBumper(), () -> m_weapons.getRightBumper(),m_PinkArm));
+
     // Configure the button bindings
 
     configureButtonBindings();
@@ -96,22 +89,6 @@ public class RobotContainer {
    * edu.wpi.first.wpilibj.Joystick} or {@link XboxController}), and then passing it to a {@link
    * edu.wpi.first.wpilibj2.command.button.JoystickButton}.
    */
-
-  m_PinkArm.setDefaultCommand(
-    new armJoint(() -> m_wepons.getLeftY(),() -> m_wepons.getLeftBumper(), () -> m_wepons.getRightBumper(),m_PinkArm));
-
-   }
-
-  private void configureBindings() {
-    // Schedule `ExampleCommand` when `exampleCondition` changes to `true`
-    new Trigger(m_exampleSubsystem::exampleCondition)
-        .onTrue(new ExampleCommand(m_exampleSubsystem));
-
-    // Schedule `exampleMethodCommand` when the Xbox controller's B button is pressed,
-    // cancelling on release.
-//    kDriverController.b().whileTrue(m_exampleSubsystem.exampleMethodCommand());
-  // Sets the button bindings on the controller
-  // B brakes the drivetrain
   private void configureButtonBindings() {
     new JoystickButton(m_driver, Button.kB.value).whileTrue(
       new differentialDrive(() -> 1, () -> 1, () -> 0.0, () -> 0.0, m_drivetrain));
@@ -121,6 +98,9 @@ public class RobotContainer {
     
     new JoystickButton(m_weapons, Button.kLeftStick.value).whenPressed(new ChangeColor(m_lights, kYellowCone));
     new JoystickButton(m_weapons, Button.kRightStick.value).whenPressed(new ChangeColor(m_lights, kPurpleCube));
+
+    new Trigger(m_exampleSubsystem::exampleCondition)
+        .onTrue(new ExampleCommand(m_exampleSubsystem));
   }
 
   /**
