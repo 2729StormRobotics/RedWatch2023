@@ -3,11 +3,11 @@
 // the WPILib BSD license file in the root directory of this project.
 
 
-/*
-command to drive forward a certain distance using encoders and 
-PID controller
-Distance in inches
- */
+/**
+ * command to drive forward a certain distance using encoders and 
+ * PID controller
+ * Distance in inches
+*/
 
  package frc.robot.commands;
 

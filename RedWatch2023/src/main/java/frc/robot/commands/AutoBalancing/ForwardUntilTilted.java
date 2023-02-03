@@ -1,10 +1,6 @@
 /**
- * >>> Author: Red Watch Robotics
- * >>> Create Time: 2023-01-25 15:47:00
- * >>> Modified by: 2729StormRobotics
- * >>> Modified time: 2023-01-25 16:35:09
- * >>> Description: https://github.com/2729StormRobotics/RedWatch2023TestBot/tree/ShuffleBoardPathPlanner 
- 
+ * Goes forward until the robot comes in contact with the charge station
+ * The criteria for being "in contact" is the robot being elevated by 5 degrees
  */
 
 // Copyright (c) FIRST and other WPILib contributors.
@@ -18,13 +14,11 @@ import frc.robot.subsystems.Drivetrain;
 
 public class ForwardUntilTilted extends CommandBase {
   private final Drivetrain m_Drivetrain;
-  private double error;
   private double currentAngle;
   private double drivePower;
   
   //set offset here
-  private double offset = 0;
-  private double limit = 5;
+  private double limit = 5; // angle threshhold for command to be considered finished
   /** Creates a new ForwardUntilTilted. */
   public ForwardUntilTilted(Drivetrain drivetrain, double power) {
     drivePower = power;
@@ -37,14 +31,15 @@ public class ForwardUntilTilted extends CommandBase {
   @Override
   public void initialize() {
     m_Drivetrain.resetGyroAngle();
-    this.currentAngle = m_Drivetrain.getPitch() - offset;
+    this.currentAngle = m_Drivetrain.getPitch();
     
   }
 
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    this.currentAngle = m_Drivetrain.getPitch() - offset;
+    // drive forward, update the gyro angle
+    this.currentAngle = m_Drivetrain.getPitch();
     m_Drivetrain.tankDrive(-drivePower, -drivePower, false);
 
   }
@@ -58,6 +53,7 @@ public class ForwardUntilTilted extends CommandBase {
   // Returns true when the command should end.
   @Override
   public boolean isFinished() {
+    // Finished command if robot angle is greater than 5 degrees
     return Math.abs(this.currentAngle) >= Math.abs(limit);
   }
 }

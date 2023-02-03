@@ -1,3 +1,8 @@
+/**
+ * CurvatureDrive
+ * Used to set a linear speed, and a rotational speed at the same
+ */
+
 // Copyright (c) FIRST and other WPILib contributors.
 // Open Source Software; you can modify and/or share it under the terms of
 // the WPILib BSD license file in the root directory of this project.
@@ -17,13 +22,13 @@ public class curvatureDrive extends CommandBase {
   private final DoubleSupplier m_stickX;
   private final BooleanSupplier m_turnInPlace;
 
-  /** Creates a new curvatuDrive. */
+  /** Creates a new curvatureDrive. */
   public curvatureDrive(DoubleSupplier stickY, DoubleSupplier stickX, BooleanSupplier turnInPlace, Drivetrain subsystem) {
     // Use addRequirements() here to declare subsystem dependencies.
     m_drivetrain = subsystem;
-    m_stickY = stickY;
-    m_stickX = stickX;
-    m_turnInPlace = turnInPlace;
+    m_stickY = stickY; // power for forward/backwards
+    m_stickX = stickX; // power for turning in place
+    m_turnInPlace = turnInPlace; // if true, robot is allowed to turn. if false, robot cannot turn
     
 
     addRequirements(m_drivetrain);
@@ -39,6 +44,8 @@ public class curvatureDrive extends CommandBase {
   @Override
   public void execute() {
     // drive with speeds of the parameter
+    // only if the joystick input is greater than the controller deadzone, move the robot
+    // 3 cases for both joysticks moving, only right, or only left
     if (Math.abs(m_stickY.getAsDouble()) > Constants.kControllerDeadzone + Constants.kS
      && Math.abs(m_stickX.getAsDouble()) > Constants.kControllerDeadzone + Constants.kS) {
       m_drivetrain.curvatureDrive(Drivetrain.sqaureInput(m_stickY.getAsDouble()), 

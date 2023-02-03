@@ -7,25 +7,13 @@ package frc.robot;
 import edu.wpi.first.math.filter.SlewRateLimiter;
 import edu.wpi.first.wpilibj.GenericHID;
 import edu.wpi.first.wpilibj.XboxController;
-import edu.wpi.first.wpilibj.XboxController.Button;
-import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
-import frc.robot.commands.LowGear;
-import frc.robot.CommandGroups.AutoBalance_x6;
-import frc.robot.CommandGroups.BalanceFromDistance;
-import frc.robot.CommandGroups.ForwardBalance;
-import frc.robot.commands.AutoForwardPID;
+import edu.wpi.first.wpilibj.XboxController.Button; 
 import frc.robot.commands.ExampleCommand;
-import frc.robot.commands.HighGear;
 import frc.robot.commands.curvatureDrive;
 import frc.robot.commands.differentialDrive;
-import frc.robot.commands.AutoBalancing.AutoBalance;
-import frc.robot.commands.AutoBalancing.AutoBalancePID;
-// import frc.robot.commands.differentialDrive;
 import frc.robot.subsystems.Drivetrain;
 import frc.robot.subsystems.ExampleSubsystem;
-//import frc.robot.subsystems.PhotonVision;
 import edu.wpi.first.wpilibj2.command.Command;
-import edu.wpi.first.wpilibj2.command.CommandScheduler;
 import edu.wpi.first.wpilibj2.command.button.JoystickButton;
 
 /**

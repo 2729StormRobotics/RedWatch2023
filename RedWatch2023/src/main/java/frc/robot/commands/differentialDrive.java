@@ -2,8 +2,9 @@
 // Open Source Software; you can modify and/or share it under the terms of
 // the WPILib BSD license file in the root directory of this project.
 
-/*
-command to drive at a certain power for left and right motors
+/** 
+ * DifferentialDrive
+ * Used to set left motors speed and right motors speed individually
 */
 
 package frc.robot.commands;
@@ -27,8 +28,8 @@ public class differentialDrive extends CommandBase {
   DoubleSupplier rightSpeed, Drivetrain subsystem) {
     // Use addRequirements() here to declare subsystem dependencies.
     m_drivetrain = subsystem;
-    m_leftSpeed = leftSpeed;
-    m_rightSpeed = rightSpeed;
+    m_leftSpeed = leftSpeed; // power of the left wheels
+    m_rightSpeed = rightSpeed; // power of the right wheels
     m_forwardSpeed = forwardSpeed;
     m_reverseSpeed = reverseSpeed;
 

@@ -2,6 +2,12 @@
 // Open Source Software; you can modify and/or share it under the terms of
 // the WPILib BSD license file in the root directory of this project.
 
+
+/**
+ * Goes forward until it hits the charge station
+ * Then goes forward at a constant velocity until near the top
+ * Then uses a PID to finish balancing
+*/ 
 package frc.robot.CommandGroups;
 
 import edu.wpi.first.wpilibj2.command.SequentialCommandGroup;
@@ -15,8 +21,8 @@ import frc.robot.subsystems.Drivetrain;
 public class BalanceFromDistance extends SequentialCommandGroup {
   /** Creates a new BalanceFromDistance. */
   public final Drivetrain m_drivetrain;
-  private double drivePower = 0.6;
-  private double distance = 55;
+  private double drivePower = 0.6; // speed for driving a constant velocity
+  private double distance = 55; // distance to travel whie going a constant velocity
   public BalanceFromDistance(Drivetrain drivetrain, boolean backwards) {
     m_drivetrain = drivetrain;
     if (backwards) {

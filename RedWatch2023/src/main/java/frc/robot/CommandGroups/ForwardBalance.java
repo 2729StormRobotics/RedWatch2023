@@ -1,3 +1,8 @@
+/** 
+ * Similar to BalanceFromDistance, but the first command is removed
+ * Only works when right up against the charge station
+*/
+
 // Copyright (c) FIRST and other WPILib contributors.
 // Open Source Software; you can modify and/or share it under the terms of
 // the WPILib BSD license file in the root directory of this project.
@@ -7,7 +12,6 @@ package frc.robot.CommandGroups;
 import edu.wpi.first.wpilibj2.command.SequentialCommandGroup;
 import edu.wpi.first.wpilibj2.command.WaitCommand;
 import frc.robot.commands.AutoForwardPID;
-import frc.robot.commands.AutoBalancing.AutoBalance;
 import frc.robot.commands.AutoBalancing.AutoBalancePID;
 import frc.robot.subsystems.Drivetrain;
 
