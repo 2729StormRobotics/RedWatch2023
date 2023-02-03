@@ -30,17 +30,16 @@ public class armJoint extends CommandBase{
 
     @Override 
     public void initialize(){
-        // define the encoder thing ??!!
+        //Stops the motor when intialized
         m_pinkArm.m_pivot.stopMotor();
-
+        //Sets the pivot encoder position to zero when initialized
         m_pinkArm.encoderReset(m_pinkArm.m_pivotEncoder);  
 
     }
 
     @Override
     public void execute(){
-        if(m_rightBumper.getAsBoolean() && m_pinkArm.m_pivotEncoder.getPosition() <= 9.95){
-            // m_pinkArm.m_pivot.set(m_ArmSpeed.getAsDouble()/1.25);
+        if(m_rightBumper.getAsBoolean() && m_pinkArm.m_pivotEncoder.getPosition() <= 1.0){
             m_pinkArm.turnMotor(m_pinkArm.m_pivot, false);
         }
         else if (m_leftBumper.getAsBoolean() && m_pinkArm.m_pivotEncoder.getPosition() >= 0.03) {
@@ -53,10 +52,8 @@ public class armJoint extends CommandBase{
     @Override 
     public void end(boolean interrupted){
         m_pinkArm.m_pivot.stopMotor();
-//        m_pinkArm.encoderReset(m_pinkArm.m_pivotEncoder);
     }
 
-        // ADD A SOFTWARE LIMIT FOR THE ARM
      @Override
     public boolean isFinished() {
         return false;

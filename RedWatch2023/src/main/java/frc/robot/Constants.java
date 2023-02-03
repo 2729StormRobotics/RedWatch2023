@@ -24,12 +24,16 @@ public final class Constants {
     // pivoting gearbox = 1:125 
     public static final double kTelescopingGearRatio = 1.0 / 16.0;
     public static final double kPivotingGearRatio = 1.0 / 125.0;
-    // left as the same because idk
+
     public static final double kDistancePerRevolution = kTelescopingGearRatio * (7.0 / 8.0) * 3.14; //TODO: put in gear ratio for the climbers!!!
     public static final double kClimberRightSize = 12.0;
     public static final double kAnglePerRevolution = kPivotingGearRatio * 3.14;
     public static final int kCurrentLimit = 60;
     public static final int kStallLimit = 45;
+    //Sets the speed of the pivot arm, needs to be changed depending on the gear ratio for the pivot arm
+    public static final double kPivotArmSpeed = 0.03; 
+    //Sets the position for the arm when neutral
+    public static final double kPivotArmNeutral = 0;
 
   }
   public static final class IOPorts{

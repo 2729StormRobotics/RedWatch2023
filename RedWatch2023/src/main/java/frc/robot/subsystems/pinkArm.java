@@ -25,11 +25,7 @@ import edu.wpi.first.wpilibj.shuffleboard.ShuffleboardLayout;
 import edu.wpi.first.wpilibj.shuffleboard.ShuffleboardTab;
 
 
-
-
 public class pinkArm extends SubsystemBase {
-
-  private static AHRS m_ahrs;
 
   public final CANSparkMax m_pivot;
 
@@ -53,14 +49,6 @@ public class pinkArm extends SubsystemBase {
       m_controlPanelStatus = m_controlPanelTab.getLayout("Encoder", BuiltInLayouts.kList)
         .withSize(3, 3)
         .withProperties(Map.of("Label Position", "TOP"));
-      
-      try {
-        m_ahrs = new AHRS(SPI.Port.kMXP);
-      } 
-      catch (RuntimeException ex){
-        DriverStation.reportError("Error instantiating navX MXP: " + ex.getMessage(), true);
-      }
-
       shuffleboardInit();
     }
 
@@ -71,13 +59,15 @@ public class pinkArm extends SubsystemBase {
     public void changeMode(String mode) {
   
     }
-  
+    
     public void turnMotor(CANSparkMax motor, boolean inverse) {
+      //moves the motor backwards in respect to the button click
       if (inverse) {
-        motor.set(-0.1);
+        motor.set(-kPivotArmSpeed);
       }
+      //moves the motor forwards in respect to the button click
       else {
-        motor.set(0.1);
+        motor.set(kPivotArmSpeed);
       }
     }
   
@@ -87,10 +77,11 @@ public class pinkArm extends SubsystemBase {
     }
   
     public void encoderReset(RelativeEncoder encoder) {
-      encoder.setPosition(0);
+      encoder.setPosition(kPivotArmNeutral);
     }
   
-    public double getLeftDistance() {
+    //Gets the distance of the endoder and the motor
+    public double getDistance() {
       return -m_pivotEncoder.getPosition();
     }
 
@@ -100,6 +91,7 @@ public class pinkArm extends SubsystemBase {
       encoderReset(encoder);
     }
 
+
     public void setMotor(CANSparkMax motor, boolean inverse, boolean pivot) {
       motor.restoreFactoryDefaults();
       motor.setIdleMode(IdleMode.kBrake);
@@ -108,23 +100,6 @@ public class pinkArm extends SubsystemBase {
         motor.setSmartCurrentLimit(kStallLimit, kCurrentLimit);
     }
   
-    public double getGyroAngle(){
-      return m_ahrs.getAngle();
-    }
-  
-    public void resetGyroAngle(){
-      m_ahrs.reset();
-    }
-  
-
-
-
-
-
-
-
-
-
   /**
    * Example command factory method.
    *
