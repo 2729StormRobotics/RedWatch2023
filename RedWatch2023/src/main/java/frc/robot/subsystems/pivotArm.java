@@ -25,7 +25,7 @@ import edu.wpi.first.wpilibj.shuffleboard.ShuffleboardLayout;
 import edu.wpi.first.wpilibj.shuffleboard.ShuffleboardTab;
 
 
-public class pinkArm extends SubsystemBase {
+public class pivotArm extends SubsystemBase {
 
   public final CANSparkMax m_pivot;
 
@@ -38,7 +38,7 @@ public class pinkArm extends SubsystemBase {
   * Note!!! this subsystem covers the pivot joint of the pink arm Telescoping is stored seperately
   */
 
-  public pinkArm() {
+  public pivotArm() {
       m_pivot = new CANSparkMax(kJoint1Port, MotorType.kBrushless);
       
       setMotor(m_pivot, false, true);
