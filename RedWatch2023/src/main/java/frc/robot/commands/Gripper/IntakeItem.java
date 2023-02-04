@@ -30,7 +30,11 @@ public class IntakeItem extends CommandBase {
   @Override
   public void initialize() {
     // Runs the gripper motors at intake speed
-    m_gripper.intakeGripper();
+    if (m_gripper.getVelocity() <= 100)
+      m_gripper.stopGripper();
+
+    else
+      m_gripper.intakeGripper();
 
   }
 
@@ -51,7 +55,7 @@ public class IntakeItem extends CommandBase {
   @Override
   public boolean isFinished() {
     // Checks if the cone (isObjectThere) is in the gripper or if the cube (isPurple) is in the gripper
-    if (m_gripper.isObjectThere() || m_gripper.isPurple())
+    if (m_gripper.getVelocity() <= 100)
       return true;
     
     return false;
