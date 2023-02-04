@@ -3,11 +3,11 @@ package frc.robot.commands.pivotArm;
 import java.util.function.DoubleSupplier;
 import java.util.function.BooleanSupplier; 
 import edu.wpi.first.wpilibj2.command.CommandBase;
-import frc.robot.subsystems.pivotArm;
+import frc.robot.subsystems.PivotArm;
 import frc.robot.Constants.pinkArmConstants.*;
 
 public class armJoint extends CommandBase{
-    private final pivotArm m_pinkArm;
+    private final PivotArm m_pinkArm;
     private final DoubleSupplier m_ArmSpeed;
     private final BooleanSupplier m_leftBumper;
     private final BooleanSupplier m_rightBumper;
@@ -20,7 +20,7 @@ public class armJoint extends CommandBase{
 *  @param subsystem
 * */ 
 
-    public armJoint(DoubleSupplier armSpeed, BooleanSupplier leftBumper, BooleanSupplier rightBumper, pivotArm subsystem) {
+    public armJoint(DoubleSupplier armSpeed, BooleanSupplier leftBumper, BooleanSupplier rightBumper, PivotArm subsystem) {
         m_pinkArm = subsystem;
         m_ArmSpeed = armSpeed;
         m_leftBumper = leftBumper;

@@ -14,10 +14,6 @@ import com.revrobotics.CANSparkMax;
 import com.revrobotics.RelativeEncoder;
 import com.revrobotics.CANSparkMax.IdleMode;
 import com.revrobotics.CANSparkMaxLowLevel.MotorType;
-import edu.wpi.first.wpilibj.DriverStation;
-import edu.wpi.first.wpilibj2.command.SubsystemBase;
-import edu.wpi.first.wpilibj.SPI;
-import com.kauailabs.navx.frc.AHRS;
 
 import edu.wpi.first.wpilibj.shuffleboard.BuiltInLayouts;
 import edu.wpi.first.wpilibj.shuffleboard.Shuffleboard;
@@ -25,9 +21,10 @@ import edu.wpi.first.wpilibj.shuffleboard.ShuffleboardLayout;
 import edu.wpi.first.wpilibj.shuffleboard.ShuffleboardTab;
 
 
-public class pivotArm extends SubsystemBase {
+public class PivotArm extends SubsystemBase {
 
   public final CANSparkMax m_pivot;
+  public final CANSparkMax m_pivot2;
 
   public final RelativeEncoder m_pivotEncoder;
   
@@ -38,12 +35,16 @@ public class pivotArm extends SubsystemBase {
   * Note!!! this subsystem covers the pivot joint of the pink arm Telescoping is stored seperately
   */
 
-  public pivotArm() {
+  public PivotArm() {
       m_pivot = new CANSparkMax(kJoint1Port, MotorType.kBrushless);
+      m_pivot2 = new CANSparkMax(kJoint2Port, MotorType.kBrushless);
       
       setMotor(m_pivot, false, true);
+      setMotor(m_pivot2, false, true);
       m_pivotEncoder = m_pivot.getEncoder();
       positionEncoderInit(m_pivotEncoder);
+
+      m_pivot2.follow(m_pivot);
 
       m_controlPanelTab = Shuffleboard.getTab("Arm");
       m_controlPanelStatus = m_controlPanelTab.getLayout("Encoder", BuiltInLayouts.kList)
