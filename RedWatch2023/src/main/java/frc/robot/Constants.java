@@ -23,6 +23,7 @@ public final class Constants {
   public static final class pinkArmConstants {
     // Can change the port of the motors
     public static final int kJoint1Port = 1;
+    public static final int kJoint2Port = 2;
     // pivoting gearbox = 1:125 
     public static final double kTelescopingGearRatio = 1.0 / 16.0;
     public static final double kPivotingGearRatio = 1.0 / 125.0;
@@ -42,14 +43,14 @@ public final class Constants {
     public static final int kDriverController = 1;
     public static final int kWeaponsContoller = 2;
   }
-    public static final int RIGHT_MOTOR2_ID = 36;
+  public static final int RIGHT_MOTOR2_ID = 36;
 	public static final int RIGHT_MOTOR_ID = 12;
 	public static final int LEFT_MOTOR2_ID = 3;
 	public static final int LEFT_MOTOR_ID = 14;
 	public static final int STALL_LIMIT = 45;
 	public static final int kDriverControllerPort = 1;
 	public static final int kWeaponsControllerPort = 2;
-	public static final String kShuffleboardTab = "Testing";
+	public static final String kShuffleboardTab = "Control Panel";
 	public static final int kCurrentLimit = 60;
 	public static final boolean kLeftReversedDefault = true;
 	public static final boolean kRightReversedDefault = !kLeftReversedDefault;
@@ -73,8 +74,8 @@ public final class Constants {
 	// experimentally determined (inches per encoder count)
 	public static final double kEncoderDistanceRatio = 1.125753635;
 	public static double kRightAngleTurnArcLength = 7.25 * Math.PI;
-    public static final double kHighSpeedPerPulseEncoderRatio = kEncoderDistanceRatio / 60.0;
-    public static final int kDriverController = 0;
+  public static final double kHighSpeedPerPulseEncoderRatio = kEncoderDistanceRatio / 60.0;
+  public static final int kDriverController = 0;
 	public static final double kControllerDeadzone = 0.1;
 
 	public static final class BalanceConstants{
@@ -142,6 +143,6 @@ public final class Constants {
     }
 
 	public static class ControlPanelConstants {
-		public static final String kShuffleboardTab = "Gripper";
+		public static final String kShuffleboardTab = "Control Panel";
 	}
 }
