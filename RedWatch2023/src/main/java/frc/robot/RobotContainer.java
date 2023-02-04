@@ -11,6 +11,7 @@ import edu.wpi.first.wpilibj.XboxController.Button;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.button.Trigger;
 import frc.robot.Constants.TelescopingConstants;
+import frc.robot.commands.ArmControl;
 import frc.robot.commands.ExtendVal;
 import frc.robot.subsystems.MeasuringPotentiometer;
 import frc.robot.subsystems.TelescopingArm;
@@ -41,6 +42,8 @@ public class RobotContainer {
     m_pot = new MeasuringPotentiometer();
 
     // Setting default commands
+    m_arm.setDefaultCommand(
+      new ArmControl(() -> m_weapons.getLeftY(), () -> m_weapons.getLeftBumper(), () -> m_weapons.getRightBumper(), m_arm, m_pot));
 
   
     configureButtonBindings();
@@ -54,9 +57,9 @@ public class RobotContainer {
    */
   private void configureButtonBindings() {
     
-    new JoystickButton(m_weapons, Button.kY.value).toggleOnTrue(new ExtendVal(false, TelescopingConstants.HighExtendCube,m_pot, m_arm));
-    new JoystickButton(m_weapons, Button.kX.value).toggleOnTrue(new ExtendVal(false, TelescopingConstants.MidExtendCube,m_pot, m_arm));
-    new JoystickButton(m_weapons, Button.kA.value).toggleOnTrue(new ExtendVal(true, TelescopingConstants.LowStop ,m_pot, m_arm));
+    new JoystickButton(m_weapons, Button.kY.value).toggleOnTrue(new ExtendVal( TelescopingConstants.HighExtendCube,m_pot, m_arm));
+    new JoystickButton(m_weapons, Button.kX.value).toggleOnTrue(new ExtendVal( TelescopingConstants.MidExtendCube,m_pot, m_arm));
+    new JoystickButton(m_weapons, Button.kA.value).toggleOnTrue(new ExtendVal( TelescopingConstants.LowStop ,m_pot, m_arm));
 
   }
 

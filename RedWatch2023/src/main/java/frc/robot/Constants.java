@@ -63,7 +63,10 @@ public static final class TelescopingConstants {
     public static final double HighExtendCone = 34;
     public static final double MidExtendCone = 26.7;
     public static final double LowStop = 1;
-public static final int kArmExtendPort = 1;
+
+    public static final double Tolerance = 0.1;
+
+    public static final int kArmExtendPort = 1;
     // pivoting gearbox = 1:125 
     public static final double kTelescopingGearRatio = 1.0 / 16.0;
 
