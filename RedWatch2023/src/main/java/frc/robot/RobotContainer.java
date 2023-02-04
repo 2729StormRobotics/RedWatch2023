@@ -8,23 +8,15 @@ import edu.wpi.first.math.filter.SlewRateLimiter;
 import edu.wpi.first.wpilibj.GenericHID;
 import edu.wpi.first.wpilibj.XboxController;
 import edu.wpi.first.wpilibj.XboxController.Button; 
-import frc.robot.commands.ExampleCommand;
-import frc.robot.commands.pivotArm.armJoint;
-import frc.robot.subsystems.ExampleSubsystem;
-import frc.robot.subsystems.PivotArm;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.button.Trigger;
+import frc.robot.Constants.TelescopingConstants;
+import frc.robot.commands.ExtendVal;
+import frc.robot.subsystems.MeasuringPotentiometer;
+import frc.robot.subsystems.TelescopingArm;
+
 import static frc.robot.Constants.IOPorts.*;
-import frc.robot.commands.curvatureDrive;
-import frc.robot.commands.differentialDrive;
-import frc.robot.commands.Gripper.CheckObjectForColorChange;
-import frc.robot.commands.Lights.ChangeColor;
-import frc.robot.subsystems.Drivetrain;
-import frc.robot.subsystems.Gripper;
-import frc.robot.subsystems.Lights;
 import edu.wpi.first.wpilibj2.command.button.JoystickButton;
-import static frc.robot.Constants.LightConstants.*;
-import frc.robot.commands.Gripper.*;
 
 /**
  * This class is where the bulk of the robot should be declared. Since Command-based is a
@@ -34,53 +26,23 @@ import frc.robot.commands.Gripper.*;
  */
 public class RobotContainer {
   // The robot's subsystems and commands are defined here...
-  private final ExampleSubsystem m_exampleSubsystem = new ExampleSubsystem();
-  // Replace with CommandPS4Controller or CommandJoystick if needed
-
-  private final ExampleCommand m_autoCommand = new ExampleCommand(m_exampleSubsystem);
-
   // Controller
-  private final XboxController m_driver = new XboxController(Constants.kDriverControllerPort);
-  private final XboxController m_weapons = new XboxController(Constants.kWeaponsControllerPort);
-
-  private SlewRateLimiter m_forwardLimiter = new SlewRateLimiter(1); // controls acceleration of forward speed
-  private SlewRateLimiter m_rotationLimiter = new SlewRateLimiter(0.5); // controls acceleration of rotational speed
+  private final XboxController m_driver = new XboxController(Constants.OperatorConstants.kDriverControllerPort);
+  private final XboxController m_weapons = new XboxController(Constants.OperatorConstants.kWeaponsControllerPort);
 
   // Subsystems
-  private final Lights m_lights;
-  private final Gripper m_gripper;
-  private final Drivetrain m_drivetrain;
-  private final PivotArm m_PinkArm;
+  private final TelescopingArm m_arm;
+  private final MeasuringPotentiometer m_pot;
 
   /** The container for the robot. Contains subsystems, OI devices, and commands. */
   public RobotContainer() {
     // Subsystems Instantiation
-    m_gripper = new Gripper();
-    m_lights = new Lights();
-    m_drivetrain = new Drivetrain();
-    m_PinkArm = new PivotArm();
+    m_arm = new TelescopingArm();
+    m_pot = new MeasuringPotentiometer();
 
     // Setting default commands
 
-    // Lights
-    m_lights.setDefaultCommand(new CheckObjectForColorChange(m_lights, m_gripper));
-
-    // sets the drivetrain default command to curvatureDrive, with the slewratelimiters
-    // Left Joystick: forwards/backward, Right Joystick: turn in place left/right
-    m_drivetrain.setDefaultCommand(
-    new curvatureDrive(
-      () -> Math.copySign(Constants.kS, m_driver.getLeftY())
-      + m_forwardLimiter.calculate(m_driver.getLeftY() / Drivetrain.speedLimiter), 
-      () -> Math.copySign(Constants.kS, m_driver.getRightX()) 
-      + m_rotationLimiter.calculate(m_driver.getRightX() / Drivetrain.rotationLimiter),
-      () -> true, m_drivetrain));
-    
-    // Pink Arm
-    m_PinkArm.setDefaultCommand(
-      new armJoint(() -> m_weapons.getLeftY(),() -> m_weapons.getLeftBumper(), () -> m_weapons.getRightBumper(),m_PinkArm));
-
-    // Configure the button bindings
-
+  
     configureButtonBindings();
   }
 
@@ -91,17 +53,11 @@ public class RobotContainer {
    * edu.wpi.first.wpilibj2.command.button.JoystickButton}.
    */
   private void configureButtonBindings() {
-    new JoystickButton(m_driver, Button.kB.value).whileTrue(
-      new differentialDrive(() -> 1, () -> 1, () -> 0.0, () -> 0.0, m_drivetrain));
     
-    new JoystickButton(m_weapons, Button.kBack.value).whenHeld(new IntakeItem(m_gripper));
-    new JoystickButton(m_weapons, Button.kStart.value).whenHeld(new EjectItem(m_gripper));
-    
-    new JoystickButton(m_weapons, Button.kLeftStick.value).whenPressed(new ChangeColor(m_lights, kYellowCone));
-    new JoystickButton(m_weapons, Button.kRightStick.value).whenPressed(new ChangeColor(m_lights, kPurpleCube));
+    new JoystickButton(m_weapons, Button.kY.value).toggleOnTrue(new ExtendVal(false, TelescopingConstants.HighExtendCube,m_pot, m_arm));
+    new JoystickButton(m_weapons, Button.kX.value).toggleOnTrue(new ExtendVal(false, TelescopingConstants.MidExtendCube,m_pot, m_arm));
+    new JoystickButton(m_weapons, Button.kA.value).toggleOnTrue(new ExtendVal(true, TelescopingConstants.LowStop ,m_pot, m_arm));
 
-    new Trigger(m_exampleSubsystem::exampleCondition)
-        .onTrue(new ExampleCommand(m_exampleSubsystem));
   }
 
   /**
@@ -111,6 +67,6 @@ public class RobotContainer {
    */
   public Command getAutonomousCommand() {
     // An ExampleCommand will run in autonomous
-    return m_autoCommand;
+    return null;
   }
 }
