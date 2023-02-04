@@ -35,6 +35,9 @@ public class Gripper extends SubsystemBase {
   // Initializes color sensor
   private final PicoColorSensor m_colorSensor;
 
+  // Initializes beam break sensor
+  public final DigitalInput m_beambreak;
+
   // Variable to store the detected color and the distance from an object from color sensor
   public RawColor m_detectedColor;
   public int m_proximity;
@@ -44,6 +47,7 @@ public class Gripper extends SubsystemBase {
 
   private final NetworkTable m_gripperTable;
   private final NetworkTableEntry m_gripperStatus;
+
 
   // Shuffleboard for gripper information (direction, object, color, etc.)
   private final ShuffleboardTab m_controlPanelTab;
@@ -63,6 +67,9 @@ public class Gripper extends SubsystemBase {
     m_gripperRightMotor.setIdleMode(IdleMode.kBrake);
 
     m_gripper_direction = "none";
+
+    // Sets up beam break sensor to check for objects in gripper
+    m_beambreak = new DigitalInput(kBeambreak);
 
     // Sets color sensor
     m_colorSensor = new PicoColorSensor();
@@ -100,9 +107,9 @@ public class Gripper extends SubsystemBase {
       m_controlPanelStatus.addNumber("Ball Proximity", () -> m_proximity);
     }
   
-  // Get average encoder velocity
-  public double getVelocity() {
-    return (m_gripperLeftMotor.getEncoder().getVelocity() + m_gripperRightMotor.getEncoder().getVelocity()) / 2;
+  // Checks for object in gripper with beambreak
+  public boolean isObjectThere() {
+    return m_beambreak.get();
   }
 
   // Checks if object in gripper is purple
