@@ -63,7 +63,11 @@ public class RobotContainer {
   private void configureButtonBindings() {
     new JoystickButton(m_driver, Button.kB.value).whileTrue(
       new differentialDrive(() -> 1, () -> 1, () -> 0.0, () -> 0.0, m_drivetrain));
-
+    new JoystickButton(m_driver, Button.kLeftBumper.value).whileTrue(
+      new curvatureDrive(() -> 0, () -> -Constants.kS - 0.03, () -> true, m_drivetrain)); // turns slowly in place
+    new JoystickButton(m_driver, Button.kRightBumper.value).whileTrue(
+      new curvatureDrive(() -> 0, () -> Constants.kS + 0.03, () -> true, m_drivetrain) // turns slowly in place
+    );
   }
 
   /**
