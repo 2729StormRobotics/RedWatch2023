@@ -15,11 +15,7 @@ import edu.wpi.first.wpilibj.DoubleSolenoid.Value;
  * constants are needed, to reduce verbosity.
  */
 public final class Constants {
-  public static class OperatorConstants {
-    // creates constant class for the Red Arm
-    public static final int kDriverControllerPort = 0;
  
-  }
   public static final class TelescopingConstants {
     public static final double MidExtendCube = 23.5;
     public static final double HighExtendCube = 34;
@@ -43,10 +39,6 @@ public final class Constants {
     // pivoting gearbox = 1:125 
     public static final double kTelescopingGearRatio = 1.0 / 16.0;
     public static final double kPivotingGearRatio = 1.0 / 125.0;
-    public static class ControlPanelConstants {
-        public static final String kShuffleboardTab = "Magic Panel";
-    }
-
     public static final double kDistancePerRevolution = kTelescopingGearRatio * (7.0 / 8.0) * 3.14; //TODO: put in gear ratio for the climbers!!!
     public static final double kClimberRightSize = 12.0;
     public static final double kAnglePerRevolution = kPivotingGearRatio * 3.14;
@@ -58,10 +50,7 @@ public final class Constants {
     public static final double kPivotArmNeutral = 0;
 
   }
-  public static final class IOPorts{
-    public static final int kDriverController = 1;
-    public static final int kWeaponsContoller = 2;
-  }
+
   public static final int RIGHT_MOTOR2_ID = 36;
 	public static final int RIGHT_MOTOR_ID = 12;
 	public static final int LEFT_MOTOR2_ID = 3;
@@ -96,12 +85,7 @@ public final class Constants {
   public static final double kHighSpeedPerPulseEncoderRatio = kEncoderDistanceRatio / 60.0;
   public static final int kDriverController = 0;
 	public static final double kControllerDeadzone = 0.1;
-    public static class DriveTalon {
-        // Talons
-        public static final int kLeftTalonPort = 11;
-        public static final int kRightTalonPort = 10;
-        // public static final String kShuffleboardTabTalon = "Talons";         3
-    }
+
 
 	public static final class BalanceConstants{
 		public static final double kBalancedBeamAngle = 0;

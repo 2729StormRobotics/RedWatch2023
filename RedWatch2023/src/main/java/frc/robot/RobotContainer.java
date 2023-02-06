@@ -16,7 +16,6 @@ import frc.robot.subsystems.PivotArm;
 import frc.robot.subsystems.TelescopingArm;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.button.Trigger;
-import static frc.robot.Constants.IOPorts.*;
 import frc.robot.commands.curvatureDrive;
 import frc.robot.commands.*;
 import frc.robot.commands.Gripper.CheckObjectForColorChange;
