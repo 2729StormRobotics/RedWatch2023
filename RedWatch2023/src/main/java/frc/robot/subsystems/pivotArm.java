@@ -15,12 +15,6 @@ import com.revrobotics.RelativeEncoder;
 import com.revrobotics.CANSparkMax.IdleMode;
 import com.revrobotics.CANSparkMaxLowLevel.MotorType;
 
-import edu.wpi.first.wpilibj.shuffleboard.BuiltInLayouts;
-import edu.wpi.first.wpilibj.shuffleboard.Shuffleboard;
-import edu.wpi.first.wpilibj.shuffleboard.ShuffleboardLayout;
-import edu.wpi.first.wpilibj.shuffleboard.ShuffleboardTab;
-
-
 public class PivotArm extends SubsystemBase {
 
   public final CANSparkMax m_pivot;
@@ -28,9 +22,6 @@ public class PivotArm extends SubsystemBase {
 
   public final RelativeEncoder m_pivotEncoder;
   
-  private final ShuffleboardLayout m_controlPanelStatus;
-  private final ShuffleboardTab m_controlPanelTab;
-
   /** Creates a new Subystem for the pink arm called pinkArm.  
   * Note!!! this subsystem covers the pivot joint of the pink arm Telescoping is stored seperately
   */
@@ -45,16 +36,6 @@ public class PivotArm extends SubsystemBase {
       positionEncoderInit(m_pivotEncoder);
 
       m_pivot2.follow(m_pivot);
-
-      m_controlPanelTab = Shuffleboard.getTab("Arm");
-      m_controlPanelStatus = m_controlPanelTab.getLayout("Encoder", BuiltInLayouts.kList)
-        .withSize(3, 3)
-        .withProperties(Map.of("Label Position", "TOP"));
-      shuffleboardInit();
-    }
-
-    private void shuffleboardInit() {
-      m_controlPanelStatus.addNumber("Pivot Encoder", () -> m_pivotEncoder.getPosition());
     }
   
     public void changeMode(String mode) {
