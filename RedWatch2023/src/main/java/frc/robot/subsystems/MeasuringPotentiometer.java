@@ -34,7 +34,7 @@ public class MeasuringPotentiometer extends SubsystemBase {
     .withSize(3, 3)
     .withProperties(Map.of("Label position", "TOP"));
 
-    shuffleboardInit(); 
+    shuffleboardInit();
 
   }
   
@@ -54,7 +54,6 @@ public class MeasuringPotentiometer extends SubsystemBase {
   // Periodically calculates the value of the pot.
   @Override
   public void periodic() {
-    
     // This method will be called once per scheduler run
     pot_val = ((pot.get())*50)-offset;
   }
