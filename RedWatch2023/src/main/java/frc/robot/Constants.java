@@ -20,6 +20,22 @@ public final class Constants {
     public static final int kDriverControllerPort = 0;
  
   }
+  public static final class TelescopingConstants {
+    public static final double MidExtendCube = 23.5;
+    public static final double HighExtendCube = 34;
+    public static final double HighExtendCone = 34;
+    public static final double MidExtendCone = 26.7;
+    public static final double LowStop = 1;
+
+    public static final double Tolerance = 0.1;
+
+    public static final int kArmExtendPort = 1;
+    // pivoting gearbox = 1:125 
+    public static final double kTelescopingGearRatio = 1.0 / 16.0;
+
+    public static final double kDistancePerRevolution = kTelescopingGearRatio * (7.0 / 8.0) * 3.14; //TODO: put in gear ratio for the climbers!!!
+    public static final double kArmSize = 12.0;
+}
   public static final class pinkArmConstants {
     // Can change the port of the motors
     public static final int kJoint1Port = 1;
