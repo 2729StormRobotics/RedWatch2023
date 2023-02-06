@@ -11,12 +11,12 @@ import edu.wpi.first.wpilibj.XboxController.Button;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.button.Trigger;
 import frc.robot.Constants.TelescopingConstants;
-import frc.robot.commands.ArmControl;
-import frc.robot.commands.ExtendVal;
+import frc.robot.commands.TelescopingArmCommands.ArmControl;
+import frc.robot.commands.TelescopingArmCommands.ExtendVal;
 import frc.robot.subsystems.MeasuringPotentiometer;
 import frc.robot.subsystems.TelescopingArm;
 
-import static frc.robot.Constants.IOPorts.*;
+import static frc.robot.Constants.OperatorConstants.*;
 import edu.wpi.first.wpilibj2.command.button.JoystickButton;
 
 /**

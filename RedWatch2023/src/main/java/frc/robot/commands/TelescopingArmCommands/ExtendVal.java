@@ -3,7 +3,7 @@
 // the WPILib BSD license file in the root directory of this project.
 
 // Imports the wpilibj2 robot. commands package.
-package frc.robot.commands;
+package frc.robot.commands.TelescopingArmCommands;
 
 import edu.wpi.first.wpilibj2.command.CommandBase;
 import frc.robot.Constants.TelescopingConstants;

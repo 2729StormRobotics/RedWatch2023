@@ -1,4 +1,4 @@
-package frc.robot.commands;
+package frc.robot.commands.TelescopingArmCommands;
 
 import java.util.function.BooleanSupplier;
 import java.util.function.DoubleSupplier;
@@ -47,18 +47,6 @@ public class ArmControl extends CommandBase{
         else {
             m_Arm.m_ArmExtend.set(0);
         }
-        /*
-        if(m_rightBumper.getAsBoolean() && m_Arm.m_ArmEncoder.getPosition() <= 9.95){
-            // m_pinkArm.m_pivot.set(m_ArmSpeed.getAsDouble()/1.25);
-            m_Arm.turnMotor(m_Arm.m_ArmExtend, false);
-        }
-        else if (m_leftBumper.getAsBoolean() && m_Arm.m_ArmEncoder.getPosition() >= 0.03) {
-            m_Arm.turnMotor(m_Arm.m_ArmExtend, true);
-        }
-        else {
-            m_Arm.m_ArmExtend.set(0);
-        }
-        */
   }
 
     @Override
