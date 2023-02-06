@@ -8,7 +8,7 @@
  * Then goes forward at a constant velocity until near the top
  * Then uses a PID to finish balancing
 */ 
-package frc.robot.CommandGroups;
+package frc.robot.commandgroups;
 
 import edu.wpi.first.wpilibj2.command.SequentialCommandGroup;
 import frc.robot.commands.AutoForwardPID;

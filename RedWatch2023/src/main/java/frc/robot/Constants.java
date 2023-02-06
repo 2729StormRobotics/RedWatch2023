@@ -43,6 +43,9 @@ public final class Constants {
     // pivoting gearbox = 1:125 
     public static final double kTelescopingGearRatio = 1.0 / 16.0;
     public static final double kPivotingGearRatio = 1.0 / 125.0;
+    public static class ControlPanelConstants {
+        public static final String kShuffleboardTab = "Magic Panel";
+    }
 
     public static final double kDistancePerRevolution = kTelescopingGearRatio * (7.0 / 8.0) * 3.14; //TODO: put in gear ratio for the climbers!!!
     public static final double kClimberRightSize = 12.0;
@@ -93,6 +96,12 @@ public final class Constants {
   public static final double kHighSpeedPerPulseEncoderRatio = kEncoderDistanceRatio / 60.0;
   public static final int kDriverController = 0;
 	public static final double kControllerDeadzone = 0.1;
+    public static class DriveTalon {
+        // Talons
+        public static final int kLeftTalonPort = 11;
+        public static final int kRightTalonPort = 10;
+        // public static final String kShuffleboardTabTalon = "Talons";         3
+    }
 
 	public static final class BalanceConstants{
 		public static final double kBalancedBeamAngle = 0;
@@ -138,24 +147,25 @@ public final class Constants {
 
 	public static class GripperConstants {
         // Most likely only be using one motor, but written code for 2 in case.
-        public static final int kGripperLeftMotor = 1;
-        public static final int kGripperRightMotor = 2;
+        public static final int kGripperLeftMotor = 2;
+        public static final int kGripperRightMotor = 3;
         // Variable assigned values can change depending on what is needed for the robot.
-        public static final double kGripperIntakeMotorSpeed = 0.20;   
-        public static final double kGripperEjectMotorSpeed = -0.2;
+        public static final double kGripperIntakeMotorSpeed = 0.45;   
+        public static final double kGripperEjectMotorSpeed = -0.45;
         public static final int kBeambreak = 1;
     }
 
     public static class LightConstants {
         public static final String kShuffleboardTab = "Lights";
         public static final int kBlinkinDriverPort = 4; //TODO: Find a port for this
-		public static final double kDisabled = 0.0; //TODO: Find what color we want for this and its value
+		public static final double kDisabled = 0.61; //TODO: Find what color we want for this and its value
 		public static final double kLightsOff = 0.99;
         public static final double kRedBall = 0.67;
         public static final double kBlueBall = 0.87;
         public static final double kPurpleCube = 0.91;
         public static final double kYellowCone = 0.67;
         public static final double kDefaultColor = 0.93; //TODO: Find what we want default to be (same as disabled?)
+        public static final double kParty = -0.99;
     }
 
 	public static class ControlPanelConstants {

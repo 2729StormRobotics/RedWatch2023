@@ -18,7 +18,8 @@ import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.button.Trigger;
 import static frc.robot.Constants.IOPorts.*;
 import frc.robot.commands.curvatureDrive;
-import frc.robot.commands.differentialDrive;
+import frc.robot.commands.*;
+import frc.robot.commands.Gripper.CheckObjectForColorChange;
 import frc.robot.commands.Lights.ChangeColor;
 import frc.robot.commands.TelescopingArmCommands.ArmControl;
 import frc.robot.commands.TelescopingArmCommands.ExtendVal;
@@ -103,10 +104,7 @@ public class RobotContainer {
    * edu.wpi.first.wpilibj.Joystick} or {@link XboxController}), and then passing it to a {@link
    * edu.wpi.first.wpilibj2.command.button.JoystickButton}.
    */
-  private void configureButtonBindings() {
-    new JoystickButton(m_driver, Button.kB.value).whileTrue(
-      new differentialDrive(() -> 1, () -> 1, () -> 0.0, () -> 0.0, m_drivetrain));
-    
+  private void configureButtonBindings() {    
     new JoystickButton(m_weapons, Button.kBack.value).whenHeld(new IntakeItem(m_gripper));
     new JoystickButton(m_weapons, Button.kStart.value).whenHeld(new EjectItem(m_gripper));
     
@@ -120,7 +118,6 @@ public class RobotContainer {
     new Trigger(m_exampleSubsystem::exampleCondition)
         .onTrue(new ExampleCommand(m_exampleSubsystem));
   }
-
   /**
    * Use this to pass the autonomous command to the main {@link Robot} class.
    *
