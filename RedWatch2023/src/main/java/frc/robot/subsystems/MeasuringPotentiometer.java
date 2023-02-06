@@ -34,7 +34,7 @@ public class MeasuringPotentiometer extends SubsystemBase {
     .withSize(3, 3)
     .withProperties(Map.of("Label position", "TOP"));
 
-    shuffleboardInit();
+    shuffleboardInit(); 
 
   }
   
