@@ -4,7 +4,6 @@
 
 package frc.robot.subsystems;
 
-import java.sql.Driver;
 import java.util.Map;
 
 //import com.analog.adis16470.frc.ADIS16470_IMU;
@@ -26,9 +25,7 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
 import com.kauailabs.navx.frc.AHRS;
 
-import edu.wpi.first.math.geometry.Pose2d;
 import edu.wpi.first.math.kinematics.DifferentialDriveKinematics;
-import edu.wpi.first.math.kinematics.DifferentialDriveOdometry;
 import edu.wpi.first.math.kinematics.DifferentialDriveWheelSpeeds;
 import edu.wpi.first.math.util.Units;
 import edu.wpi.first.wpilibj.DriverStation;
@@ -72,22 +69,22 @@ public class Drivetrain extends SubsystemBase {
 
   public Drivetrain() {
     // define motors
-    leftMotor = new com.revrobotics.CANSparkMax(Constants.LEFT_MOTOR_ID, MotorType.kBrushless);
-    leftMotor2 = new com.revrobotics.CANSparkMax(Constants.LEFT_MOTOR2_ID, MotorType.kBrushless);
-    rightMotor = new com.revrobotics.CANSparkMax(Constants.RIGHT_MOTOR_ID, MotorType.kBrushless);
-    rightMotor2 = new com.revrobotics.CANSparkMax(Constants.RIGHT_MOTOR2_ID, MotorType.kBrushless);
+    leftMotor = new com.revrobotics.CANSparkMax(Constants.DrivetrainConstants.LEFT_MOTOR_ID, MotorType.kBrushless);
+    leftMotor2 = new com.revrobotics.CANSparkMax(Constants.DrivetrainConstants.LEFT_MOTOR2_ID, MotorType.kBrushless);
+    rightMotor = new com.revrobotics.CANSparkMax(Constants.DrivetrainConstants.RIGHT_MOTOR_ID, MotorType.kBrushless);
+    rightMotor2 = new com.revrobotics.CANSparkMax(Constants.DrivetrainConstants.RIGHT_MOTOR2_ID, MotorType.kBrushless);
 
     // initialize motors
-    motorInit(leftMotor, Constants.kLeftReversedDefault);
-    motorInit(leftMotor2, Constants.kLeftReversedDefault);
-    motorInit(rightMotor, Constants.kRightReversedDefault);
-    motorInit(rightMotor2, Constants.kRightReversedDefault);
+    motorInit(leftMotor, Constants.DrivetrainConstants.kLeftReversedDefault);
+    motorInit(leftMotor2, Constants.DrivetrainConstants.kLeftReversedDefault);
+    motorInit(rightMotor, Constants.DrivetrainConstants.kRightReversedDefault);
+    motorInit(rightMotor2, Constants.DrivetrainConstants.kRightReversedDefault);
     //m_odometry = new DifferentialDriveOdometry(ahrs.getRotation2d());
 
-    leftMotor.setSmartCurrentLimit(Constants.STALL_LIMIT);
-    rightMotor.setSmartCurrentLimit(Constants.STALL_LIMIT);
-    leftMotor2.setSmartCurrentLimit(Constants.STALL_LIMIT);
-    rightMotor2.setSmartCurrentLimit(Constants.STALL_LIMIT);
+    leftMotor.setSmartCurrentLimit(Constants.DrivetrainConstants.STALL_LIMIT);
+    rightMotor.setSmartCurrentLimit(Constants.DrivetrainConstants.STALL_LIMIT);
+    leftMotor2.setSmartCurrentLimit(Constants.DrivetrainConstants.STALL_LIMIT);
+    rightMotor2.setSmartCurrentLimit(Constants.DrivetrainConstants.STALL_LIMIT);
 
     leftMotor.setIdleMode(IdleMode.kBrake);
     leftMotor2.setIdleMode(IdleMode.kBrake);
@@ -106,7 +103,7 @@ public class Drivetrain extends SubsystemBase {
     m_drive = new DifferentialDrive(leftMotor, rightMotor);
 
     // initialize shuffleboard for drivetrain
-    m_drivetrainTab = Shuffleboard.getTab(Constants.kShuffleboardTab);
+    m_drivetrainTab = Shuffleboard.getTab(Constants.DrivetrainConstants.kShuffleboardTab);
     m_drivetrainStatus = m_drivetrainTab.getLayout("Status", BuiltInLayouts.kList)
       .withProperties(Map.of("Label position", "TOP"));
     shuffleboardInit();
@@ -118,7 +115,7 @@ public class Drivetrain extends SubsystemBase {
       DriverStation.reportError("Error instantiating navX MXP: " + ex.getMessage(), true);
     }
 
-    m_kinematics = new DifferentialDriveKinematics(Units.inchesToMeters(Constants.kTrackWidth));
+    m_kinematics = new DifferentialDriveKinematics(Units.inchesToMeters(Constants.DrivetrainConstants.kTrackWidth));
     // m_odometry = new DifferentialDriveOdometry(
     //   ahrs.getRotation2d(), getLeftDistance(), getRightDistance());
     
@@ -127,7 +124,7 @@ public class Drivetrain extends SubsystemBase {
   public void motorInit(CANSparkMax motor, boolean invert) {
     motor.restoreFactoryDefaults();
     motor.setIdleMode(IdleMode.kBrake);
-    motor.setSmartCurrentLimit(Constants.kCurrentLimit);
+    motor.setSmartCurrentLimit(Constants.DrivetrainConstants.kCurrentLimit);
     motor.setInverted(invert);
 
     encoderInit(motor.getEncoder());
@@ -135,8 +132,8 @@ public class Drivetrain extends SubsystemBase {
 
   private void encoderInit(RelativeEncoder encoder) {
     // set conversion factor and velocity factor (converting encoder ticks to real units)
-    encoder.setPositionConversionFactor(Constants.kEncoderDistanceRatio);
-    encoder.setVelocityConversionFactor(Constants.kHighSpeedPerPulseEncoderRatio);
+    encoder.setPositionConversionFactor(Constants.DrivetrainConstants.kEncoderDistanceRatio);
+    encoder.setVelocityConversionFactor(Constants.DrivetrainConstants.kHighSpeedPerPulseEncoderRatio);
     encoderReset(encoder);
 
   }

@@ -39,8 +39,8 @@ public class RobotContainer {
   private final ExampleCommand m_autoCommand = new ExampleCommand(m_exampleSubsystem);
 
   // Controller
-  private final XboxController m_driver = new XboxController(Constants.kDriverControllerPort);
-  private final XboxController m_weapons = new XboxController(Constants.kWeaponsControllerPort);
+  private final XboxController m_driver = new XboxController(Constants.DrivetrainConstants.kDriverControllerPort);
+  private final XboxController m_weapons = new XboxController(Constants.DrivetrainConstants.kWeaponsControllerPort);
 
   private SlewRateLimiter m_forwardLimiter = new SlewRateLimiter(1); // controls acceleration of forward speed
   private SlewRateLimiter m_rotationLimiter = new SlewRateLimiter(0.5); // controls acceleration of rotational speed
@@ -68,9 +68,9 @@ public class RobotContainer {
     // Left Joystick: forwards/backward, Right Joystick: turn in place left/right
     m_drivetrain.setDefaultCommand(
     new curvatureDrive(
-      () -> Math.copySign(Constants.kS, m_driver.getLeftY())
+      () -> Math.copySign(Constants.DrivetrainConstants.kS, m_driver.getLeftY())
       + m_forwardLimiter.calculate(m_driver.getLeftY() / Drivetrain.speedLimiter), 
-      () -> Math.copySign(Constants.kS, m_driver.getRightX()) 
+      () -> Math.copySign(Constants.DrivetrainConstants.kS, m_driver.getRightX()) 
       + m_rotationLimiter.calculate(m_driver.getRightX() / Drivetrain.rotationLimiter),
       () -> true, m_drivetrain));
     
