@@ -52,7 +52,7 @@ public class Gripper extends SubsystemBase {
     m_rightEncoder = m_gripperRightMotor.getEncoder();
 
     encoderInit(m_leftEncoder);
-    // encoderInit(m_rightEncoder);
+    encoderInit(m_rightEncoder);
 
     m_gripper_direction = "none";
 
@@ -85,10 +85,6 @@ public class Gripper extends SubsystemBase {
   // Checks if object in gripper is yellow
   public boolean isYellow() {
     return m_detectedColor.blue > m_detectedColor.green && m_detectedColor.blue - m_detectedColor.green >= 200 && m_proximity < 120 && m_proximity > 30;
-  }
-
-  public double getEncoderVelocity() {
-    return (m_leftEncoder.getVelocity());
   }
 
   // Runs gripper motors based on speed
