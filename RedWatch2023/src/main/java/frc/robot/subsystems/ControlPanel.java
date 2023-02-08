@@ -73,6 +73,7 @@ public class ControlPanel extends SubsystemBase {
     m_drivetrainStatus.addNumber("Left Position", () -> m_drivetrain.getLeftDistance()); // How far the robot is
     m_drivetrainStatus.addNumber("Right Position", () -> m_drivetrain.getRightDistance());
     m_drivetrainStatus.addNumber("Pitch", () -> m_drivetrain.getPitch()); // Pitch of robot
+    m_drivetrainStatus.addNumber("Yaw", () -> m_drivetrain.getYaw());
 
     m_lightsStatus.addNumber("Light Output", () -> m_lights.getCurrentLights());
     setLightColor = m_lightsStatus.add("Light Input", LightConstants.kDefaultColor).getEntry();

@@ -163,6 +163,10 @@ public class Drivetrain extends SubsystemBase {
   public double getPitch() {
     return ahrs.getPitch();
 }
+  
+  public double getYaw() {
+    return ahrs.getYaw();
+  }
 
   // squares the MAGNITUDE of the value
   public static double sqaureInput(double input) {
