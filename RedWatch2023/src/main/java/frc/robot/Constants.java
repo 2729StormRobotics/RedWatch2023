@@ -48,6 +48,10 @@ public final class Constants {
     public static final double kPivotArmSpeed = 0.03; 
     //Sets the position for the arm when neutral
     public static final double kPivotArmNeutral = 0;
+    public static final double kAnglesToTicks = 0;
+
+    public static final double kHighAngle = 7; //5.34425 (Actual)
+
 
   }
 
@@ -142,8 +146,8 @@ public final class Constants {
     public static class LightConstants {
         public static final String kShuffleboardTab = "Lights";
         public static final int kBlinkinDriverPort = 4; //TODO: Find a port for this
-		public static final double kDisabled = 0.61; //TODO: Find what color we want for this and its value
-		public static final double kLightsOff = 0.99;
+	  	  public static final double kDisabled = 0.61; //TODO: Find what color we want for this and its value
+		    public static final double kLightsOff = 0.99;
         public static final double kRedBall = 0.67;
         public static final double kBlueBall = 0.87;
         public static final double kPurpleCube = 0.91;

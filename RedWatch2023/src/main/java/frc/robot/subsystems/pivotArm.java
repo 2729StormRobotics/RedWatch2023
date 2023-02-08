@@ -71,6 +71,10 @@ public class PivotArm extends SubsystemBase {
         motor.set(kPivotArmSpeed);
       }
     }
+
+    public double degreesToTicks(double degrees){
+       return m_pivotEncoder.getPosition() - degrees * kAnglesToTicks;
+    }
   
   
     private void pivotEncoderInit(RelativeEncoder encoder) {
