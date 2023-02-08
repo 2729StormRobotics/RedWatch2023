@@ -4,6 +4,9 @@
 
 package frc.robot;
 
+import edu.wpi.first.math.kinematics.DifferentialDriveKinematics;
+import edu.wpi.first.math.trajectory.TrapezoidProfile;
+import edu.wpi.first.math.util.Units;
 import edu.wpi.first.wpilibj.DoubleSolenoid.Value;
 
 /**
@@ -94,7 +97,57 @@ public final class Constants {
 		public static double kI = 0.001;
 		public static double kD = 0.00;
 		}
+    public static class AutoPathConstants {
+      public static final double kMaxAngularSpeedRadiansPerSecond = Math.PI;
+      public static final double kMaxAngularSpeedRadiansPerSecondSquared = Math.PI;
+    
+      public static final double kPXController = 1.25;
+      public static final double kPYController = 1.25;
+      public static final double kPThetaController = 3;
+    
+      public static final int fiveBallAutoOffset = -90;
+    
+      // Constraint for the motion profiled robot angle controller
+      public static final TrapezoidProfile.Constraints kThetaControllerConstraints =
+        new TrapezoidProfile.Constraints(
+          kMaxAngularSpeedRadiansPerSecond, kMaxAngularSpeedRadiansPerSecondSquared);
 
+      public static final double ksVolts = 0.20322;
+      public static final double kvVoltSecondsPerMeter = 3.2976;
+      public static final double kaVoltSecondsSquaredPerMeter = 0.67542;
+      public static final double kPDriveVel = 4.569;
+      public static final double kRamseteB_radSquaredPerMetersSquared = 2;
+      public static final double kRamseteZeta_PerRad = 1;
+      public static final double kTrackWidthMeters = Units.inchesToMeters(23.0);
+      public static final DifferentialDriveKinematics kDriveKinematics = new DifferentialDriveKinematics(kTrackWidthMeters);
+      public static final double kMaxSpeedMetersPerSecond = 3;
+      public static final double kMaxAccelerationMetersPerSecondSquared = 3;
+    
+      public static final double kRamseteB = 2;
+      public static final double kRamseteZeta = 0.7;
+      //#endregion
+      // since the encoder is build into the motor we need to account for gearing
+      public static final double kWheelDiameter = 6.0;
+      public static final double kGearRatio = 1.0 / 12.0;
+      public static final double kDistancePerRevolution = kWheelDiameter * kGearRatio * 3.14;
+      public static final double kSpeedPerRevolution = kDistancePerRevolution / 60.0;
+    
+      public static final int kCurrentLimit = 60;
+      public static final boolean kLeftReversedDefault = true;
+      public static final boolean kRightReversedDefault = !kLeftReversedDefault;
+    
+      public static final int kStallLimit = 45;
+      public static final double kTurnAngleD = 0.0;
+      public static final double kTurnAngleI = 0.0;
+      public static final double kTurnAngleP = 0.01;
+      public static final double kTurnAngleTolerace = 8.0;
+      public static final double kTurnSpeedTolerance = 5.0;
+      public static final double kAutoForwardI = 0.0001;
+      public static final double kAutoForwardP = 0.009;
+      public static final double kAutoForwardD = 0.00;
+      public static final double kVelocityTolerance = 0.2;
+      public static final double kPositionTolerace = 5.0;
+      }
 	// PID Control (all experimentally determined)
 	public static final class AutoForwardPIDValues{
 		public static final double kP = 0.0576;

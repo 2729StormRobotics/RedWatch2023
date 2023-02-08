@@ -10,12 +10,14 @@ import java.util.Map;
 //import com.analog.adis16470.frc.ADIS16470_IMU;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Constants;
+import frc.robot.Constants.AutoPathConstants;
 import frc.robot.commands.ResetPosition;
 
 import com.revrobotics.CANSparkMax;
 import com.revrobotics.RelativeEncoder;
 import com.revrobotics.CANSparkMax.IdleMode;
 import com.revrobotics.CANSparkMaxLowLevel.MotorType;
+
 
 import edu.wpi.first.wpilibj.drive.DifferentialDrive;
 import edu.wpi.first.wpilibj.shuffleboard.BuiltInLayouts;
@@ -26,10 +28,12 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
 import com.kauailabs.navx.frc.AHRS;
 
+import edu.wpi.first.math.controller.RamseteController;
 import edu.wpi.first.math.geometry.Pose2d;
 import edu.wpi.first.math.kinematics.DifferentialDriveKinematics;
 import edu.wpi.first.math.kinematics.DifferentialDriveOdometry;
 import edu.wpi.first.math.kinematics.DifferentialDriveWheelSpeeds;
+import edu.wpi.first.math.trajectory.Trajectory.State;
 import edu.wpi.first.math.util.Units;
 import edu.wpi.first.wpilibj.DriverStation;
 import edu.wpi.first.wpilibj.SPI;
@@ -37,6 +41,7 @@ import edu.wpi.first.wpilibj.SPI;
 
 public class Drivetrain extends SubsystemBase {
   /** Creates a new Drivetrain. */
+  public String trajString = "./pathplanner/generatedJSON/Forward Back.wpilib.json";
   public static double speedLimiter = 3.5; // the forward drive power gets divided by this value to reduce the speed
   public static double rotationLimiter = 1.75; // the rotational drive power gets divided by this value to reduce the speed
 
@@ -48,8 +53,10 @@ public class Drivetrain extends SubsystemBase {
 
   //public final com.revrobotics.CANSparkMax leftMotor2;
   
-  //public final DifferentialDriveOdometry m_odometry;
+  public final DifferentialDriveOdometry m_odometry;
   public final DifferentialDriveKinematics m_kinematics;
+  public final RamseteController m_ramseteController = new RamseteController(
+  AutoPathConstants.kRamseteB_radSquaredPerMetersSquared, AutoPathConstants.kRamseteZeta_PerRad);
   
   //public final com.revrobotics.CANSparkMax rightMotor2;
 
@@ -119,8 +126,8 @@ public class Drivetrain extends SubsystemBase {
     }
 
     m_kinematics = new DifferentialDriveKinematics(Units.inchesToMeters(Constants.kTrackWidth));
-    // m_odometry = new DifferentialDriveOdometry(
-    //   ahrs.getRotation2d(), getLeftDistance(), getRightDistance());
+    m_odometry = new DifferentialDriveOdometry(
+      ahrs.getRotation2d(), getLeftDistance(), getRightDistance());
     
   }
 
@@ -235,6 +242,20 @@ public class Drivetrain extends SubsystemBase {
 
   public DifferentialDriveWheelSpeeds getWheelSpeeds() {
     return new DifferentialDriveWheelSpeeds(m_leftEncoder.getVelocity(), m_rightEncoder.getVelocity());
+  }
+  public void resetEncoders() {
+    m_leftEncoder.setPosition(0);
+    m_rightEncoder.setPosition(0);
+  }
+  public Pose2d getPose() {
+    return m_odometry.getPoseMeters();
+  }
+  public void resetOdometry(Pose2d pose) {
+    resetEncoders();
+    m_odometry.resetPosition( ahrs.getRotation2d(),0,0,pose);
+  }
+  public DifferentialDriveWheelSpeeds getRamsetTargetWheelSpeeds(State tragectorySample) {
+    return m_kinematics.toWheelSpeeds(m_ramseteController.calculate(getPose(), tragectorySample));
   }
   public void tankDriveVolts(double leftVolts, double rightVolts) {
     leftMotor.setVoltage(leftVolts);
