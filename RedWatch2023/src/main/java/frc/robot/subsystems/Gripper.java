@@ -1,4 +1,4 @@
-// Copyright (c) FIRST and other WPILib contributors.
+ // Copyright (c) FIRST and other WPILib contributors.
 // Open Source Software; you can modify and/or share it under the terms of
 // the WPILib BSD license file in the root directory of this project.
 
@@ -9,6 +9,8 @@ import frc.robot.PicoColorSensor;
 import static frc.robot.Constants.GripperConstants.*;
 
 import com.revrobotics.CANSparkMax;
+import com.revrobotics.RelativeEncoder;
+
 import frc.robot.PicoColorSensor.RawColor;
 
 import com.revrobotics.CANSparkMax.IdleMode;
@@ -19,6 +21,9 @@ public class Gripper extends SubsystemBase {
   // Initialize motor controller variables
   private final CANSparkMax m_gripperLeftMotor;
   private final CANSparkMax m_gripperRightMotor;
+
+  private final RelativeEncoder m_leftEncoder;
+  private final RelativeEncoder m_rightEncoder;
 
   // Initializes color sensor
   private final PicoColorSensor m_colorSensor;
@@ -43,6 +48,12 @@ public class Gripper extends SubsystemBase {
     m_gripperLeftMotor.setIdleMode(IdleMode.kBrake);
     m_gripperRightMotor.setIdleMode(IdleMode.kBrake);
 
+    m_leftEncoder = m_gripperLeftMotor.getEncoder();
+    m_rightEncoder = m_gripperRightMotor.getEncoder();
+
+    encoderInit(m_leftEncoder);
+    // encoderInit(m_rightEncoder);
+
     m_gripper_direction = "none";
 
     // Sets color sensor
@@ -52,10 +63,18 @@ public class Gripper extends SubsystemBase {
     m_detectedColor = m_colorSensor.getRawColor0();
     m_proximity = m_colorSensor.getProximity0();
   }
+
+  private void encoderInit(RelativeEncoder encoder) {
+    encoderReset(encoder);
+  }
+
+  private void encoderReset(RelativeEncoder encoder) {
+    encoder.setPosition(0);
+  }
   
   // Get average encoder velocity
   public double getVelocity() {
-    return (m_gripperLeftMotor.getEncoder().getVelocity() + m_gripperRightMotor.getEncoder().getVelocity()) / 2;
+    return (Math.abs(m_gripperLeftMotor.getEncoder().getVelocity()) + Math.abs(m_gripperRightMotor.getEncoder().getVelocity())) / 2;
   }
 
   // Checks if object in gripper is purple
@@ -68,9 +87,13 @@ public class Gripper extends SubsystemBase {
     return m_detectedColor.blue > m_detectedColor.green && m_detectedColor.blue - m_detectedColor.green >= 200 && m_proximity < 120 && m_proximity > 30;
   }
 
+  public double getEncoderVelocity() {
+    return (m_leftEncoder.getVelocity());
+  }
+
   // Runs gripper motors based on speed
   public void runGripper(double speed) {
-    m_gripperLeftMotor.set(speed);
+    m_gripperLeftMotor.set(-speed);
     m_gripperRightMotor.set(speed);
   }
 

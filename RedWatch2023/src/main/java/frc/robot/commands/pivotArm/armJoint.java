@@ -8,7 +8,6 @@ import frc.robot.Constants.pinkArmConstants.*;
 
 public class armJoint extends CommandBase{
     private final PivotArm m_pinkArm;
-    private final DoubleSupplier m_ArmSpeed;
     private final BooleanSupplier m_leftBumper;
     private final BooleanSupplier m_rightBumper;
 
@@ -20,9 +19,8 @@ public class armJoint extends CommandBase{
 *  @param subsystem
 * */ 
 
-    public armJoint(DoubleSupplier armSpeed, BooleanSupplier leftBumper, BooleanSupplier rightBumper, PivotArm subsystem) {
+    public armJoint(BooleanSupplier leftBumper, BooleanSupplier rightBumper, PivotArm subsystem) {
         m_pinkArm = subsystem;
-        m_ArmSpeed = armSpeed;
         m_leftBumper = leftBumper;
         m_rightBumper = rightBumper;
         addRequirements(m_pinkArm);

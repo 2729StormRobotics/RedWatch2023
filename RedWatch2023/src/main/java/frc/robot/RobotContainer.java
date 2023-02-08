@@ -7,20 +7,25 @@ package frc.robot;
 import edu.wpi.first.math.filter.SlewRateLimiter;
 import edu.wpi.first.wpilibj.GenericHID;
 import edu.wpi.first.wpilibj.XboxController;
-import edu.wpi.first.wpilibj.XboxController.Button; 
+import edu.wpi.first.wpilibj.XboxController.Button;
+import frc.robot.Constants.TelescopingConstants;
 import frc.robot.commands.ExampleCommand;
 import frc.robot.commands.pivotArm.armJoint;
 import frc.robot.subsystems.ExampleSubsystem;
 import frc.robot.subsystems.PivotArm;
+import frc.robot.subsystems.TelescopingArm;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.button.Trigger;
 import frc.robot.commands.curvatureDrive;
-import frc.robot.commands.differentialDrive;
+import frc.robot.commands.*;
 import frc.robot.commands.Gripper.CheckObjectForColorChange;
 import frc.robot.commands.Lights.ChangeColor;
+import frc.robot.commands.TelescopingArmCommands.ArmControl;
+import frc.robot.commands.TelescopingArmCommands.ExtendVal;
 import frc.robot.subsystems.Drivetrain;
 import frc.robot.subsystems.Gripper;
 import frc.robot.subsystems.Lights;
+import frc.robot.subsystems.MeasuringPotentiometer;
 import edu.wpi.first.wpilibj2.command.button.JoystickButton;
 import static frc.robot.Constants.LightConstants.*;
 import frc.robot.commands.Gripper.*;
@@ -50,6 +55,8 @@ public class RobotContainer {
   private final Gripper m_gripper;
   private final Drivetrain m_drivetrain;
   private final PivotArm m_PinkArm;
+  private final TelescopingArm m_arm;
+  private final MeasuringPotentiometer m_pot;
 
   /** The container for the robot. Contains subsystems, OI devices, and commands. */
   public RobotContainer() {
@@ -58,6 +65,13 @@ public class RobotContainer {
     m_lights = new Lights();
     m_drivetrain = new Drivetrain();
     m_PinkArm = new PivotArm();
+    // Subsystems Instantiation
+    m_arm = new TelescopingArm();
+    m_pot = new MeasuringPotentiometer();
+
+    // Setting default commands
+    m_arm.setDefaultCommand(
+      new ArmControl(() -> m_weapons.getLeftY(), m_arm, m_pot));
 
     // Setting default commands
 
@@ -76,7 +90,7 @@ public class RobotContainer {
     
     // Pink Arm
     m_PinkArm.setDefaultCommand(
-      new armJoint(() -> m_weapons.getLeftY(),() -> m_weapons.getLeftBumper(), () -> m_weapons.getRightBumper(),m_PinkArm));
+      new armJoint(() -> m_weapons.getLeftBumper(), () -> m_weapons.getRightBumper(),m_PinkArm));
 
     // Configure the button bindings
 
@@ -89,20 +103,20 @@ public class RobotContainer {
    * edu.wpi.first.wpilibj.Joystick} or {@link XboxController}), and then passing it to a {@link
    * edu.wpi.first.wpilibj2.command.button.JoystickButton}.
    */
-  private void configureButtonBindings() {
-    new JoystickButton(m_driver, Button.kB.value).whileTrue(
-      new differentialDrive(() -> 1, () -> 1, () -> 0.0, () -> 0.0, m_drivetrain));
-    
+  private void configureButtonBindings() {    
     new JoystickButton(m_weapons, Button.kBack.value).whenHeld(new IntakeItem(m_gripper));
     new JoystickButton(m_weapons, Button.kStart.value).whenHeld(new EjectItem(m_gripper));
     
     new JoystickButton(m_weapons, Button.kLeftStick.value).whenPressed(new ChangeColor(m_lights, kYellowCone));
     new JoystickButton(m_weapons, Button.kRightStick.value).whenPressed(new ChangeColor(m_lights, kPurpleCube));
 
+    new JoystickButton(m_weapons, Button.kY.value).toggleOnTrue(new ExtendVal( TelescopingConstants.HighExtendCube,m_pot, m_arm));
+    new JoystickButton(m_weapons, Button.kX.value).toggleOnTrue(new ExtendVal( TelescopingConstants.MidExtendCube,m_pot, m_arm));
+    new JoystickButton(m_weapons, Button.kA.value).toggleOnTrue(new ExtendVal( TelescopingConstants.LowStop ,m_pot, m_arm));
+
     new Trigger(m_exampleSubsystem::exampleCondition)
         .onTrue(new ExampleCommand(m_exampleSubsystem));
   }
-
   /**
    * Use this to pass the autonomous command to the main {@link Robot} class.
    *
