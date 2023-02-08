@@ -105,8 +105,6 @@ public final class Constants {
       public static final double kPYController = 1.25;
       public static final double kPThetaController = 3;
     
-      public static final int fiveBallAutoOffset = -90;
-    
       // Constraint for the motion profiled robot angle controller
       public static final TrapezoidProfile.Constraints kThetaControllerConstraints =
         new TrapezoidProfile.Constraints(

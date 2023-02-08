@@ -45,7 +45,7 @@ public class FollowTrajectory extends CommandBase {
 
     final ProfiledPIDController thetaController =
         new ProfiledPIDController(
-            AutoConstants.kPThetaController, 0, 0, AutoConstants.kThetaControllerConstraints);
+          AutoPathConstants.kPThetaController, 0, 0, AutoPathConstants.kThetaControllerConstraints);
     thetaController.enableContinuousInput(-Math.PI, Math.PI);
 
     new RamseteCommand(
