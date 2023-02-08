@@ -9,10 +9,6 @@ package frc.robot.subsystems;
 
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import edu.wpi.first.wpilibj.motorcontrol.Spark;
-import edu.wpi.first.wpilibj.shuffleboard.BuiltInLayouts;
-import edu.wpi.first.wpilibj.shuffleboard.Shuffleboard;
-import edu.wpi.first.wpilibj.shuffleboard.ShuffleboardLayout;
-import edu.wpi.first.wpilibj.shuffleboard.ShuffleboardTab;
 
 import static frc.robot.Constants.LightConstants.*;
 
@@ -21,22 +17,11 @@ public class Lights extends SubsystemBase {
   // Creates a LED controller
   private final Spark m_ledDriver;
 
-  // Displays information related to LEDs
-  private final ShuffleboardTab m_shuffleboardTab;
-  private final ShuffleboardLayout m_lightValues;
-
   /** Creates a new Lights. */
   public Lights() {
-    // Initializes shuffleboard
-    m_shuffleboardTab = Shuffleboard.getTab(kShuffleboardTab);
-    m_lightValues = m_shuffleboardTab.getLayout("Light Jawndess", BuiltInLayouts.kList);
-
     // Initializes BlinkIn (LED controller)
     m_ledDriver = new Spark(kBlinkinDriverPort);
     resetLights();
-
-    // Adds current color value to shuffleboard
-    m_lightValues.addNumber("Light Output", () -> getCurrentLights());
   }
 
   public void setDisabledColor() {
