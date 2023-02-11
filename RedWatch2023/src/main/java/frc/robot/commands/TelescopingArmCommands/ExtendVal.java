@@ -13,7 +13,6 @@ public class ExtendVal extends CommandBase {
   // Computes the speed of the telescoping arm.
   private final TelescopingArm m_Arm;
   private double neededPot=10;
-  private boolean isReverse = false;
   
   /** Creates a new ExtendHigh. */
   public ExtendVal( double potLength, TelescopingArm subsystem) {

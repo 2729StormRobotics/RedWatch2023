@@ -89,13 +89,6 @@ public class PivotArm extends SubsystemBase {
       return -m_pivotEncoder.getPosition();
     }
 
-    private void positionEncoderInit(RelativeEncoder encoder) {
-      encoder.setPositionConversionFactor(kDistancePerRevolution);
-  
-      encoderReset(encoder);
-    }
-
-
     public void setMotor(CANSparkMax motor, boolean inverse, boolean pivot) {
       motor.restoreFactoryDefaults();
       motor.setIdleMode(IdleMode.kBrake);

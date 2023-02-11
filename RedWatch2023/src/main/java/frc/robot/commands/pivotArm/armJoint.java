@@ -1,10 +1,8 @@
 package frc.robot.commands.pivotArm;
 
 import java.util.function.DoubleSupplier;
-import java.util.function.BooleanSupplier; 
 import edu.wpi.first.wpilibj2.command.CommandBase;
 import frc.robot.subsystems.PivotArm;
-import frc.robot.Constants.pinkArmConstants.*;
 
 public class armJoint extends CommandBase{
     private final PivotArm m_pinkArm;

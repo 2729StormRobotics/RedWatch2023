@@ -91,7 +91,6 @@ public final class Constants {
     // driver encoder calculations
     // since the encoder is build into the motor we need to account for gearing
     public static final double kWheelDiameterInches = 6.0;
-    private static final double kWheelDiameterFeet = kWheelDiameterInches / 12.0;
     private static final double kInitialGear = 14.0 / 58.0 * 18.0 / 38.0;
     private static final double kHighGear = kInitialGear * 32.0 / 34.0;
     private static final double kLowGear = kInitialGear * 22.0 / 44.0;

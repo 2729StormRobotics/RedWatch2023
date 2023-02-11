@@ -5,7 +5,6 @@
 package frc.robot.CommandGroups;
 
 import edu.wpi.first.wpilibj2.command.SequentialCommandGroup;
-import frc.robot.CommandGroups.AutoScoreCmds.AutoScorePivotHighCone;
 import frc.robot.commands.Gripper.EjectItem;
 import frc.robot.subsystems.Gripper;
 import frc.robot.subsystems.PivotArm;

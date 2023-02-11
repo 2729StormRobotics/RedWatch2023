@@ -3,16 +3,9 @@
 // the WPILib BSD license file in the root directory of this project.
 
 package frc.robot.CommandGroups;
-import frc.robot.subsystems.Drivetrain;
 import frc.robot.subsystems.Gripper;
-import frc.robot.subsystems.Lights;
 import frc.robot.subsystems.PivotArm;
 import frc.robot.subsystems.TelescopingArm;
-
-import com.revrobotics.CANSparkMax;
-import com.revrobotics.RelativeEncoder;
-import com.revrobotics.CANSparkMax.IdleMode;
-import com.revrobotics.CANSparkMaxLowLevel.MotorType;
 
 import frc.robot.commands.Gripper.EjectItem;
 import frc.robot.commands.TelescopingArmCommands.ExtendVal;

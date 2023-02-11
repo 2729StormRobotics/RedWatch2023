@@ -1,10 +1,8 @@
 package frc.robot.commands.TelescopingArmCommands;
 
-import java.util.function.BooleanSupplier;
 import java.util.function.DoubleSupplier;
 import edu.wpi.first.wpilibj2.command.CommandBase;
 import frc.robot.subsystems.TelescopingArm;
-import frc.robot.Constants.TelescopingConstants.*;
 
 public class ArmControl extends CommandBase{
   
