@@ -14,6 +14,7 @@ import frc.robot.commands.pivotArm.armJoint;
 import frc.robot.subsystems.ExampleSubsystem;
 import frc.robot.subsystems.PivotArm;
 import frc.robot.subsystems.TelescopingArm;
+import frc.robot.subsystems.Vision;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.button.Trigger;
 import frc.robot.commands.curvatureDrive;
@@ -57,6 +58,7 @@ public class RobotContainer {
   private final PivotArm m_PinkArm;
   private final TelescopingArm m_arm;
   private final MeasuringPotentiometer m_pot;
+  private final Vision m_vision;
 
   /** The container for the robot. Contains subsystems, OI devices, and commands. */
   public RobotContainer() {
@@ -68,6 +70,7 @@ public class RobotContainer {
     // Subsystems Instantiation
     m_arm = new TelescopingArm();
     m_pot = new MeasuringPotentiometer();
+    m_vision = new Vision();
 
     // Setting default commands
     m_arm.setDefaultCommand(
