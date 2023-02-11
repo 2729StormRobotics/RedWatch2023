@@ -36,11 +36,11 @@ public class PivotArm extends SubsystemBase {
   */
 
   public PivotArm() {
-      m_pivot = new CANSparkMax(kJoint1Port, MotorType.kBrushless);
-      m_pivot2 = new CANSparkMax(kJoint2Port, MotorType.kBrushless);
+      m_pivot = new CANSparkMax(kLeftPivotPort, MotorType.kBrushless);
+      m_pivot2 = new CANSparkMax(kRightPivotPort, MotorType.kBrushless);
       
       setMotor(m_pivot, false, true);
-      setMotor(m_pivot2, false, true);
+      setMotor(m_pivot2, true, true);
       m_pivotEncoder = m_pivot.getEncoder();
       positionEncoderInit(m_pivotEncoder);
 
