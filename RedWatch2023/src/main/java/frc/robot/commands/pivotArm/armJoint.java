@@ -8,9 +8,7 @@ import frc.robot.Constants.pinkArmConstants.*;
 
 public class armJoint extends CommandBase{
     private final PivotArm m_pinkArm;
-    private final BooleanSupplier m_leftBumper;
-    private final BooleanSupplier m_rightBumper;
-
+    private final DoubleSupplier m_rightStick;
 
  
 /** Allows the joint on the pink arm to turn
@@ -19,10 +17,9 @@ public class armJoint extends CommandBase{
 *  @param subsystem
 * */ 
 
-    public armJoint(BooleanSupplier leftBumper, BooleanSupplier rightBumper, PivotArm subsystem) {
+    public armJoint(DoubleSupplier rightStick, PivotArm subsystem) {
         m_pinkArm = subsystem;
-        m_leftBumper = leftBumper;
-        m_rightBumper = rightBumper;
+        m_rightStick = rightStick;
         addRequirements(m_pinkArm);
     }
 
@@ -37,11 +34,12 @@ public class armJoint extends CommandBase{
 
     @Override
     public void execute(){
-        if(m_rightBumper.getAsBoolean() && m_pinkArm.m_pivotEncoder.getPosition() <= 1.0){
+        if ((m_rightStick.getAsDouble() <= -0.85) &&( m_pinkArm.m_pivotEncoder.getPosition() <= 75)){
             m_pinkArm.turnMotor(m_pinkArm.m_pivot, false);
+
         }
-        else if (m_leftBumper.getAsBoolean() && m_pinkArm.m_pivotEncoder.getPosition() >= 0.03) {
-            m_pinkArm.turnMotor(m_pinkArm.m_pivot, true);
+        else if ((m_rightStick.getAsDouble() >= 0.85) &&( m_pinkArm.m_pivotEncoder.getPosition() <= 40)) {
+          m_pinkArm.turnMotor(m_pinkArm.m_pivot, false);
         }
         else {
             m_pinkArm.m_pivot.set(0);

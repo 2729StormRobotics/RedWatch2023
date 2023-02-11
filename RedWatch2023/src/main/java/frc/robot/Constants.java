@@ -22,10 +22,14 @@ import edu.wpi.first.wpilibj.DoubleSolenoid.Value;
 public final class Constants {
  
   public static final class TelescopingConstants {
-    public static final double MidExtendCube = 23.5;
-    public static final double HighExtendCube = 34;
-    public static final double HighExtendCone = 34;
-    public static final double MidExtendCone = 26.7;
+    public static final double MidExtendCube = 14; // previous val 23.5 actual val 13.909128
+    public static final double HighExtendCube = 27; //Actual distance 26.938031
+    public static final double HighExtendCone = 27.5; //actual distance 27.697191
+    public static final double MidExtendCone = 21; //Actual distance 20.860632
+    //Low value for turn might change when testing
+    public static final double LowExtendHybrid = 14;
+    //Add values for the low hybrid node
+
     public static final double LowStop = 1;
 
     public static final double Tolerance = 0.1;
@@ -38,8 +42,8 @@ public final class Constants {
 }
   public static final class pinkArmConstants {
     // Can change the port of the motors
-    public static final int kJoint1Port = 1;
-    public static final int kJoint2Port = 2;
+    public static final int kLeftPivotPort = 5;
+    public static final int kRightPivotPort = 8;
     // pivoting gearbox = 1:125 
     public static final double kTelescopingGearRatio = 1.0 / 16.0;
     public static final double kPivotingGearRatio = 1.0 / 125.0;
@@ -52,6 +56,16 @@ public final class Constants {
     public static final double kPivotArmSpeed = 0.03; 
     //Sets the position for the arm when neutral
     public static final double kPivotArmNeutral = 0;
+    
+    public static final double kAnglesToTicks = 0;
+    //Angles for scoring cones
+    public static final double kHighAngleCone = 81; //100.876 (Actual)
+    public static final double kMidAngleCone = 45; //74.055(Actual)
+    //Angle for scoring in the hybrid node common for cones and cubes
+    public static final double kLowAngle = 12; //41.601 (actual)
+    //Angles for scoring the cubes
+    public static final double kMidAngleCube = 35;// 64.7306362 (Actual)
+    public static final double kHighAngleCube = 66;//95.7356393 (Actual)
   }
 
   public static final class IOPorts{
@@ -147,18 +161,18 @@ public final class Constants {
     public static final int kBeambreak = 1;
     }
 
-  public static class LightConstants {
-    public static final String kShuffleboardTab = "Lights";
-    public static final int kBlinkinDriverPort = 4; //TODO: Find a port for this
-    public static final double kDisabled = 0.61; //TODO: Find what color we want for this and its value
-    public static final double kLightsOff = 0.99;
-    public static final double kRedBall = 0.67;
-    public static final double kBlueBall = 0.87;
-    public static final double kPurpleCube = 0.91;
-    public static final double kYellowCone = 0.67;
-    public static final double kDefaultColor = 0.93; //TODO: Find what we want default to be (same as disabled?)
-    public static final double kParty = -0.99;
-  }
+    public static class LightConstants {
+        public static final String kShuffleboardTab = "Lights";
+        public static final int kBlinkinDriverPort = 4; //TODO: Find a port for this
+	  	  public static final double kDisabled = 0.61; //TODO: Find what color we want for this and its value
+		    public static final double kLightsOff = 0.99;
+        public static final double kRedBall = 0.67;
+        public static final double kBlueBall = 0.87;
+        public static final double kPurpleCube = 0.91;
+        public static final double kYellowCone = 0.67;
+        public static final double kDefaultColor = 0.93; //TODO: Find what we want default to be (same as disabled?)
+        public static final double kParty = -0.99;
+    }
 
 	public static class ControlPanelConstants {
 		public static final String kShuffleboardTab = "Control Panel";

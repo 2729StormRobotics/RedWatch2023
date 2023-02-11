@@ -9,6 +9,11 @@ import edu.wpi.first.wpilibj.GenericHID;
 import edu.wpi.first.wpilibj.XboxController;
 import edu.wpi.first.wpilibj.XboxController.Button;
 import frc.robot.Constants.TelescopingConstants;
+import frc.robot.commandgroups.AutoScore;
+import frc.robot.commandgroups.AutoScoreCmds.AutoScorePivotHighCone;
+import frc.robot.commandgroups.AutoScoreCmds.AutoScorePivotHighCube;
+import frc.robot.commandgroups.AutoScoreCmds.AutoScorePivotMediumCone;
+import frc.robot.commandgroups.AutoScoreCmds.AutoScorePivotMediumCube;
 import frc.robot.commands.ExampleCommand;
 import frc.robot.commands.pivotArm.armJoint;
 import frc.robot.subsystems.ExampleSubsystem;
@@ -29,6 +34,8 @@ import frc.robot.subsystems.Lights;
 import edu.wpi.first.wpilibj2.command.button.JoystickButton;
 import static frc.robot.Constants.LightConstants.*;
 import frc.robot.commands.Gripper.*;
+import static frc.robot.Constants.pinkArmConstants.*;
+import static frc.robot.Constants.TelescopingConstants.*;
 
 /**
  * This class is where the bulk of the robot should be declared. Since Command-based is a
@@ -66,6 +73,10 @@ public class RobotContainer {
     m_PinkArm = new PivotArm();
     m_arm = new TelescopingArm();
 
+    // Setting default commands
+    m_arm.setDefaultCommand(
+      new ArmControl(() -> m_weapons.getLeftY(), m_arm));
+
     // Control Panel
     new ControlPanel(m_drivetrain, m_gripper, m_lights, m_PinkArm, m_arm);
 
@@ -88,7 +99,8 @@ public class RobotContainer {
     
     // Pink Arm
     m_PinkArm.setDefaultCommand(
-      new armJoint(() -> m_weapons.getLeftBumper(), () -> m_weapons.getRightBumper(),m_PinkArm));
+      new armJoint(() -> m_weapons.getRightY(), m_PinkArm)
+    );
 
     // Configure the button bindings
 
@@ -102,16 +114,22 @@ public class RobotContainer {
    * edu.wpi.first.wpilibj2.command.button.JoystickButton}.
    */
   private void configureButtonBindings() {    
-    new JoystickButton(m_weapons, Button.kBack.value).whileTrue(new IntakeItem(m_gripper));
-    new JoystickButton(m_weapons, Button.kStart.value).whileTrue(new EjectItem(m_gripper));
+    new JoystickButton(m_weapons, Button.kBack.value).onTrue(new IntakeItem(m_gripper));
+    new JoystickButton(m_weapons, Button.kStart.value).onTrue(new EjectItem(m_gripper));
     
     new JoystickButton(m_weapons, Button.kLeftStick.value).onTrue(new ChangeColor(m_lights, kYellowCone));
     new JoystickButton(m_weapons, Button.kRightStick.value).onTrue(new ChangeColor(m_lights, kPurpleCube));
 
-    new JoystickButton(m_weapons, Button.kY.value).toggleOnTrue(new ExtendVal( TelescopingConstants.HighExtendCube, m_arm));
-    new JoystickButton(m_weapons, Button.kX.value).toggleOnTrue(new ExtendVal( TelescopingConstants.MidExtendCube, m_arm));
-    new JoystickButton(m_weapons, Button.kA.value).toggleOnTrue(new ExtendVal( TelescopingConstants.LowStop, m_arm));
+    // new JoystickButton(m_weapons, Button.kY.value).toggleOnTrue(new ExtendVal( TelescopingConstants.HighExtendCube, m_arm));
+    // new JoystickButton(m_weapons, Button.kX.value).toggleOnTrue(new ExtendVal( TelescopingConstants.MidExtendCube, m_arm));
+    // new JoystickButton(m_weapons, Button.kA.value).toggleOnTrue(new ExtendVal( TelescopingConstants.LowStop , m_arm));
 
+    new JoystickButton(m_weapons, Button.kLeftBumper.value).onTrue(new AutoScore(m_PinkArm, m_arm, m_gripper, kHighAngleCone, HighExtendCone));
+    new JoystickButton(m_weapons, (int) m_weapons.getLeftTriggerAxis()).onTrue(new AutoScore(m_PinkArm, m_arm, m_gripper, kMidAngleCone, MidExtendCone));
+
+    new JoystickButton(m_weapons, Button.kRightBumper.value).onTrue(new AutoScore(m_PinkArm, m_arm, m_gripper, kHighAngleCube, HighExtendCube));
+    new JoystickButton(m_weapons, (int) m_weapons.getRightTriggerAxis()).onTrue(new AutoScore(m_PinkArm, m_arm, m_gripper, kMidAngleCube, MidExtendCube));
+  
     new Trigger(m_exampleSubsystem::exampleCondition)
         .onTrue(new ExampleCommand(m_exampleSubsystem));
   }
