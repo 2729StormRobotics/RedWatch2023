@@ -69,6 +69,10 @@ public final class Constants {
 	
 	public static final double kS = 0.18; // minimum voltage to make the drivetrain move on the ground
 	// driver encoder calculations
+  public static final double TURN_kP = -2e-3;
+  public static final double TURN_kI = 0;
+  public static final double TURN_kD = -2e-4;
+  public static final double TURN_kF = 0.1;
 	// since the encoder is build into the motor we need to account for gearing
 	public static final double kWheelDiameterInches = 6.0;
 	private static final double kWheelDiameterFeet = kWheelDiameterInches / 12.0;

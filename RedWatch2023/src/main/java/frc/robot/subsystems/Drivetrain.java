@@ -188,7 +188,11 @@ public class Drivetrain extends SubsystemBase {
 
   public double getPitch() {
     return ahrs.getPitch();
-}
+  }
+
+  public double getHeading() {
+    return ahrs.getAngle();
+  }
 
   // squares the MAGNITUDE of the value
   public static double sqaureInput(double input) {
