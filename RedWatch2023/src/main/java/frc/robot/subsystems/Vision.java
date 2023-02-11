@@ -59,6 +59,15 @@ public class Vision extends SubsystemBase {
     return xdist;
   }
 
+  public double getDistanceFromCone() {
+    setPipeline(Constants.VisionConstants.kLowTapePipeline);
+    return getDistanceFromTarget("MEDIUM") - Constants.VisionConstants.kMidNodeXDist -
+    Constants.VisionConstants.kLimeLightDepth;
+  }
+
+
+
+
   @Override
   public void periodic() {
     // This method will be called once per scheduler run

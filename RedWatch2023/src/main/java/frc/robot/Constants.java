@@ -158,6 +158,8 @@ public final class Constants {
       public static final double kHighTargetHeight = 45;
       public static final double kMediumTargetHeight = 23.5;
       public static final double kLimeLightHeight = 39.013; // from the CAD for the ALPHA BOT
+      public static final double kMidNodeXDist = 22.75; // horizontal distance from mid nodes to edge of the grid
+      public static final double kLimeLightDepth = 19.939; // distance from limelight to front of the bot (with bumpers)
 
   }
 
