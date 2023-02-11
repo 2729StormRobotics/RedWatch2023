@@ -4,13 +4,9 @@
 
 package frc.robot.subsystems;
 
-import java.sql.Driver;
-import java.util.Map;
-
 //import com.analog.adis16470.frc.ADIS16470_IMU;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Constants;
-import frc.robot.commands.ResetPosition;
 
 import com.revrobotics.CANSparkMax;
 import com.revrobotics.RelativeEncoder;
@@ -18,17 +14,11 @@ import com.revrobotics.CANSparkMax.IdleMode;
 import com.revrobotics.CANSparkMaxLowLevel.MotorType;
 
 import edu.wpi.first.wpilibj.drive.DifferentialDrive;
-import edu.wpi.first.wpilibj.shuffleboard.BuiltInLayouts;
-import edu.wpi.first.wpilibj.shuffleboard.Shuffleboard;
-import edu.wpi.first.wpilibj.shuffleboard.ShuffleboardLayout;
-import edu.wpi.first.wpilibj.shuffleboard.ShuffleboardTab;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
 import com.kauailabs.navx.frc.AHRS;
 
-import edu.wpi.first.math.geometry.Pose2d;
 import edu.wpi.first.math.kinematics.DifferentialDriveKinematics;
-import edu.wpi.first.math.kinematics.DifferentialDriveOdometry;
 import edu.wpi.first.math.kinematics.DifferentialDriveWheelSpeeds;
 import edu.wpi.first.math.util.Units;
 import edu.wpi.first.wpilibj.DriverStation;
@@ -61,33 +51,30 @@ public class Drivetrain extends SubsystemBase {
 
   private final DifferentialDrive m_drive;
 
-  private final ShuffleboardTab m_drivetrainTab;
-  private final ShuffleboardLayout m_drivetrainStatus;
-
   public boolean m_reverseDrive = false;
-  private static AHRS navx;
+  // private static AHRS navx;
   AHRS ahrs;
   
 
 
   public Drivetrain() {
     // define motors
-    leftMotor = new com.revrobotics.CANSparkMax(Constants.LEFT_MOTOR_ID, MotorType.kBrushless);
-    leftMotor2 = new com.revrobotics.CANSparkMax(Constants.LEFT_MOTOR2_ID, MotorType.kBrushless);
-    rightMotor = new com.revrobotics.CANSparkMax(Constants.RIGHT_MOTOR_ID, MotorType.kBrushless);
-    rightMotor2 = new com.revrobotics.CANSparkMax(Constants.RIGHT_MOTOR2_ID, MotorType.kBrushless);
+    leftMotor = new com.revrobotics.CANSparkMax(Constants.DrivetrainConstants.LEFT_MOTOR_ID, MotorType.kBrushless);
+    leftMotor2 = new com.revrobotics.CANSparkMax(Constants.DrivetrainConstants.LEFT_MOTOR2_ID, MotorType.kBrushless);
+    rightMotor = new com.revrobotics.CANSparkMax(Constants.DrivetrainConstants.RIGHT_MOTOR_ID, MotorType.kBrushless);
+    rightMotor2 = new com.revrobotics.CANSparkMax(Constants.DrivetrainConstants.RIGHT_MOTOR2_ID, MotorType.kBrushless);
 
     // initialize motors
-    motorInit(leftMotor, Constants.kLeftReversedDefault);
-    motorInit(leftMotor2, Constants.kLeftReversedDefault);
-    motorInit(rightMotor, Constants.kRightReversedDefault);
-    motorInit(rightMotor2, Constants.kRightReversedDefault);
+    motorInit(leftMotor, Constants.DrivetrainConstants.kLeftReversedDefault);
+    motorInit(leftMotor2, Constants.DrivetrainConstants.kLeftReversedDefault);
+    motorInit(rightMotor, Constants.DrivetrainConstants.kRightReversedDefault);
+    motorInit(rightMotor2, Constants.DrivetrainConstants.kRightReversedDefault);
     //m_odometry = new DifferentialDriveOdometry(ahrs.getRotation2d());
 
-    leftMotor.setSmartCurrentLimit(Constants.STALL_LIMIT);
-    rightMotor.setSmartCurrentLimit(Constants.STALL_LIMIT);
-    leftMotor2.setSmartCurrentLimit(Constants.STALL_LIMIT);
-    rightMotor2.setSmartCurrentLimit(Constants.STALL_LIMIT);
+    leftMotor.setSmartCurrentLimit(Constants.DrivetrainConstants.STALL_LIMIT);
+    rightMotor.setSmartCurrentLimit(Constants.DrivetrainConstants.STALL_LIMIT);
+    leftMotor2.setSmartCurrentLimit(Constants.DrivetrainConstants.STALL_LIMIT);
+    rightMotor2.setSmartCurrentLimit(Constants.DrivetrainConstants.STALL_LIMIT);
 
     leftMotor.setIdleMode(IdleMode.kBrake);
     leftMotor2.setIdleMode(IdleMode.kBrake);
@@ -105,12 +92,6 @@ public class Drivetrain extends SubsystemBase {
     // initiailze drivetrain
     m_drive = new DifferentialDrive(leftMotor, rightMotor);
 
-    // initialize shuffleboard for drivetrain
-    m_drivetrainTab = Shuffleboard.getTab(Constants.kShuffleboardTab);
-    m_drivetrainStatus = m_drivetrainTab.getLayout("Status", BuiltInLayouts.kList)
-      .withProperties(Map.of("Label position", "TOP"));
-    shuffleboardInit();
-
     // initialize NavX gyro
     try {
       ahrs = new AHRS(SPI.Port.kMXP);
@@ -118,7 +99,7 @@ public class Drivetrain extends SubsystemBase {
       DriverStation.reportError("Error instantiating navX MXP: " + ex.getMessage(), true);
     }
 
-    m_kinematics = new DifferentialDriveKinematics(Units.inchesToMeters(Constants.kTrackWidth));
+    m_kinematics = new DifferentialDriveKinematics(Units.inchesToMeters(Constants.DrivetrainConstants.kTrackWidth));
     // m_odometry = new DifferentialDriveOdometry(
     //   ahrs.getRotation2d(), getLeftDistance(), getRightDistance());
     
@@ -127,7 +108,7 @@ public class Drivetrain extends SubsystemBase {
   public void motorInit(CANSparkMax motor, boolean invert) {
     motor.restoreFactoryDefaults();
     motor.setIdleMode(IdleMode.kBrake);
-    motor.setSmartCurrentLimit(Constants.kCurrentLimit);
+    motor.setSmartCurrentLimit(Constants.DrivetrainConstants.kCurrentLimit);
     motor.setInverted(invert);
 
     encoderInit(motor.getEncoder());
@@ -135,8 +116,8 @@ public class Drivetrain extends SubsystemBase {
 
   private void encoderInit(RelativeEncoder encoder) {
     // set conversion factor and velocity factor (converting encoder ticks to real units)
-    encoder.setPositionConversionFactor(Constants.kEncoderDistanceRatio);
-    encoder.setVelocityConversionFactor(Constants.kHighSpeedPerPulseEncoderRatio);
+    encoder.setPositionConversionFactor(Constants.DrivetrainConstants.kEncoderDistanceRatio);
+    encoder.setVelocityConversionFactor(Constants.DrivetrainConstants.kHighSpeedPerPulseEncoderRatio);
     encoderReset(encoder);
 
   }
@@ -182,6 +163,10 @@ public class Drivetrain extends SubsystemBase {
   public double getPitch() {
     return ahrs.getPitch();
 }
+  
+  public double getYaw() {
+    return ahrs.getYaw();
+  }
 
   // squares the MAGNITUDE of the value
   public static double sqaureInput(double input) {
@@ -196,20 +181,6 @@ public class Drivetrain extends SubsystemBase {
   // positive stickX values goes counterclockwise
   public void curvatureDrive(double stickY, double stickX, boolean stickButton) {
     m_drive.curvatureDrive(stickY, stickX, stickButton);
-  }
-
-  private void shuffleboardInit() {
-    m_drivetrainStatus.addNumber("Left Speed", () -> getLeftSpeed());
-    m_drivetrainStatus.addNumber("Right Speed", () -> getRightSpeed());
-    m_drivetrainStatus.addNumber("Left Position", () -> getLeftDistance());
-    m_drivetrainStatus.addNumber("Right Position", () -> getRightDistance());
-    m_drivetrainStatus.addNumber("Angle", () -> getPitch());
-    m_drivetrainStatus.addBoolean("Reversed?", () -> m_reverseDrive);
-
-    m_drivetrainStatus.addNumber("Average Distance", () -> getAverageDistance());
-
-    m_drivetrainStatus.add("Reset Position", new ResetPosition(this));
-
   }
 
   // Tankdrive command

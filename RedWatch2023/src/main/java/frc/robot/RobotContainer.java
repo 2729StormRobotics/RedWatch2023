@@ -17,8 +17,8 @@ import frc.robot.commandgroups.AutoScoreCmds.AutoScorePivotMediumCube;
 import frc.robot.commands.ExampleCommand;
 import frc.robot.commands.pivotArm.armJoint;
 import frc.robot.subsystems.ExampleSubsystem;
-import frc.robot.subsystems.PivotArm;
 import frc.robot.subsystems.TelescopingArm;
+import frc.robot.subsystems.PivotArm;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.button.Trigger;
 import frc.robot.commands.curvatureDrive;
@@ -27,6 +27,7 @@ import frc.robot.commands.Gripper.CheckObjectForColorChange;
 import frc.robot.commands.Lights.ChangeColor;
 import frc.robot.commands.TelescopingArmCommands.ArmControl;
 import frc.robot.commands.TelescopingArmCommands.ExtendVal;
+import frc.robot.subsystems.ControlPanel;
 import frc.robot.subsystems.Drivetrain;
 import frc.robot.subsystems.Gripper;
 import frc.robot.subsystems.Lights;
@@ -50,8 +51,8 @@ public class RobotContainer {
   private final ExampleCommand m_autoCommand = new ExampleCommand(m_exampleSubsystem);
 
   // Controller
-  private final XboxController m_driver = new XboxController(Constants.kDriverControllerPort);
-  private final XboxController m_weapons = new XboxController(Constants.kWeaponsControllerPort);
+  private final XboxController m_driver = new XboxController(Constants.DrivetrainConstants.kDriverControllerPort);
+  private final XboxController m_weapons = new XboxController(Constants.DrivetrainConstants.kWeaponsControllerPort);
 
   private SlewRateLimiter m_forwardLimiter = new SlewRateLimiter(1); // controls acceleration of forward speed
   private SlewRateLimiter m_rotationLimiter = new SlewRateLimiter(0.5); // controls acceleration of rotational speed
@@ -70,14 +71,18 @@ public class RobotContainer {
     m_lights = new Lights();
     m_drivetrain = new Drivetrain();
     m_PinkArm = new PivotArm();
-    // Subsystems Instantiation
     m_arm = new TelescopingArm();
 
     // Setting default commands
     m_arm.setDefaultCommand(
       new ArmControl(() -> m_weapons.getLeftY(), m_arm));
 
+    // Control Panel
+    new ControlPanel(m_drivetrain, m_gripper, m_lights, m_PinkArm, m_arm);
+
     // Setting default commands
+    m_arm.setDefaultCommand(
+      new ArmControl(() -> m_weapons.getLeftY(), m_arm));
 
     // Lights
     m_lights.setDefaultCommand(new CheckObjectForColorChange(m_lights, m_gripper));
@@ -86,9 +91,9 @@ public class RobotContainer {
     // Left Joystick: forwards/backward, Right Joystick: turn in place left/right
     m_drivetrain.setDefaultCommand(
     new curvatureDrive(
-      () -> Math.copySign(Constants.kS, m_driver.getLeftY())
+      () -> Math.copySign(Constants.DrivetrainConstants.kS, m_driver.getLeftY())
       + m_forwardLimiter.calculate(m_driver.getLeftY() / Drivetrain.speedLimiter), 
-      () -> Math.copySign(Constants.kS, m_driver.getRightX()) 
+      () -> Math.copySign(Constants.DrivetrainConstants.kS, m_driver.getRightX()) 
       + m_rotationLimiter.calculate(m_driver.getRightX() / Drivetrain.rotationLimiter),
       () -> true, m_drivetrain));
     

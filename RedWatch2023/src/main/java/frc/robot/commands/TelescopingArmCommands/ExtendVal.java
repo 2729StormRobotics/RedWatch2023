@@ -16,7 +16,7 @@ public class ExtendVal extends CommandBase {
   private boolean isReverse = false;
   
   /** Creates a new ExtendHigh. */
-  public ExtendVal( double potLength,  TelescopingArm subsystem) {
+  public ExtendVal( double potLength, TelescopingArm subsystem) {
     m_Arm = subsystem;
     neededPot = potLength;
     // Use addRequirements() here to declare subsystem dependencies.

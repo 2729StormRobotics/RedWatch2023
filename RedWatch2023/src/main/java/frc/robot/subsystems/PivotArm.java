@@ -74,8 +74,7 @@ public class PivotArm extends SubsystemBase {
 
     public double degreesToTicks(double degrees){
        return m_pivotEncoder.getPosition() - degrees * kAnglesToTicks;
-    }
-  
+    }  
   
     private void pivotEncoderInit(RelativeEncoder encoder) {
       encoder.setPositionConversionFactor(kAnglePerRevolution);

@@ -28,7 +28,12 @@ private final ShuffleboardLayout m_controlPanelStatus;
 public double pot_val;
 public double offset = 0;
 public final RelativeEncoder m_ArmEncoder;
-
+// Calculates the potential of the control panel.
+public final AnalogPotentiometer pot;
+private final ShuffleboardTab m_controlPanelTab;
+private final ShuffleboardLayout m_controlPanelStatus; 
+public double pot_val;
+public double offset = 0;
 // /private static AHRS m_ahrs;
 
 /**
@@ -43,6 +48,7 @@ public final RelativeEncoder m_ArmEncoder;
     setMotor(m_ArmExtend, true);
     m_ArmEncoder = m_ArmExtend.getEncoder();
     positionEncoderInit(m_ArmEncoder);
+    // Initialize the shuffleboard.
     pot = new AnalogPotentiometer(1);
     m_controlPanelTab = Shuffleboard.getTab("stringpot");
     m_controlPanelStatus = m_controlPanelTab.getLayout("String Pot", BuiltInLayouts.kList)
@@ -50,7 +56,6 @@ public final RelativeEncoder m_ArmEncoder;
     .withProperties(Map.of("Label position", "TOP"));
 
     shuffleboardInit();
-    
   /*
     try {
       m_ahrs = new AHRS(SPI.Port.kMXP);
@@ -78,10 +83,10 @@ public final RelativeEncoder m_ArmEncoder;
   // Turns the motor on or off.
   public void turnMotor(CANSparkMax motor, boolean inverse) {
     if (inverse) {
-      motor.set(-0.1);
+      motor.set(-ArmSpeed);
     }
     else {
-      motor.set(0.1);
+      motor.set(ArmSpeed);
     }
   }
 
@@ -126,11 +131,24 @@ public final RelativeEncoder m_ArmEncoder;
     m_ahrs.reset();
   }
 */
+  // Gets the distance from this value to this value.
+  public double getDistance(){
+    return pot_val;
+  }
+
+  // Initialize the shuffleboard.
+  private void shuffleboardInit() {
+    // Proximity to ball
+    m_controlPanelStatus.addNumber("Arm Length", () -> pot_val);
+    m_controlPanelStatus.addNumber("Pot Offset", () -> offset);
+    m_controlPanelStatus.add(new ResetPot(this));
+  }
+
+  // Periodically calculates the value of the pot.
   @Override
   public void periodic() {
     // This method will be called once per scheduler run
     pot_val = ((pot.get())*50)-offset;
-  
   }
  }
 

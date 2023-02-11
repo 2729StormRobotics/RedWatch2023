@@ -46,18 +46,18 @@ public class curvatureDrive extends CommandBase {
     // drive with speeds of the parameter
     // only if the joystick input is greater than the controller deadzone, move the robot
     // 3 cases for both joysticks moving, only right, or only left
-    if (Math.abs(m_stickY.getAsDouble()) > Constants.kControllerDeadzone + Constants.kS
-     && Math.abs(m_stickX.getAsDouble()) > Constants.kControllerDeadzone + Constants.kS) {
+    if (Math.abs(m_stickY.getAsDouble()) > Constants.DrivetrainConstants.kControllerDeadzone + Constants.DrivetrainConstants.kS
+     && Math.abs(m_stickX.getAsDouble()) > Constants.DrivetrainConstants.kControllerDeadzone + Constants.DrivetrainConstants.kS) {
       m_drivetrain.curvatureDrive(Drivetrain.sqaureInput(m_stickY.getAsDouble()), 
       Drivetrain.sqaureInput(m_stickX.getAsDouble()), m_turnInPlace.getAsBoolean());
     }
-    else if (Math.abs(m_stickY.getAsDouble()) > Constants.kControllerDeadzone + Constants.kS
-    && Math.abs(m_stickX.getAsDouble()) < Constants.kControllerDeadzone + Constants.kS) {
+    else if (Math.abs(m_stickY.getAsDouble()) > Constants.DrivetrainConstants.kControllerDeadzone + Constants.DrivetrainConstants.kS
+    && Math.abs(m_stickX.getAsDouble()) < Constants.DrivetrainConstants.kControllerDeadzone + Constants.DrivetrainConstants.kS) {
       m_drivetrain.curvatureDrive(Drivetrain.sqaureInput(m_stickY.getAsDouble()), 
     0, m_turnInPlace.getAsBoolean());
     }
-    else if (Math.abs(m_stickY.getAsDouble()) < Constants.kControllerDeadzone + Constants.kS
-    && Math.abs(m_stickX.getAsDouble()) > Constants.kControllerDeadzone + Constants.kS) {
+    else if (Math.abs(m_stickY.getAsDouble()) < Constants.DrivetrainConstants.kControllerDeadzone + Constants.DrivetrainConstants.kS
+    && Math.abs(m_stickX.getAsDouble()) > Constants.DrivetrainConstants.kControllerDeadzone + Constants.DrivetrainConstants.kS) {
       m_drivetrain.curvatureDrive(0, 
       Drivetrain.sqaureInput(m_stickX.getAsDouble()), m_turnInPlace.getAsBoolean());
     }
