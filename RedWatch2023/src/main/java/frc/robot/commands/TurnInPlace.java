@@ -1,51 +1,45 @@
+// Copyright (c) FIRST and other WPILib contributors.
+// Open Source Software; you can modify and/or share it under the terms of
+// the WPILib BSD license file in the root directory of this project.
+
 package frc.robot.commands;
 
-import edu.wpi.first.math.MathUtil;
-import edu.wpi.first.math.controller.PIDController;
-import edu.wpi.first.wpilibj2.command.PIDCommand;
-import static frc.robot.Constants.*;
+import edu.wpi.first.wpilibj2.command.CommandBase;
 import frc.robot.subsystems.Drivetrain;
 
-public class TurnInPlace extends PIDCommand {
+public class TurnInPlace extends CommandBase {
+  private Drivetrain m_drivetrain;
+  private double turnDeg;
+  private double setpoint;
+  private double speed = 0.3;
+  /** Creates a new TurnInPlace. */
+  public TurnInPlace(Drivetrain drivetrain, double degrees, double turnSpeed) {
+    m_drivetrain = drivetrain;
+    turnDeg = Math.abs(degrees);
+    speed = turnSpeed;
+    // Use addRequirements() here to declare subsystem dependencies.
+    addRequirements(m_drivetrain);
+  }
 
-    private Drivetrain m_drivetrain;
-    private double turnDeg;
+  // Called when the command is initially scheduled.
+  @Override
+  public void initialize() {
+    setpoint = m_drivetrain.getHeading()+ turnDeg;
+  }
 
-    /**
-     * Rotates the robot a given amount of degrees
-     * @param turnDeg degrees to turn the robot
-     * @Requirements Drivetrain
-     */
-    public TurnInPlace(double turnDeg, Drivetrain drivetrain) {
+  // Called every time the scheduler runs while the command is scheduled.
+  @Override
+  public void execute() {
+    m_drivetrain.tankDrive(speed, -speed, true);
+  }
 
-        super(
-            new PIDController(TURN_kP, TURN_kI, TURN_kD),
-            drivetrain::getHeading,
-            drivetrain.getHeading()+ turnDeg, // setpoint initialized in initalize
-            output -> drivetrain.tankDrive(output + Math.copySign(TURN_kF, output), -output - Math.copySign(TURN_kF, output), true),
-            drivetrain
-        );
+  // Called once the command ends or is interrupted.
+  @Override
+  public void end(boolean interrupted) {}
 
-        this.m_drivetrain = drivetrain;
-        this.turnDeg = turnDeg;
-
-        addRequirements(m_drivetrain);
-        getController().enableContinuousInput(-180, 180);
-        getController().setTolerance(12);
-    }
-
-    @Override
-    public void initialize() {
-        super.initialize();
-
-        // Hack to make sure the robot turns turnDeg degrees from current heading and not turnDeg degrees from 0
-        double setpoint = MathUtil.inputModulus(m_drivetrain.getHeading() + turnDeg, -180, 180);
-        m_setpoint = () ->  setpoint;
-    }
-
-    @Override
-    public boolean isFinished() {
-        return getController().atSetpoint();
-    }
-
+  // Returns true when the command should end.
+  @Override
+  public boolean isFinished() {
+    return (m_drivetrain.getHeading() == setpoint);
+  }
 }
