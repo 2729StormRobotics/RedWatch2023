@@ -15,6 +15,12 @@ import com.revrobotics.RelativeEncoder;
 import com.revrobotics.CANSparkMax.IdleMode;
 import com.revrobotics.CANSparkMaxLowLevel.MotorType;
 
+import edu.wpi.first.wpilibj.shuffleboard.BuiltInLayouts;
+import edu.wpi.first.wpilibj.shuffleboard.Shuffleboard;
+import edu.wpi.first.wpilibj.shuffleboard.ShuffleboardLayout;
+import edu.wpi.first.wpilibj.shuffleboard.ShuffleboardTab;
+
+
 public class PivotArm extends SubsystemBase {
 
   public final CANSparkMax m_pivot;
@@ -22,6 +28,9 @@ public class PivotArm extends SubsystemBase {
 
   public final RelativeEncoder m_pivotEncoder;
   
+  private final ShuffleboardLayout m_controlPanelStatus;
+  private final ShuffleboardTab m_controlPanelTab;
+
   /** Creates a new Subystem for the pink arm called pinkArm.  
   * Note!!! this subsystem covers the pivot joint of the pink arm Telescoping is stored seperately
   */
@@ -36,6 +45,16 @@ public class PivotArm extends SubsystemBase {
       positionEncoderInit(m_pivotEncoder);
 
       m_pivot2.follow(m_pivot);
+
+      m_controlPanelTab = Shuffleboard.getTab("Arm");
+      m_controlPanelStatus = m_controlPanelTab.getLayout("Encoder", BuiltInLayouts.kList)
+        .withSize(3, 3)
+        .withProperties(Map.of("Label Position", "TOP"));
+      shuffleboardInit();
+    }
+
+    private void shuffleboardInit() {
+      m_controlPanelStatus.addNumber("Pivot Encoder", () -> m_pivotEncoder.getPosition());
     }
   
     public void changeMode(String mode) {
@@ -82,6 +101,30 @@ public class PivotArm extends SubsystemBase {
         motor.setSmartCurrentLimit(kStallLimit, kCurrentLimit);
     }
   
+  /**
+   * Example command factory method.
+   *
+   * @return a command
+   */
+  public CommandBase exampleMethodCommand() {
+    // Inline construction of command goes here.
+    // Subsystem::RunOnce implicitly requires `this` subsystem.
+    return runOnce(
+        () -> {
+          /* one-time action goes here */
+        });
+  }
+
+  /**
+   * An example method querying a boolean state of the subsystem (for example, a digital sensor).
+   *
+   * @return value of some boolean subsystem state, such as a digital sensor.
+   */
+  public boolean exampleCondition() {
+    // Query some boolean state, such as a digital sensor.
+    return false;
+  }
+
   @Override
   public void periodic() {
     // This method will be called once per scheduler run
