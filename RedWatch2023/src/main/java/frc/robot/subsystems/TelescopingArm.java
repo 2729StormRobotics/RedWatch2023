@@ -28,13 +28,6 @@ private final ShuffleboardLayout m_controlPanelStatus;
 public double pot_val;
 public double offset = 0;
 public final RelativeEncoder m_ArmEncoder;
-// Calculates the potential of the control panel.
-public final AnalogPotentiometer pot;
-private final ShuffleboardTab m_controlPanelTab;
-private final ShuffleboardLayout m_controlPanelStatus; 
-public double pot_val;
-public double offset = 0;
-// /private static AHRS m_ahrs;
 
 /**
  * Controls Telescoping Mechanism
@@ -131,18 +124,6 @@ public double offset = 0;
     m_ahrs.reset();
   }
 */
-  // Gets the distance from this value to this value.
-  public double getDistance(){
-    return pot_val;
-  }
-
-  // Initialize the shuffleboard.
-  private void shuffleboardInit() {
-    // Proximity to ball
-    m_controlPanelStatus.addNumber("Arm Length", () -> pot_val);
-    m_controlPanelStatus.addNumber("Pot Offset", () -> offset);
-    m_controlPanelStatus.add(new ResetPot(this));
-  }
 
   // Periodically calculates the value of the pot.
   @Override
