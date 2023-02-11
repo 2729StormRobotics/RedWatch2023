@@ -26,7 +26,6 @@ import frc.robot.subsystems.ControlPanel;
 import frc.robot.subsystems.Drivetrain;
 import frc.robot.subsystems.Gripper;
 import frc.robot.subsystems.Lights;
-import frc.robot.subsystems.MeasuringPotentiometer;
 import edu.wpi.first.wpilibj2.command.button.JoystickButton;
 import static frc.robot.Constants.LightConstants.*;
 import frc.robot.commands.Gripper.*;
@@ -57,7 +56,6 @@ public class RobotContainer {
   private final Drivetrain m_drivetrain;
   private final PivotArm m_PinkArm;
   private final TelescopingArm m_arm;
-  private final MeasuringPotentiometer m_pot;
 
   /** The container for the robot. Contains subsystems, OI devices, and commands. */
   public RobotContainer() {
@@ -67,14 +65,13 @@ public class RobotContainer {
     m_drivetrain = new Drivetrain();
     m_PinkArm = new PivotArm();
     m_arm = new TelescopingArm();
-    m_pot = new MeasuringPotentiometer();
 
     // Control Panel
     new ControlPanel(m_drivetrain, m_gripper, m_lights, m_PinkArm, m_arm);
 
     // Setting default commands
     m_arm.setDefaultCommand(
-      new ArmControl(() -> m_weapons.getLeftY(), m_arm, m_pot));
+      new ArmControl(() -> m_weapons.getLeftY(), m_arm));
 
     // Lights
     m_lights.setDefaultCommand(new CheckObjectForColorChange(m_lights, m_gripper));
@@ -111,9 +108,9 @@ public class RobotContainer {
     new JoystickButton(m_weapons, Button.kLeftStick.value).onTrue(new ChangeColor(m_lights, kYellowCone));
     new JoystickButton(m_weapons, Button.kRightStick.value).onTrue(new ChangeColor(m_lights, kPurpleCube));
 
-    new JoystickButton(m_weapons, Button.kY.value).toggleOnTrue(new ExtendVal( TelescopingConstants.HighExtendCube,m_pot, m_arm));
-    new JoystickButton(m_weapons, Button.kX.value).toggleOnTrue(new ExtendVal( TelescopingConstants.MidExtendCube,m_pot, m_arm));
-    new JoystickButton(m_weapons, Button.kA.value).toggleOnTrue(new ExtendVal( TelescopingConstants.LowStop ,m_pot, m_arm));
+    new JoystickButton(m_weapons, Button.kY.value).toggleOnTrue(new ExtendVal( TelescopingConstants.HighExtendCube, m_arm));
+    new JoystickButton(m_weapons, Button.kX.value).toggleOnTrue(new ExtendVal( TelescopingConstants.MidExtendCube, m_arm));
+    new JoystickButton(m_weapons, Button.kA.value).toggleOnTrue(new ExtendVal( TelescopingConstants.LowStop, m_arm));
 
     new Trigger(m_exampleSubsystem::exampleCondition)
         .onTrue(new ExampleCommand(m_exampleSubsystem));
