@@ -1,17 +1,32 @@
 package frc.robot.subsystems;
 
 import static frc.robot.Constants.TelescopingConstants.*;
+
+import java.util.Map;
+
 import com.revrobotics.CANSparkMax;
 import com.revrobotics.RelativeEncoder;
 import com.revrobotics.CANSparkMax.IdleMode;
 import com.revrobotics.CANSparkMaxLowLevel.MotorType;
+
+import edu.wpi.first.wpilibj.AnalogPotentiometer;
 import edu.wpi.first.wpilibj.DriverStation;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
+import frc.robot.commands.TelescopingArmCommands.ResetPot;
 import edu.wpi.first.wpilibj.SPI;
+import edu.wpi.first.wpilibj.shuffleboard.BuiltInLayouts;
+import edu.wpi.first.wpilibj.shuffleboard.Shuffleboard;
+import edu.wpi.first.wpilibj.shuffleboard.ShuffleboardLayout;
+import edu.wpi.first.wpilibj.shuffleboard.ShuffleboardTab;
 
 public class TelescopingArm extends SubsystemBase {
     
-public final CANSparkMax m_ArmExtend;
+public final CANSparkMax m_ArmExtend;// Calculates the potential of the control panel.
+public final AnalogPotentiometer pot;
+private final ShuffleboardTab m_controlPanelTab;
+private final ShuffleboardLayout m_controlPanelStatus; 
+public double pot_val;
+public double offset = 0;
 public final RelativeEncoder m_ArmEncoder;
 
 // /private static AHRS m_ahrs;
@@ -28,6 +43,13 @@ public final RelativeEncoder m_ArmEncoder;
     setMotor(m_ArmExtend, true);
     m_ArmEncoder = m_ArmExtend.getEncoder();
     positionEncoderInit(m_ArmEncoder);
+    pot = new AnalogPotentiometer(1);
+    m_controlPanelTab = Shuffleboard.getTab("stringpot");
+    m_controlPanelStatus = m_controlPanelTab.getLayout("String Pot", BuiltInLayouts.kList)
+    .withSize(3, 3)
+    .withProperties(Map.of("Label position", "TOP"));
+
+    shuffleboardInit();
     
   /*
     try {
@@ -37,7 +59,18 @@ public final RelativeEncoder m_ArmEncoder;
       DriverStation.reportError("Error instantiating navX MXP: " + ex.getMessage(), true);
     }*/
   }
+// Gets the distance from this value to this value.
+  public double getDistance(){
+    return pot_val;
+  }
 
+  // Initialize the shuffleboard.
+  private void shuffleboardInit() {
+    // Proximity to ball
+    m_controlPanelStatus.addNumber("Arm Length", () -> pot_val);
+    m_controlPanelStatus.addNumber("Pot Offset", () -> offset);
+    m_controlPanelStatus.add(new ResetPot(this));
+  }
   public void changeMode(String mode) {
 
   }
@@ -96,6 +129,7 @@ public final RelativeEncoder m_ArmEncoder;
   @Override
   public void periodic() {
     // This method will be called once per scheduler run
+    pot_val = ((pot.get())*50)-offset;
   
   }
  }

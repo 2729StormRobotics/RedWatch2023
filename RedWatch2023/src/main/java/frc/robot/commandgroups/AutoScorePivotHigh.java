@@ -2,11 +2,10 @@
 // Open Source Software; you can modify and/or share it under the terms of
 // the WPILib BSD license file in the root directory of this project.
 
-package frc.robot.commandgroups;
+package frc.robot.CommandGroups;
 import frc.robot.subsystems.Drivetrain;
 import frc.robot.subsystems.Gripper;
 import frc.robot.subsystems.Lights;
-import frc.robot.subsystems.MeasuringPotentiometer;
 import frc.robot.subsystems.PivotArm;
 import frc.robot.subsystems.TelescopingArm;
 
@@ -35,22 +34,20 @@ public class AutoScorePivotHigh extends SequentialCommandGroup {
   public double m_motorPower = 0;
   public final PivotArm m_pivotArm;
   public final TelescopingArm m_telescopingArm;
-  public final MeasuringPotentiometer m_measuringPot;
   public final Gripper m_gripper;
   
-  public AutoScorePivotHigh(PivotArm pivotArm, TelescopingArm telescopingArm, MeasuringPotentiometer pot, Gripper gripper) {
+  public AutoScorePivotHigh(PivotArm pivotArm, TelescopingArm telescopingArm, Gripper gripper) {
     // Add your commands in the addCommands() call, e.g.
     // addCommands(new FooCommand(), new BarCommand());
     
 
     m_pivotArm = pivotArm;
     m_telescopingArm = telescopingArm;
-    m_measuringPot = pot;
     m_gripper = gripper;
 
     addCommands(
       new turnToDegrees(m_pivotArm, kHighAngle),
-      new ExtendVal(HighExtendCone, m_measuringPot, m_telescopingArm),
+      new ExtendVal(HighExtendCone, m_telescopingArm),
       new EjectItem(m_gripper)
     );
   }
