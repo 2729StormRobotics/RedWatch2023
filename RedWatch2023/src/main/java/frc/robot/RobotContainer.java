@@ -9,14 +9,12 @@ import edu.wpi.first.wpilibj.GenericHID;
 import edu.wpi.first.wpilibj.XboxController;
 import edu.wpi.first.wpilibj.XboxController.Button;
 import frc.robot.Constants.TelescopingConstants;
-import frc.robot.commands.ExampleCommand;
 import frc.robot.commands.pivotArm.armJoint;
 import frc.robot.subsystems.ExampleSubsystem;
 import frc.robot.subsystems.TelescopingArm;
 import frc.robot.subsystems.PivotArm;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.button.Trigger;
-import frc.robot.commands.curvatureDrive;
 import frc.robot.commands.*;
 import frc.robot.commands.Gripper.CheckObjectForColorChange;
 import frc.robot.commands.Lights.ChangeColor;
@@ -114,6 +112,8 @@ public class RobotContainer {
     new JoystickButton(m_weapons, Button.kY.value).toggleOnTrue(new ExtendVal( TelescopingConstants.HighExtendCube,m_pot, m_arm));
     new JoystickButton(m_weapons, Button.kX.value).toggleOnTrue(new ExtendVal( TelescopingConstants.MidExtendCube,m_pot, m_arm));
     new JoystickButton(m_weapons, Button.kA.value).toggleOnTrue(new ExtendVal( TelescopingConstants.LowStop ,m_pot, m_arm));
+
+    new JoystickButton(m_driver, Button.kStart.value).toggleOnTrue(new Meltdown(m_drivetrain, m_gripper, m_lights, m_PinkArm, m_arm));
 
     new Trigger(m_exampleSubsystem::exampleCondition)
         .onTrue(new ExampleCommand(m_exampleSubsystem));
