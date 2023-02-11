@@ -15,10 +15,10 @@ import edu.wpi.first.wpilibj.DoubleSolenoid.Value;
  * constants are needed, to reduce verbosity.
  */
 public final class Constants {
-    public static final int RIGHT_MOTOR2_ID = 36;
-	public static final int RIGHT_MOTOR_ID = 12;
-	public static final int LEFT_MOTOR2_ID = 3;
-	public static final int LEFT_MOTOR_ID = 14;
+    public static final int RIGHT_MOTOR2_ID = 2;
+	public static final int RIGHT_MOTOR_ID = 9;
+	public static final int LEFT_MOTOR2_ID = 17;
+	public static final int LEFT_MOTOR_ID = 18;
 	public static final int STALL_LIMIT = 45;
 	public static final int kDriverControllerPort = 1;
 	public static final String kShuffleboardTab = "Testing";
