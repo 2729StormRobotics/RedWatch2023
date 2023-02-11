@@ -42,7 +42,7 @@ public class PivotArm extends SubsystemBase {
       setMotor(m_pivot, false, true);
       setMotor(m_pivot2, true, true);
       m_pivotEncoder = m_pivot.getEncoder();
-      positionEncoderInit(m_pivotEncoder);
+      pivotEncoderInit(m_pivotEncoder);
 
       m_pivot2.follow(m_pivot);
 

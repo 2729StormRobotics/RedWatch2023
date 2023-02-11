@@ -54,8 +54,8 @@ public final class Constants {
     public static final double kPivotArmNeutral = 0;
     public static final double kAnglesToTicks = 0;
     //Angles for scoring cones
-    public static final double kHighAngle = 81; //100.876 (Actual)
-    public static final double kMidAngle = 45; //74.055(Actual)
+    public static final double kHighAngleCone = 81; //100.876 (Actual)
+    public static final double kMidAngleCone = 45; //74.055(Actual)
     //Angle for scoring in the hybrid node common for cones and cubes
     public static final double kLowAngle = 12; //41.601 (actual)
     //Angles for scoring the cubes

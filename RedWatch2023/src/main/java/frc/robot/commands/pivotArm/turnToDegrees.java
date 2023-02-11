@@ -11,11 +11,12 @@ public class turnToDegrees extends CommandBase {
   /** Creates a new turnToDegrees. */
   private final PivotArm m_pivotArm;
   private double m_encoderTicks;
+  private double m_degrees;
 
   public turnToDegrees(PivotArm pivotArm, double degrees) {
     // Use addRequirements() here to declare subsystem dependencies.
     m_pivotArm = pivotArm;
-    m_encoderTicks = degrees;
+    m_degrees = degrees;
     addRequirements(pivotArm);
 
   }
@@ -24,9 +25,9 @@ public class turnToDegrees extends CommandBase {
   // Called when the command is initially scheduled.
   @Override
   public void initialize() {
-    m_encoderTicks = m_pivotArm.degreesToTicks(m_encoderTicks);
+    m_encoderTicks = m_pivotArm.m_pivotEncoder.getPosition();
 
-    m_pivotArm.m_pivot.set(m_encoderTicks > 0 ? 0.1 : -0.1);
+    m_pivotArm.m_pivot.set(m_encoderTicks -  m_degrees > 0 ? 0.1 : -0.1);
   }
 
   // Called every time the scheduler runs while the command is scheduled.
@@ -42,7 +43,7 @@ public class turnToDegrees extends CommandBase {
   // Returns true when the command should end.
   @Override
   public boolean isFinished() {
-    if (m_pivotArm.m_pivotEncoder.getPosition() == m_encoderTicks)
+    if (m_pivotArm.m_pivotEncoder.getPosition() == m_encoderTicks - m_degrees)
       return true;
     
     return false;
