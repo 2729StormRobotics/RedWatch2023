@@ -34,7 +34,7 @@ public final class Constants {
 
     public static final double Tolerance = 0.1;
     public static final double ArmSpeed = 0.1;
-    public static final int kArmExtendPort = 3;
+    public static final int kArmExtendPort = 4;
     // pivoting gearbox = 1:125 
     public static final double kTelescopingGearRatio = 1.0 / 12.0;
 
@@ -42,8 +42,8 @@ public final class Constants {
 }
   public static final class pinkArmConstants {
     // Can change the port of the motors
-    public static final int kLeftPivotPort = 5;
-    public static final int kRightPivotPort = 8;
+    public static final int kLeftPivotPort = 8;
+    public static final int kRightPivotPort = 3;
     // pivoting gearbox = 1:125 
     public static final double kTelescopingGearRatio = 1.0 / 16.0;
     public static final double kPivotingGearRatio = 1.0 / 125.0;
@@ -75,9 +75,9 @@ public final class Constants {
 
   public static final class DrivetrainConstants {
     public static final int RIGHT_MOTOR2_ID = 2;
-    public static final int RIGHT_MOTOR_ID = 9;
-    public static final int LEFT_MOTOR2_ID = 17;
-    public static final int LEFT_MOTOR_ID = 18;
+    public static final int RIGHT_MOTOR_ID = 1;
+    public static final int LEFT_MOTOR2_ID = 7;
+    public static final int LEFT_MOTOR_ID = 6;
     public static final int STALL_LIMIT = 45;
     public static final int kDriverControllerPort = 1;
     public static final int kWeaponsControllerPort = 2;
@@ -152,8 +152,8 @@ public final class Constants {
 
 	public static class GripperConstants {
     // Most likely only be using one motor, but written code for 2 in case.
-    public static final int kGripperLeftMotor = 1;
-    public static final int kGripperRightMotor = 2;
+    public static final int kGripperLeftMotor = 9;
+    public static final int kGripperRightMotor = 5;
     // Variable assigned values can change depending on what is needed for the robot.
     public static final double kGripperIntakeMotorSpeed = 0.20;   
     public static final double kGripperEjectMotorSpeed = -0.2;
