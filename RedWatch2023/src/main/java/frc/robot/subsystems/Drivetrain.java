@@ -30,29 +30,21 @@ public class Drivetrain extends SubsystemBase {
   public static double speedLimiter = 3.5; // the forward drive power gets divided by this value to reduce the speed
   public static double rotationLimiter = 1.75; // the rotational drive power gets divided by this value to reduce the speed
 
-  // delare motors
+  // declar motors
   public final com.revrobotics.CANSparkMax leftMotor;
   public final com.revrobotics.CANSparkMax rightMotor;
   public final com.revrobotics.CANSparkMax leftMotor2;
   public final com.revrobotics.CANSparkMax rightMotor2;
 
-  //public final com.revrobotics.CANSparkMax leftMotor2;
-  
-  //public final DifferentialDriveOdometry m_odometry;
   public final DifferentialDriveKinematics m_kinematics;
-  
-  //public final com.revrobotics.CANSparkMax rightMotor2;
 
   // declare encoders
   public final RelativeEncoder m_leftEncoder;
   public final RelativeEncoder m_rightEncoder;
 
- // private final ADIS16470_IMU m_imu;
-
   private final DifferentialDrive m_drive;
 
   public boolean m_reverseDrive = false;
-  // private static AHRS navx;
   AHRS ahrs;
   
 

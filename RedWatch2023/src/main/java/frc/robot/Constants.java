@@ -9,8 +9,6 @@
 
 package frc.robot;
 
-import edu.wpi.first.wpilibj.DoubleSolenoid.Value;
-
 /**
  * The Constants class provides a convenient place for teams to hold robot-wide numerical or boolean
  * constants. This class should not be used for any other purpose. All constants should be declared
@@ -42,8 +40,8 @@ public final class Constants {
 }
   public static final class pinkArmConstants {
     // Can change the port of the motors
-    public static final int kLeftPivotPort = 5;
-    public static final int kRightPivotPort = 8;
+    public static final int kLeftPivotPort = 2;
+    public static final int kRightPivotPort = 3;
     // pivoting gearbox = 1:125 
     public static final double kTelescopingGearRatio = 1.0 / 16.0;
     public static final double kPivotingGearRatio = 1.0 / 125.0;
@@ -53,7 +51,7 @@ public final class Constants {
     public static final int kCurrentLimit = 60;
     public static final int kStallLimit = 45;
     //Sets the speed of the pivot arm, needs to be changed depending on the gear ratio for the pivot arm
-    public static final double kPivotArmSpeed = 0.03; 
+    public static final double kPivotArmSpeed = 0.1; 
     //Sets the position for the arm when neutral
     public static final double kPivotArmNeutral = 0;
     
@@ -134,15 +132,6 @@ public final class Constants {
 		public static final double kTurnSpeedTolerance = 1.0;
 	}
  
-	public static final class IntakeConstants {
-    public static final int kIntakeMotorPort = 1;
-    public static final int kIntakeRaiseChannel = 2;
-    public static final int kIntakeLowerChannel = 3;
-    public static final double kIntakeMotorSpeed = 10;
-    public static final double kEjectMotorSpeed = -10;
-    public static final Value kIntakeRaiseValue = Value.kForward;
-    public static final Value kIntakeLowerValue = Value.kReverse;
-    }
 
   public static final class VisionConstants {
     public static final double kCAMERA_HEIGHT = 0.0;

@@ -1,14 +1,11 @@
 package frc.robot.subsystems;
 
 import static frc.robot.Constants.TelescopingConstants.*;
-
 import java.util.Map;
-
 import com.revrobotics.CANSparkMax;
 import com.revrobotics.RelativeEncoder;
 import com.revrobotics.CANSparkMax.IdleMode;
 import com.revrobotics.CANSparkMaxLowLevel.MotorType;
-
 import edu.wpi.first.wpilibj.AnalogPotentiometer;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.commands.TelescopingArmCommands.ResetPot;
@@ -47,13 +44,7 @@ public final RelativeEncoder m_ArmEncoder;
     .withProperties(Map.of("Label position", "TOP"));
 
     shuffleboardInit();
-  /*
-    try {
-      m_ahrs = new AHRS(SPI.Port.kMXP);
-    } 
-    catch (RuntimeException ex){
-      DriverStation.reportError("Error instantiating navX MXP: " + ex.getMessage(), true);
-    }*/
+
   }
 // Gets the distance from this value to this value.
   public double getDistance(){
@@ -88,10 +79,6 @@ public final RelativeEncoder m_ArmEncoder;
     encoderReset(encoder);
   }
 
-  // private void pivotEncoderInit(RelativeEncoder encoder) {
-  //   encoder.setPositionConversionFactor(kAnglePerRevolution);
-  // }
-
   // Resets the encoder to its initial position.
   public void encoderReset(RelativeEncoder encoder) {
     encoder.setPosition(0);
@@ -103,9 +90,6 @@ public final RelativeEncoder m_ArmEncoder;
     return -m_ArmEncoder.getPosition();
   }
 
-  // public double getRightPivot() {
-  //   return -m_pivotArmEncoder.getPosition();
-  // }
 
   // Sets the motor.
   public void setMotor(CANSparkMax motor, boolean inverse) {
@@ -113,15 +97,7 @@ public final RelativeEncoder m_ArmEncoder;
     motor.setIdleMode(IdleMode.kBrake);
     motor.setInverted(inverse);
   }
-/* 
-  public double getGyroAngle(){
-    return m_ahrs.getAngle();
-  }
 
-  public void resetGyroAngle(){
-    m_ahrs.reset();
-  }
-*/
 
   // Periodically calculates the value of the pot.
   @Override

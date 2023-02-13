@@ -7,12 +7,9 @@ package frc.robot.subsystems;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.PicoColorSensor;
 import static frc.robot.Constants.GripperConstants.*;
-
 import com.revrobotics.CANSparkMax;
 import com.revrobotics.RelativeEncoder;
-
 import frc.robot.PicoColorSensor.RawColor;
-
 import com.revrobotics.CANSparkMax.IdleMode;
 import com.revrobotics.CANSparkMaxLowLevel.MotorType;
 
@@ -60,6 +57,7 @@ public class Gripper extends SubsystemBase {
     m_colorSensor = new PicoColorSensor();
 
     // Get color and distance of an object from the color sensor
+  
     m_detectedColor = m_colorSensor.getRawColor0();
     m_proximity = m_colorSensor.getProximity0();
   }
@@ -72,7 +70,7 @@ public class Gripper extends SubsystemBase {
     encoder.setPosition(0);
   }
   
-  // Get average encoder velocity
+  // Get average encoder Speed
   public double getVelocity() {
     return (Math.abs(m_gripperLeftMotor.getEncoder().getVelocity()) + Math.abs(m_gripperRightMotor.getEncoder().getVelocity())) / 2;
   }

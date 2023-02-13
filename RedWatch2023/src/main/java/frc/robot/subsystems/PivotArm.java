@@ -40,11 +40,11 @@ public class PivotArm extends SubsystemBase {
       m_pivot2 = new CANSparkMax(kRightPivotPort, MotorType.kBrushless);
       
       setMotor(m_pivot, false, true);
-      setMotor(m_pivot2, true, true);
+      setMotor(m_pivot2, false, true);
       m_pivotEncoder = m_pivot.getEncoder();
       pivotEncoderInit(m_pivotEncoder);
 
-      m_pivot2.follow(m_pivot);
+      // m_pivot2.follow(m_pivot);
 
       m_controlPanelTab = Shuffleboard.getTab("Arm");
       m_controlPanelStatus = m_controlPanelTab.getLayout("Encoder", BuiltInLayouts.kList)
@@ -55,6 +55,7 @@ public class PivotArm extends SubsystemBase {
 
     private void shuffleboardInit() {
       m_controlPanelStatus.addNumber("Pivot Encoder", () -> m_pivotEncoder.getPosition());
+      m_controlPanelStatus.addNumber("Pivot2 Encoder", () -> m_pivot2.getEncoder().getPosition());
     }
   
     public void changeMode(String mode) {
