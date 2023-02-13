@@ -37,7 +37,7 @@ import edu.wpi.first.wpilibj.SPI;
 
 public class Drivetrain extends SubsystemBase {
   /** Creates a new Drivetrain. */
-  public static double speedLimiter = 3.5; // the forward drive power gets divided by this value to reduce the speed
+  public static double speedLimiter = 1.75; // the forward drive power gets divided by this value to reduce the speed
   public static double rotationLimiter = 1.75; // the rotational drive power gets divided by this value to reduce the speed
 
   // delare motors
@@ -90,9 +90,9 @@ public class Drivetrain extends SubsystemBase {
     rightMotor2.setSmartCurrentLimit(Constants.STALL_LIMIT);
 
     leftMotor.setIdleMode(IdleMode.kBrake);
-    leftMotor2.setIdleMode(IdleMode.kBrake);
+    leftMotor2.setIdleMode(IdleMode.kCoast);
     rightMotor.setIdleMode(IdleMode.kBrake);
-    rightMotor2.setIdleMode(IdleMode.kBrake);
+    rightMotor2.setIdleMode(IdleMode.kCoast);
 
     // group the left and right motors together as two groups
     leftMotor2.follow(leftMotor);

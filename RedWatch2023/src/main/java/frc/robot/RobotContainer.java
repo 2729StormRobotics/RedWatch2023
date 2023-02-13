@@ -69,9 +69,9 @@ public class RobotContainer {
       new curvatureDrive(() -> 0, () -> Constants.kS + 0.03, () -> true, m_drivetrain)); // turns slowly in place
     // for testing for static friction voltage
     new JoystickButton(m_driver, Button.kX.value).whileTrue( // turning
-      new curvatureDrive(() -> 0 , () -> 0.1, () -> true, m_drivetrain));
+      new curvatureDrive(() -> 0 , () -> 0.29, () -> true, m_drivetrain));
     new JoystickButton(m_driver, Button.kY.value).whileTrue( // forward
-      new curvatureDrive(() -> 0.1, () -> 0.0, () -> false, m_drivetrain));
+      new curvatureDrive(() -> 0.29, () -> 0.0, () -> false, m_drivetrain));
   }
 
   /**

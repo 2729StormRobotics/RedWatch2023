@@ -23,11 +23,11 @@ public final class Constants {
 	public static final int kDriverControllerPort = 1;
 	public static final String kShuffleboardTab = "Testing";
 	public static final int kCurrentLimit = 60;
-	public static final boolean kLeftReversedDefault = true;
+	public static final boolean kLeftReversedDefault = false;
 	public static final boolean kRightReversedDefault = !kLeftReversedDefault;
 	public static final double kTrackWidth = 29; // inches
 	
-	public static final double kS = 0.18; // minimum voltage to make the drivetrain move on the ground
+	public static final double kS = 0.29; // minimum voltage to make the drivetrain move on the ground
 	// driver encoder calculations
 	// since the encoder is build into the motor we need to account for gearing
 	public static final double kWheelDiameterInches = 6.0;
