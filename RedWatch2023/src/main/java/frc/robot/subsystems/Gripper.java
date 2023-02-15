@@ -74,7 +74,7 @@ public class Gripper extends SubsystemBase {
   
   // Get average encoder velocity
   public double getVelocity() {
-    return (Math.abs(m_gripperLeftMotor.getEncoder().getVelocity()) + Math.abs(m_gripperRightMotor.getEncoder().getVelocity())) / 2;
+    return (Math.abs((m_gripperRightMotor.getEncoder().getVelocity())));
   }
 
   // Checks if object in gripper is purple
