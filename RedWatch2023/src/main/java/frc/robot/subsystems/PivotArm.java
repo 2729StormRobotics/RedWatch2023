@@ -44,7 +44,7 @@ public class PivotArm extends SubsystemBase {
       m_pivotEncoder = m_pivot.getEncoder();
       pivotEncoderInit(m_pivotEncoder);
 
-      m_pivot2.follow(m_pivot);
+      // m_pivot2.follow(m_pivot);
 
       m_controlPanelTab = Shuffleboard.getTab("Arm");
       m_controlPanelStatus = m_controlPanelTab.getLayout("Encoder", BuiltInLayouts.kList)
