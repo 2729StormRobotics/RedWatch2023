@@ -4,6 +4,7 @@ import java.util.function.DoubleSupplier;
 import java.util.function.BooleanSupplier; 
 import edu.wpi.first.wpilibj2.command.CommandBase;
 import frc.robot.subsystems.PivotArm;
+import frc.robot.Constants;
 import frc.robot.Constants.pinkArmConstants.*;
 
 public class armJoint extends CommandBase{
@@ -34,12 +35,12 @@ public class armJoint extends CommandBase{
 
     @Override
     public void execute(){
-        if ((m_rightStick.getAsDouble() <= -0.85) &&( m_pinkArm.m_pivotEncoder.getPosition() <= 75)){
-            m_pinkArm.turnMotor(m_pinkArm.m_pivot, false);
+        if ((m_rightStick.getAsDouble() <= -0.85) /*&&( m_pinkArm.m_pivotEncoder.getPosition() <= 75)*/ ){
+            m_pinkArm.turnMotor(m_pinkArm.m_pivot, Constants.pinkArmConstants.kPivotArmSpeed, false);
 
         }
-        else if ((m_rightStick.getAsDouble() >= 0.85) &&( m_pinkArm.m_pivotEncoder.getPosition() <= 40)) {
-          m_pinkArm.turnMotor(m_pinkArm.m_pivot, false);
+        else if ((m_rightStick.getAsDouble() >= 0.85) /*&&( m_pinkArm.m_pivotEncoder.getPosition() <= 40)*/) {
+          m_pinkArm.turnMotor(m_pinkArm.m_pivot, Constants.pinkArmConstants.kPivotArmSpeed, false);
         }
         else {
             m_pinkArm.m_pivot.set(0);

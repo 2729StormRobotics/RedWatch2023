@@ -61,16 +61,17 @@ public class PivotArm extends SubsystemBase {
   
     }
     
-    public void turnMotor(CANSparkMax motor, boolean inverse) {
+    public void turnMotor(CANSparkMax motor, double speed, boolean inverse) {
       //moves the motor backwards in respect to the button click
       if (inverse) {
-        motor.set(-kPivotArmSpeed);
+        motor.set(-speed);
       }
       //moves the motor forwards in respect to the button click
       else {
-        motor.set(kPivotArmSpeed);
+        motor.set(speed);
       }
     }
+
 
     public double degreesToTicks(double degrees){
        return m_pivotEncoder.getPosition() - degrees * kAnglesToTicks;
@@ -85,7 +86,7 @@ public class PivotArm extends SubsystemBase {
     }
   
     //Gets the distance of the endoder and the motor
-    public double getDistance() {
+    public double getAngle() {
       return -m_pivotEncoder.getPosition();
     }
 
