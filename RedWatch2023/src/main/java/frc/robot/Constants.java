@@ -40,10 +40,10 @@ public final class Constants {
 	public static final double kHighDistancePerPulse = kWheelDiameterInches * Math.PI * kHighGear;
 	public static final double kHighSpeedPerPulse = kHighDistancePerPulse / 60.0;
 	public static final double kLowDistancePerPulse = kWheelDiameterInches * Math.PI * kLowGear;
-	public static final double kLowSpeedPerPulse = kLowDistancePerPulse / 60.0;
+	public static final double kLowSpeedPerPulse = kLowDistancePerPulse / 60.0; 
 
 	// experimentally determined (inches per encoder count)
-	public static final double kEncoderDistanceRatio = 1.125753635;
+	public static final double kEncoderDistanceRatio = 120 / 72.264;
 	public static double kRightAngleTurnArcLength = 7.25 * Math.PI;
     public static final double kHighSpeedPerPulseEncoderRatio = kEncoderDistanceRatio / 60.0;
     public static final int kDriverController = 0;

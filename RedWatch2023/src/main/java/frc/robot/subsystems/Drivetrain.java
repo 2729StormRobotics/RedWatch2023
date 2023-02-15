@@ -180,7 +180,7 @@ public class Drivetrain extends SubsystemBase {
   }
 
   public double getPitch() {
-    return ahrs.getPitch();
+    return ahrs.getRoll();
 }
 
   // squares the MAGNITUDE of the value
