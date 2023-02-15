@@ -26,37 +26,27 @@ import edu.wpi.first.wpilibj.SPI;
 
 
 public class Drivetrain extends SubsystemBase {
-  /** Creates a new Drivetrain. */
+  /** Creates a new TrainDrive. */
   public static double speedLimiter = 3.5; // the forward drive power gets divided by this value to reduce the speed
   public static double rotationLimiter = 1.75; // the rotational drive power gets divided by this value to reduce the speed
 
-  // delare motors
+  // declar motors
   public final com.revrobotics.CANSparkMax leftMotor;
   public final com.revrobotics.CANSparkMax rightMotor;
   public final com.revrobotics.CANSparkMax leftMotor2;
   public final com.revrobotics.CANSparkMax rightMotor2;
 
-  //public final com.revrobotics.CANSparkMax leftMotor2;
-  
-  //public final DifferentialDriveOdometry m_odometry;
   public final DifferentialDriveKinematics m_kinematics;
-  
-  //public final com.revrobotics.CANSparkMax rightMotor2;
 
   // declare encoders
   public final RelativeEncoder m_leftEncoder;
   public final RelativeEncoder m_rightEncoder;
 
- // private final ADIS16470_IMU m_imu;
-
   private final DifferentialDrive m_drive;
 
   public boolean m_reverseDrive = false;
-  // private static AHRS navx;
   AHRS ahrs;
   
-
-
   public Drivetrain() {
     // define motors
     leftMotor = new com.revrobotics.CANSparkMax(Constants.DrivetrainConstants.LEFT_MOTOR_ID, MotorType.kBrushless);
@@ -69,7 +59,6 @@ public class Drivetrain extends SubsystemBase {
     motorInit(leftMotor2, Constants.DrivetrainConstants.kLeftReversedDefault);
     motorInit(rightMotor, Constants.DrivetrainConstants.kRightReversedDefault);
     motorInit(rightMotor2, Constants.DrivetrainConstants.kRightReversedDefault);
-    //m_odometry = new DifferentialDriveOdometry(ahrs.getRotation2d());
 
     leftMotor.setSmartCurrentLimit(Constants.DrivetrainConstants.STALL_LIMIT);
     rightMotor.setSmartCurrentLimit(Constants.DrivetrainConstants.STALL_LIMIT);
@@ -100,9 +89,7 @@ public class Drivetrain extends SubsystemBase {
     }
 
     m_kinematics = new DifferentialDriveKinematics(Units.inchesToMeters(Constants.DrivetrainConstants.kTrackWidth));
-    // m_odometry = new DifferentialDriveOdometry(
-    //   ahrs.getRotation2d(), getLeftDistance(), getRightDistance());
-    
+
   }
 
   public void motorInit(CANSparkMax motor, boolean invert) {
@@ -196,13 +183,6 @@ public class Drivetrain extends SubsystemBase {
   public void stopDrive() {
     m_drive.tankDrive(0, 0);
   }
-    // public Pose2d getPose() {
-    //   return m_odometry.getPoseMeters();
-    // }
-    // public void resetOdometry(Pose2d pose) {
-    //   resetEncoders();
-    //   m_odometry.resetPosition(pose, ahrs.getRotation2d());
-    // }
 
   public DifferentialDriveWheelSpeeds getWheelSpeeds() {
     return new DifferentialDriveWheelSpeeds(m_leftEncoder.getVelocity(), m_rightEncoder.getVelocity());
@@ -212,8 +192,7 @@ public class Drivetrain extends SubsystemBase {
     rightMotor.setVoltage(rightVolts);
     m_drive.feed();
   }
-
-
+  
   @Override
   public void periodic() {
     // This method will be called once per scheduler run
