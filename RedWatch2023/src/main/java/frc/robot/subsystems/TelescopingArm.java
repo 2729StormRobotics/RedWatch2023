@@ -127,7 +127,8 @@ public final RelativeEncoder m_ArmEncoder;
   @Override
   public void periodic() {
     // This method will be called once per scheduler run
-    pot_val = ((pot.get())*50)-offset;
+    // pot_val = ((pot.get())*50)-offset;
+    pot_val = ((pot.get())*50);
   }
  }
 
