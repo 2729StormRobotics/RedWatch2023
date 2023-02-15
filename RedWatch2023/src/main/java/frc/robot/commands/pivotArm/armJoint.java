@@ -33,12 +33,12 @@ public class armJoint extends CommandBase{
 
     @Override
     public void execute(){
-        if ((m_rightStick.getAsDouble() <= -0.85) &&( m_pinkArm.m_pivotEncoder.getPosition() <= 75)){
+        if ((m_rightStick.getAsDouble() <= -0.85) /*&&( m_pinkArm.m_pivotEncoder.getPosition() <= 75)*/){
             m_pinkArm.turnMotor(m_pinkArm.m_pivot, false);
              m_pinkArm.turnMotor(m_pinkArm.m_pivot2, false);
 
         }
-        else if ((m_rightStick.getAsDouble() >= 0.85) &&( m_pinkArm.m_pivotEncoder.getPosition() <= 40)) {
+        else if ((m_rightStick.getAsDouble() >= 0.85) /*&&( m_pinkArm.m_pivotEncoder.getPosition() <= 40)*/) {
           m_pinkArm.turnMotor(m_pinkArm.m_pivot, false);
            m_pinkArm.turnMotor(m_pinkArm.m_pivot2, false);
 
