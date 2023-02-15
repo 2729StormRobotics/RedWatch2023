@@ -77,7 +77,7 @@ public class PivotArm extends SubsystemBase {
     }  
   
     private void pivotEncoderInit(RelativeEncoder encoder) {
-      encoder.setPositionConversionFactor(kAnglePerRevolution);
+      encoder.setPositionConversionFactor(kPivotingGearRatio*360);
     }
   
     public void encoderReset(RelativeEncoder encoder) {

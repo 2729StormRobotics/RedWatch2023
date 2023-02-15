@@ -30,9 +30,9 @@ public class ArmControl extends CommandBase{
 
     @Override
     public void execute(){
-        if ((stickVal.getAsDouble() <= -0.85) &&( m_Arm.pot_val <= 33.95)){
+        if ((stickVal.getAsDouble() <= -0.85) &&( m_Arm.pot_val <= 53.95)){
             m_Arm.turnMotor(m_Arm.m_ArmExtend, false);
-        }else if ((stickVal.getAsDouble() >= 0.85  )&& (m_Arm.pot_val >= 0.5)) {
+        }else if ((stickVal.getAsDouble() >= 0.85  )&& (m_Arm.pot_val >= -20.5)) {
           m_Arm.turnMotor(m_Arm.m_ArmExtend, true);
         }
         else {
