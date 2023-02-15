@@ -33,7 +33,7 @@ public final class Constants {
     public static final double LowStop = 1;
 
     public static final double Tolerance = 0.1;
-    public static final double ArmSpeed = 0.1;
+    public static final double ArmSpeed = 0.4;
     public static final int kArmExtendPort = 4;
     // pivoting gearbox = 1:125 
     public static final double kTelescopingGearRatio = 1.0 / 12.0;
@@ -53,7 +53,7 @@ public final class Constants {
     public static final int kCurrentLimit = 60;
     public static final int kStallLimit = 45;
     //Sets the speed of the pivot arm, needs to be changed depending on the gear ratio for the pivot arm
-    public static final double kPivotArmSpeed = 0.03; 
+    public static final double kPivotArmSpeed = 0.3; 
     //Sets the position for the arm when neutral
     public static final double kPivotArmNeutral = 0;
     
