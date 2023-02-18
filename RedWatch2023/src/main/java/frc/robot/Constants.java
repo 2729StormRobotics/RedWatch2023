@@ -46,26 +46,26 @@ public final class Constants {
     public static final int kLeftPivotPort = 3;
     // pivoting gearbox = 1:125 
     public static final double kTelescopingGearRatio = 1.0 / 16.0;
-    public static final double kPivotingGearRatio = 1.0 / 421.88;
+    public static final double kPivotingGearRatio = 1.0 / 421.875;
     public static final double kDistancePerRevolution = kTelescopingGearRatio * (7.0 / 8.0) * 3.14; //TODO: put in gear ratio for the climbers!!!
     public static final double kClimberRightSize = 12.0;
     // public static final double kAnglePerRevolution = kPivotingGearRatio * 3.14;
     public static final int kCurrentLimit = 60;
     public static final int kStallLimit = 45;
     //Sets the speed of the pivot arm, needs to be changed depending on the gear ratio for the pivot arm
-    public static final double kPivotArmSpeed = 0.3; 
+    public static final double kPivotArmSpeed = 0.2; //0.3; 
     //Sets the position for the arm when neutral
     public static final double kPivotArmNeutral = 0;
     
     public static final double kAnglesToTicks = 0;
     //Angles for scoring cones
-    public static final double kHighAngleCone = 81; //100.876 (Actual)
-    public static final double kMidAngleCone = 45; //74.055(Actual)
+    public static final double kHighAngleCone = 100.876; //(Actual)
+    public static final double kMidAngleCone = 74.055; //(Actual)
     //Angle for scoring in the hybrid node common for cones and cubes
     public static final double kLowAngle = 12; //41.601 (actual)
     //Angles for scoring the cubes
-    public static final double kMidAngleCube = 35;// 64.7306362 (Actual)
-    public static final double kHighAngleCube = 66;//95.7356393 (Actual)
+    public static final double kMidAngleCube = 64.7306362; // (Actual)
+    public static final double kHighAngleCube = 95.7356393; // (Actual)
   }
 
   public static final class IOPorts{

@@ -27,7 +27,7 @@ public class armJoint extends CommandBase{
          m_pinkArm.m_pivot.stopMotor();
          m_pinkArm.m_pivot2.stopMotor();
         //Sets the pivot encoder position to zero when initialized
-        m_pinkArm.encoderReset(m_pinkArm.m_pivotEncoder);  
+        // m_pinkArm.encoderReset(m_pinkArm.m_pivotEncoder);  
 
     }
 
@@ -35,11 +35,11 @@ public class armJoint extends CommandBase{
     public void execute(){
         if ((m_rightStick.getAsDouble() <= -0.85) /*&&( m_pinkArm.m_pivotEncoder.getPosition() <= 75)*/){
             m_pinkArm.turnMotor(m_pinkArm.m_pivot, false);
-             m_pinkArm.turnMotor(m_pinkArm.m_pivot2, false);
+             m_pinkArm.turnMotor(m_pinkArm.m_pivot2, true);
 
         }
         else if ((m_rightStick.getAsDouble() >= 0.85) /*&&( m_pinkArm.m_pivotEncoder.getPosition() <= 40)*/) {
-          m_pinkArm.turnMotor(m_pinkArm.m_pivot, false);
+          m_pinkArm.turnMotor(m_pinkArm.m_pivot, true);
            m_pinkArm.turnMotor(m_pinkArm.m_pivot2, false);
 
         }

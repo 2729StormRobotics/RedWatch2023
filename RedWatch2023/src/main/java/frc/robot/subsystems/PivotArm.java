@@ -10,6 +10,8 @@ import java.util.Map;
 
 import edu.wpi.first.wpilibj2.command.CommandBase;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
+import frc.robot.commands.ResetPosition;
+
 import com.revrobotics.CANSparkMax;
 import com.revrobotics.RelativeEncoder;
 import com.revrobotics.CANSparkMax.IdleMode;
@@ -27,9 +29,12 @@ public class PivotArm extends SubsystemBase {
   public final CANSparkMax m_pivot2;
 
   public final RelativeEncoder m_pivotEncoder;
+  public final RelativeEncoder m_pivotEncoder2;
   
   private final ShuffleboardLayout m_controlPanelStatus;
   private final ShuffleboardTab m_controlPanelTab;
+
+  public static double m_encoderTicks = 37;
 
   /** Creates a new Subystem for the pink arm called pinkArm.  
   * Note!!! this subsystem covers the pivot joint of the pink arm Telescoping is stored seperately
@@ -42,7 +47,9 @@ public class PivotArm extends SubsystemBase {
       setMotor(m_pivot, false, true);
       setMotor(m_pivot2, false, true);
       m_pivotEncoder = m_pivot.getEncoder();
+      m_pivotEncoder2 = m_pivot2.getEncoder();
       pivotEncoderInit(m_pivotEncoder);
+      pivotEncoderInit(m_pivotEncoder2);
 
       m_controlPanelTab = Shuffleboard.getTab("Arm");
       m_controlPanelStatus = m_controlPanelTab.getLayout("Encoder", BuiltInLayouts.kList)
@@ -52,7 +59,7 @@ public class PivotArm extends SubsystemBase {
     }
 
     private void shuffleboardInit() {
-      m_controlPanelStatus.addNumber("Pivot Encoder", () -> m_pivotEncoder.getPosition());
+      m_controlPanelStatus.addNumber("Pivot Encoder", () -> getDistance());
     }
   
     public void changeMode(String mode) {
@@ -76,6 +83,7 @@ public class PivotArm extends SubsystemBase {
   
     private void pivotEncoderInit(RelativeEncoder encoder) {
       encoder.setPositionConversionFactor(kPivotingGearRatio*360);
+      encoderReset(encoder);
     }
   
     public void encoderReset(RelativeEncoder encoder) {
@@ -84,7 +92,11 @@ public class PivotArm extends SubsystemBase {
   
     //Gets the distance of the endoder and the motor
     public double getDistance() {
-      return -m_pivotEncoder.getPosition();
+      return m_pivotEncoder.getPosition() + 37;
+    }
+
+    public double getAverageDistance() {
+      return (-m_pivotEncoder.getPosition() + m_pivotEncoder2.getPosition())/2;
     }
 
     public void setMotor(CANSparkMax motor, boolean inverse, boolean pivot) {
@@ -122,6 +134,7 @@ public class PivotArm extends SubsystemBase {
   @Override
   public void periodic() {
     // This method will be called once per scheduler run
+    
   }
 
   @Override
