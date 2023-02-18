@@ -30,10 +30,10 @@ public final class Constants {
     public static final double LowExtendHybrid = 14;
     //Add values for the low hybrid node
 
-    public static final double LowStop = 1;
-
-    public static final double Tolerance = 0.1;
-    public static final double ArmSpeed = 0.4;
+    public static final double potLowStop = 0.037;
+    public static final double potHighStop = 0.62;
+    public static final double Tolerance = 0.5;
+    public static final double ArmSpeed = 0.25;
     public static final int kArmExtendPort = 4;
     // pivoting gearbox = 1:125 
     public static final double kTelescopingGearRatio = 1.0 / 12.0;
@@ -57,6 +57,10 @@ public final class Constants {
     //Sets the position for the arm when neutral
     public static final double kPivotArmNeutral = 0;
     
+
+    public static final double pivotLowStop = 40;
+    public static final double pivotHighStop = 85;
+
     public static final double kAnglesToTicks = 0;
     //Angles for scoring cones
     public static final double kHighAngleCone = 100.876; //(Actual)
@@ -155,8 +159,8 @@ public final class Constants {
     public static final int kGripperRightMotor = 9;
     public static final int kGripperLeftMotor = 5;
     // Variable assigned values can change depending on what is needed for the robot.
-    public static final double kGripperIntakeMotorSpeed = 0.35;   
-    public static final double kGripperEjectMotorSpeed = -0.35;
+    public static final double kGripperIntakeMotorSpeed = 0.5;   
+    public static final double kGripperEjectMotorSpeed = -0.5;
     public static final int kBeambreak = 1;
     }
 

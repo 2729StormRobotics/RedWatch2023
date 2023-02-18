@@ -2,9 +2,11 @@ package frc.robot.commands.pivotArm;
 
 import java.util.function.DoubleSupplier;
 import edu.wpi.first.wpilibj2.command.CommandBase;
+import frc.robot.Constants.pinkArmConstants;
 import frc.robot.subsystems.PivotArm;
 
 public class armJoint extends CommandBase{
+    private double JoystickLimiter = 0.05;
     private final PivotArm m_pinkArm;
     private final DoubleSupplier m_rightStick;
 
@@ -33,21 +35,36 @@ public class armJoint extends CommandBase{
 
     @Override
     public void execute(){
-        if ((m_rightStick.getAsDouble() <= -0.85) /*&&( m_pinkArm.m_pivotEncoder.getPosition() <= 75)*/){
-            m_pinkArm.turnMotor(m_pinkArm.m_pivot, false);
-             m_pinkArm.turnMotor(m_pinkArm.m_pivot2, true);
+        if ((m_rightStick.getAsDouble() <= -0.85)) {// &&( m_pinkArm.m_pivotEncoder.getPosition() <= 85)){
+            m_pinkArm.turnMotor(m_pinkArm.m_pivot, -pinkArmConstants.kPivotArmSpeed);
+             m_pinkArm.turnMotor(m_pinkArm.m_pivot2, -pinkArmConstants.kPivotArmSpeed);
 
         }
-        else if ((m_rightStick.getAsDouble() >= 0.85) /*&&( m_pinkArm.m_pivotEncoder.getPosition() <= 40)*/) {
-          m_pinkArm.turnMotor(m_pinkArm.m_pivot, true);
-           m_pinkArm.turnMotor(m_pinkArm.m_pivot2, false);
+        else if (m_rightStick.getAsDouble() >= 0.85) {//) &&( m_pinkArm.m_pivotEncoder.getPosition() >= 40)) {
+          m_pinkArm.turnMotor(m_pinkArm.m_pivot, pinkArmConstants.kPivotArmSpeed);
+           m_pinkArm.turnMotor(m_pinkArm.m_pivot2, pinkArmConstants.kPivotArmSpeed);
 
         }
         else {
              m_pinkArm.m_pivot.set(0);
              m_pinkArm.m_pivot2.set(0);
 
-        }
+        }/* 
+        if (Math.abs(m_rightStick.getAsDouble()) <= JoystickLimiter){
+            m_pinkArm.m_pivot.set(0);
+            m_pinkArm.m_pivot2.set(0);
+        }else{
+            if (m_pinkArm.m_pivotEncoder.getPosition() > pinkArmConstants.pivotHighStop){
+                m_pinkArm.turnMotor(m_pinkArm.m_pivot,-1*(Math.abs(m_rightStick.getAsDouble()*pinkArmConstants.kPivotArmSpeed )));
+                m_pinkArm.turnMotor(m_pinkArm.m_pivot2,-1*(Math.abs(m_rightStick.getAsDouble()*pinkArmConstants.kPivotArmSpeed )));
+            }else if (m_pinkArm.m_pivotEncoder.getPosition() < pinkArmConstants.pivotLowStop){
+                m_pinkArm.turnMotor(m_pinkArm.m_pivot,1*(Math.abs(m_rightStick.getAsDouble()*pinkArmConstants.kPivotArmSpeed )));
+                m_pinkArm.turnMotor(m_pinkArm.m_pivot2,1*(Math.abs(m_rightStick.getAsDouble()*pinkArmConstants.kPivotArmSpeed )));
+            }else{
+                m_pinkArm.turnMotor(m_pinkArm.m_pivot,(m_rightStick.getAsDouble()*pinkArmConstants.kPivotArmSpeed ));
+                m_pinkArm.turnMotor(m_pinkArm.m_pivot2,(m_rightStick.getAsDouble()*pinkArmConstants.kPivotArmSpeed ));
+            }
+        }*/
     }
     @Override 
     public void end(boolean interrupted){

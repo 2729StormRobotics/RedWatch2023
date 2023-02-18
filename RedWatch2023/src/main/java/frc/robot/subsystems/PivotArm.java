@@ -44,8 +44,8 @@ public class PivotArm extends SubsystemBase {
       m_pivot = new CANSparkMax(kLeftPivotPort, MotorType.kBrushless);
       m_pivot2 = new CANSparkMax(kRightPivotPort, MotorType.kBrushless);
       
-      setMotor(m_pivot, false, true);
-      setMotor(m_pivot2, false, true);
+      setMotor(m_pivot, true);
+      setMotor(m_pivot2, false);
       m_pivotEncoder = m_pivot.getEncoder();
       m_pivotEncoder2 = m_pivot2.getEncoder();
       pivotEncoderInit(m_pivotEncoder);
@@ -66,15 +66,8 @@ public class PivotArm extends SubsystemBase {
   
     }
     
-    public void turnMotor(CANSparkMax motor, boolean inverse) {
-      //moves the motor backwards in respect to the button click
-      if (inverse) {
-        motor.set(-kPivotArmSpeed);
-      }
-      //moves the motor forwards in respect to the button click
-      else {
-        motor.set(kPivotArmSpeed);
-      }
+    public void turnMotor(CANSparkMax motor, double speed) {
+      motor.set(speed);
     }
 
     public double degreesToTicks(double degrees){
@@ -99,12 +92,10 @@ public class PivotArm extends SubsystemBase {
       return (-m_pivotEncoder.getPosition() + m_pivotEncoder2.getPosition())/2;
     }
 
-    public void setMotor(CANSparkMax motor, boolean inverse, boolean pivot) {
+    public void setMotor(CANSparkMax motor, boolean inverse) {
       motor.restoreFactoryDefaults();
       motor.setIdleMode(IdleMode.kBrake);
       motor.setInverted(inverse);
-      if (pivot)
-        motor.setSmartCurrentLimit(kStallLimit, kCurrentLimit);
     }
   
   /**
