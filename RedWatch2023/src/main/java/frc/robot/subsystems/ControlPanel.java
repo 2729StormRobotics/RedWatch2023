@@ -83,12 +83,12 @@ public class ControlPanel extends SubsystemBase {
     m_lightsStatus.add(new ChangeColor(m_lights, setLightColor.get().getDouble()));
 
     m_gripperStatus.addString("Gripper Mode", () -> Gripper.m_gripper_direction);
-    m_gripperStatus.addNumber("R", () -> m_gripper.m_detectedColor.red);
-    m_gripperStatus.addNumber("Green", () -> m_gripper.m_detectedColor.green);
-    m_gripperStatus.addNumber("Blue", () -> m_gripper.m_detectedColor.blue);
-    m_gripperStatus.addNumber("Proximity", () -> m_gripper.m_proximity);
-    m_gripperStatus.addBoolean("Purple", () -> m_gripper.isPurple());
-    m_gripperStatus.addBoolean("Yellow", () -> m_gripper.isYellow());
+    // m_gripperStatus.addNumber("R", () -> m_gripper.m_detectedColor.red);
+    // m_gripperStatus.addNumber("Green", () -> m_gripper.m_detectedColor.green);
+    // m_gripperStatus.addNumber("Blue", () -> m_gripper.m_detectedColor.blue);
+    // m_gripperStatus.addNumber("Proximity", () -> m_gripper.m_proximity);
+    // m_gripperStatus.addBoolean("Purple", () -> m_gripper.isPurple());
+    // m_gripperStatus.addBoolean("Yellow", () -> m_gripper.isYellow());
     m_gripperStatus.addNumber("Gripper Velocity", () -> m_gripper.getVelocity());
 
     m_pivotArmStatus.addNumber("Pivot Encoder", () -> m_pivotArm.getDistance() + PivotArm.m_encoderTicks);

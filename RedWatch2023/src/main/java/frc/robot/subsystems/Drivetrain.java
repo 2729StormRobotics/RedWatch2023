@@ -167,7 +167,7 @@ public class Drivetrain extends SubsystemBase {
   // positive stickY values moves forward
   // positive stickX values goes counterclockwise
   public void curvatureDrive(double stickY, double stickX, boolean stickButton) {
-    m_drive.curvatureDrive(stickY, stickX, stickButton);
+    m_drive.curvatureDrive(-stickY, -stickX, stickButton);
   }
 
   // Tankdrive command

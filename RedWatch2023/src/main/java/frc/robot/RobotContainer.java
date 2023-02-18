@@ -8,6 +8,7 @@ import edu.wpi.first.math.filter.SlewRateLimiter;
 import edu.wpi.first.wpilibj.GenericHID;
 import edu.wpi.first.wpilibj.XboxController;
 import edu.wpi.first.wpilibj.XboxController.Button;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import frc.robot.CommandGroups.AutoScore;
 import frc.robot.CommandGroups.Intake;
 import frc.robot.Constants.TelescopingConstants;
@@ -16,6 +17,7 @@ import frc.robot.commands.pivotArm.turnToDegrees;
 import frc.robot.subsystems.TelescopingArm;
 import frc.robot.subsystems.PivotArm;
 import edu.wpi.first.wpilibj2.command.Command;
+import edu.wpi.first.wpilibj2.command.CommandScheduler;
 import frc.robot.commands.curvatureDrive;
 import frc.robot.commands.AutoBalancing.AutoBalancePID;
 import frc.robot.commands.Gripper.CheckObjectForColorChange;
@@ -62,6 +64,8 @@ public class RobotContainer {
     m_PinkArm = new PivotArm();
     m_arm = new TelescopingArm();
 
+    SmartDashboard.putData(CommandScheduler.getInstance());
+
     // Setting default commands
     m_arm.setDefaultCommand(
       new ArmControl(() -> m_weapons.getLeftY(), m_arm));
@@ -70,7 +74,7 @@ public class RobotContainer {
     new ControlPanel(m_drivetrain, m_gripper, m_lights, m_PinkArm, m_arm);
 
     // Lights
-    m_lights.setDefaultCommand(new CheckObjectForColorChange(m_lights, m_gripper));
+    // m_lights.setDefaultCommand(new CheckObjectForColorChange(m_lights, m_gripper));
 
     // sets the drivetrain default command to curvatureDrive, with the slewratelimiters
     // Left Joystick: forwards/backward, Right Joystick: turn in place left/right
@@ -99,8 +103,9 @@ public class RobotContainer {
    * edu.wpi.first.wpilibj2.command.button.JoystickButton}.
    */
   private void configureButtonBindings() {    
-    new JoystickButton(m_weapons, Button.kA.value).onTrue(new RunIntake(m_gripper));
+    new JoystickButton(m_weapons, Button.kA.value).onTrue(new Intake(m_gripper));
     new JoystickButton(m_weapons, Button.kB.value).onTrue(new EjectItem(m_gripper));
+    new JoystickButton(m_weapons, Button.kY.value).onTrue(new StopGripper(m_gripper));
     
     new JoystickButton(m_weapons, Button.kLeftStick.value).onTrue(new ChangeColor(m_lights, kYellowCone));
     new JoystickButton(m_weapons, Button.kRightStick.value).onTrue(new ChangeColor(m_lights, kPurpleCube));
