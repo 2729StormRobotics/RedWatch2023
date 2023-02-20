@@ -8,21 +8,18 @@ import edu.wpi.first.math.filter.SlewRateLimiter;
 import edu.wpi.first.wpilibj.GenericHID;
 import edu.wpi.first.wpilibj.XboxController;
 import edu.wpi.first.wpilibj.XboxController.Button;
-import frc.robot.Constants.TelescopingConstants;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import frc.robot.CommandGroups.AutoScore;
-import frc.robot.CommandGroups.AutoScoreCmds.AutoScorePivotHighCone;
-import frc.robot.CommandGroups.AutoScoreCmds.AutoScorePivotHighCube;
-import frc.robot.CommandGroups.AutoScoreCmds.AutoScorePivotMediumCone;
-import frc.robot.CommandGroups.AutoScoreCmds.AutoScorePivotMediumCube;
-import frc.robot.commands.ExampleCommand;
+import frc.robot.CommandGroups.Intake;
+import frc.robot.Constants.TelescopingConstants;
 import frc.robot.commands.pivotArm.armJoint;
-import frc.robot.subsystems.ExampleSubsystem;
+import frc.robot.commands.pivotArm.turnToDegrees;
 import frc.robot.subsystems.TelescopingArm;
 import frc.robot.subsystems.PivotArm;
 import edu.wpi.first.wpilibj2.command.Command;
-import edu.wpi.first.wpilibj2.command.button.Trigger;
+import edu.wpi.first.wpilibj2.command.CommandScheduler;
 import frc.robot.commands.curvatureDrive;
-import frc.robot.commands.*;
+import frc.robot.commands.AutoBalancing.AutoBalancePID;
 import frc.robot.commands.Gripper.CheckObjectForColorChange;
 import frc.robot.commands.Lights.ChangeColor;
 import frc.robot.commands.TelescopingArmCommands.ArmControl;
@@ -44,12 +41,6 @@ import static frc.robot.Constants.TelescopingConstants.*;
  * subsystems, commands, and button mappings) should be declared here.
  */
 public class RobotContainer {
-  // The robot's subsystems and commands are defined here...
-  private final ExampleSubsystem m_exampleSubsystem = new ExampleSubsystem();
-  // Replace with CommandPS4Controller or CommandJoystick if needed
-
-  private final ExampleCommand m_autoCommand = new ExampleCommand(m_exampleSubsystem);
-
   // Controller
   private final XboxController m_driver = new XboxController(Constants.DrivetrainConstants.kDriverControllerPort);
   private final XboxController m_weapons = new XboxController(Constants.DrivetrainConstants.kWeaponsControllerPort);
@@ -73,6 +64,8 @@ public class RobotContainer {
     m_PinkArm = new PivotArm();
     m_arm = new TelescopingArm();
 
+    SmartDashboard.putData(CommandScheduler.getInstance());
+
     // Setting default commands
     m_arm.setDefaultCommand(
       new ArmControl(() -> m_weapons.getLeftY(), m_arm));
@@ -80,12 +73,8 @@ public class RobotContainer {
     // Control Panel
     new ControlPanel(m_drivetrain, m_gripper, m_lights, m_PinkArm, m_arm);
 
-    // Setting default commands
-    m_arm.setDefaultCommand(
-      new ArmControl(() -> m_weapons.getLeftY(), m_arm));
-
     // Lights
-    m_lights.setDefaultCommand(new CheckObjectForColorChange(m_lights, m_gripper));
+    // m_lights.setDefaultCommand(new CheckObjectForColorChange(m_lights, m_gripper));
 
     // sets the drivetrain default command to curvatureDrive, with the slewratelimiters
     // Left Joystick: forwards/backward, Right Joystick: turn in place left/right
@@ -114,25 +103,24 @@ public class RobotContainer {
    * edu.wpi.first.wpilibj2.command.button.JoystickButton}.
    */
   private void configureButtonBindings() {    
-    new JoystickButton(m_weapons, Button.kBack.value).onTrue(new IntakeItem(m_gripper));
-    new JoystickButton(m_weapons, Button.kStart.value).onTrue(new EjectItem(m_gripper));
+    new JoystickButton(m_weapons, Button.kA.value).onTrue(new Intake(m_gripper));
+    new JoystickButton(m_weapons, Button.kB.value).onTrue(new EjectItem(m_gripper));
+    new JoystickButton(m_weapons, Button.kY.value).onTrue(new StopGripper(m_gripper));
     
     new JoystickButton(m_weapons, Button.kLeftStick.value).onTrue(new ChangeColor(m_lights, kYellowCone));
     new JoystickButton(m_weapons, Button.kRightStick.value).onTrue(new ChangeColor(m_lights, kPurpleCube));
+    // new JoystickButton(m_weapons, Button.kA.value).onTrue(new turnToDegrees(m_PinkArm, kMidAngleCube));
 
     // new JoystickButton(m_weapons, Button.kY.value).toggleOnTrue(new ExtendVal( TelescopingConstants.HighExtendCube, m_arm));
-    // new JoystickButton(m_weapons, Button.kX.value).toggleOnTrue(new ExtendVal( TelescopingConstants.MidExtendCube, m_arm));
+    new JoystickButton(m_weapons, Button.kX.value).toggleOnTrue(new ExtendVal( TelescopingConstants.MidExtendCube, m_arm));
     // new JoystickButton(m_weapons, Button.kA.value).toggleOnTrue(new ExtendVal( TelescopingConstants.LowStop , m_arm));
 
-    new JoystickButton(m_weapons, Button.kLeftBumper.value).onTrue(new AutoScore(m_PinkArm, m_arm, m_gripper, kHighAngleCone, HighExtendCone));
+  /*  new JoystickButton(m_weapons, Button.kLeftBumper.value).onTrue(new AutoScore(m_PinkArm, m_arm, m_gripper, kHighAngleCone, HighExtendCone));
     new JoystickButton(m_weapons, (int) m_weapons.getLeftTriggerAxis()).onTrue(new AutoScore(m_PinkArm, m_arm, m_gripper, kMidAngleCone, MidExtendCone));
 
     new JoystickButton(m_weapons, Button.kRightBumper.value).onTrue(new AutoScore(m_PinkArm, m_arm, m_gripper, kHighAngleCube, HighExtendCube));
     new JoystickButton(m_weapons, (int) m_weapons.getRightTriggerAxis()).onTrue(new AutoScore(m_PinkArm, m_arm, m_gripper, kMidAngleCube, MidExtendCube));
-  
-    new Trigger(m_exampleSubsystem::exampleCondition)
-        .onTrue(new ExampleCommand(m_exampleSubsystem));
-  }
+  */}
   /**
    * Use this to pass the autonomous command to the main {@link Robot} class.
    *
@@ -140,6 +128,6 @@ public class RobotContainer {
    */
   public Command getAutonomousCommand() {
     // An ExampleCommand will run in autonomous
-    return m_autoCommand;
+    return null;
   }
 }

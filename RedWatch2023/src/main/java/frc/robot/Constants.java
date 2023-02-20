@@ -30,10 +30,10 @@ public final class Constants {
     public static final double LowExtendHybrid = 14;
     //Add values for the low hybrid node
 
-    public static final double LowStop = 1;
-
-    public static final double Tolerance = 0.1;
-    public static final double ArmSpeed = 0.1;
+    public static final double potLowStop = 0.037;
+    public static final double potHighStop = 0.62;
+    public static final double Tolerance = 0.5;
+    public static final double ArmSpeed = 0.25;
     public static final int kArmExtendPort = 4;
     // pivoting gearbox = 1:125 
     public static final double kTelescopingGearRatio = 1.0 / 12.0;
@@ -42,30 +42,34 @@ public final class Constants {
 }
   public static final class pinkArmConstants {
     // Can change the port of the motors
-    public static final int kLeftPivotPort = 8;
-    public static final int kRightPivotPort = 3;
+    public static final int kRightPivotPort = 8;
+    public static final int kLeftPivotPort = 3;
     // pivoting gearbox = 1:125 
     public static final double kTelescopingGearRatio = 1.0 / 16.0;
-    public static final double kPivotingGearRatio = 1.0 / 125.0;
+    public static final double kPivotingGearRatio = 1.0 / 421.875;
     public static final double kDistancePerRevolution = kTelescopingGearRatio * (7.0 / 8.0) * 3.14; //TODO: put in gear ratio for the climbers!!!
     public static final double kClimberRightSize = 12.0;
-    public static final double kAnglePerRevolution = kPivotingGearRatio * 3.14;
+    // public static final double kAnglePerRevolution = kPivotingGearRatio * 3.14;
     public static final int kCurrentLimit = 60;
     public static final int kStallLimit = 45;
     //Sets the speed of the pivot arm, needs to be changed depending on the gear ratio for the pivot arm
-    public static final double kPivotArmSpeed = 0.03; 
+    public static final double kPivotArmSpeed = 0.2; //0.3; 
     //Sets the position for the arm when neutral
     public static final double kPivotArmNeutral = 0;
     
+
+    public static final double pivotLowStop = 40;
+    public static final double pivotHighStop = 85;
+
     public static final double kAnglesToTicks = 0;
     //Angles for scoring cones
-    public static final double kHighAngleCone = 81; //100.876 (Actual)
-    public static final double kMidAngleCone = 45; //74.055(Actual)
+    public static final double kHighAngleCone = 100.876; //(Actual)
+    public static final double kMidAngleCone = 74.055; //(Actual)
     //Angle for scoring in the hybrid node common for cones and cubes
     public static final double kLowAngle = 12; //41.601 (actual)
     //Angles for scoring the cubes
-    public static final double kMidAngleCube = 35;// 64.7306362 (Actual)
-    public static final double kHighAngleCube = 66;//95.7356393 (Actual)
+    public static final double kMidAngleCube = 64.7306362; // (Actual)
+    public static final double kHighAngleCube = 95.7356393; // (Actual)
   }
 
   public static final class IOPorts{
@@ -74,10 +78,10 @@ public final class Constants {
   }
 
   public static final class DrivetrainConstants {
-    public static final int RIGHT_MOTOR2_ID = 2;
-    public static final int RIGHT_MOTOR_ID = 9;
-    public static final int LEFT_MOTOR2_ID = 17;
-    public static final int LEFT_MOTOR_ID = 18;
+    public static final int LEFT_MOTOR2_ID = 2;
+    public static final int LEFT_MOTOR_ID = 1;
+    public static final int RIGHT_MOTOR2_ID = 7;
+    public static final int RIGHT_MOTOR_ID = 6;
     public static final int STALL_LIMIT = 45;
     public static final int kDriverControllerPort = 1;
     public static final int kWeaponsControllerPort = 2;
@@ -91,7 +95,6 @@ public final class Constants {
     // driver encoder calculations
     // since the encoder is build into the motor we need to account for gearing
     public static final double kWheelDiameterInches = 6.0;
-    private static final double kWheelDiameterFeet = kWheelDiameterInches / 12.0;
     private static final double kInitialGear = 14.0 / 58.0 * 18.0 / 38.0;
     private static final double kHighGear = kInitialGear * 32.0 / 34.0;
     private static final double kLowGear = kInitialGear * 22.0 / 44.0;
@@ -153,11 +156,11 @@ public final class Constants {
 
 	public static class GripperConstants {
     // Most likely only be using one motor, but written code for 2 in case.
-    public static final int kGripperLeftMotor = 9;
-    public static final int kGripperRightMotor = 5;
+    public static final int kGripperRightMotor = 9;
+    public static final int kGripperLeftMotor = 5;
     // Variable assigned values can change depending on what is needed for the robot.
-    public static final double kGripperIntakeMotorSpeed = 0.20;   
-    public static final double kGripperEjectMotorSpeed = -0.2;
+    public static final double kGripperIntakeMotorSpeed = 0.45;   
+    public static final double kGripperEjectMotorSpeed = -0.1;
     public static final int kBeambreak = 1;
     }
 

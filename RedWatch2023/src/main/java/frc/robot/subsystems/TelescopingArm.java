@@ -10,10 +10,8 @@ import com.revrobotics.CANSparkMax.IdleMode;
 import com.revrobotics.CANSparkMaxLowLevel.MotorType;
 
 import edu.wpi.first.wpilibj.AnalogPotentiometer;
-import edu.wpi.first.wpilibj.DriverStation;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.commands.TelescopingArmCommands.ResetPot;
-import edu.wpi.first.wpilibj.SPI;
 import edu.wpi.first.wpilibj.shuffleboard.BuiltInLayouts;
 import edu.wpi.first.wpilibj.shuffleboard.Shuffleboard;
 import edu.wpi.first.wpilibj.shuffleboard.ShuffleboardLayout;
@@ -38,7 +36,7 @@ public final RelativeEncoder m_ArmEncoder;
     //Initializes the arm encoder.
     m_ArmExtend = new CANSparkMax(kArmExtendPort, MotorType.kBrushless);
     // setMotor(motor, INVERSE);
-    setMotor(m_ArmExtend, true);
+    setMotor(m_ArmExtend, false);
     m_ArmEncoder = m_ArmExtend.getEncoder();
     positionEncoderInit(m_ArmEncoder);
     // Initialize the shuffleboard.
@@ -67,6 +65,7 @@ public final RelativeEncoder m_ArmEncoder;
     // Proximity to ball
     m_controlPanelStatus.addNumber("Arm Length", () -> pot_val);
     m_controlPanelStatus.addNumber("Pot Offset", () -> offset);
+    m_controlPanelStatus.addNumber("Original Pot Value", () -> pot.get());
     m_controlPanelStatus.add(new ResetPot(this));
   }
   public void changeMode(String mode) {
@@ -74,13 +73,8 @@ public final RelativeEncoder m_ArmEncoder;
   }
 
   // Turns the motor on or off.
-  public void turnMotor(CANSparkMax motor, boolean inverse) {
-    if (inverse) {
-      motor.set(-ArmSpeed);
-    }
-    else {
-      motor.set(ArmSpeed);
-    }
+  public void turnMotor(CANSparkMax motor, double speed) {
+    motor.set(speed);
   }
 
   // Initializes the position encoder.
@@ -130,6 +124,7 @@ public final RelativeEncoder m_ArmEncoder;
   public void periodic() {
     // This method will be called once per scheduler run
     pot_val = ((pot.get())*50)-offset;
+    // pot_val = ((pot.get())*50);
   }
  }
 

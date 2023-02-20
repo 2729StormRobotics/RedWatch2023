@@ -11,6 +11,8 @@ import edu.wpi.first.wpilibj.shuffleboard.ShuffleboardLayout;
 import edu.wpi.first.wpilibj.shuffleboard.ShuffleboardTab;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.commands.Lights.*;
+import frc.robot.commands.pivotArm.SetEncoder;
+
 import static frc.robot.Constants.ControlPanelConstants;
 import static frc.robot.Constants.LightConstants;
 
@@ -27,6 +29,7 @@ public class ControlPanel extends SubsystemBase {
   private final ShuffleboardLayout m_telescopingArmStatus;
 
   private final GenericEntry setLightColor;
+  private final GenericEntry setPivotEncoder;
 
   private final Drivetrain m_drivetrain;
   private final Gripper m_gripper;
@@ -80,15 +83,17 @@ public class ControlPanel extends SubsystemBase {
     m_lightsStatus.add(new ChangeColor(m_lights, setLightColor.get().getDouble()));
 
     m_gripperStatus.addString("Gripper Mode", () -> Gripper.m_gripper_direction);
-    m_gripperStatus.addNumber("R", () -> m_gripper.m_detectedColor.red);
-    m_gripperStatus.addNumber("Green", () -> m_gripper.m_detectedColor.green);
-    m_gripperStatus.addNumber("Blue", () -> m_gripper.m_detectedColor.blue);
-    m_gripperStatus.addNumber("Proximity", () -> m_gripper.m_proximity);
-    m_gripperStatus.addBoolean("Purple", () -> m_gripper.isPurple());
-    m_gripperStatus.addBoolean("Yellow", () -> m_gripper.isYellow());
+    // m_gripperStatus.addNumber("R", () -> m_gripper.m_detectedColor.red);
+    // m_gripperStatus.addNumber("Green", () -> m_gripper.m_detectedColor.green);
+    // m_gripperStatus.addNumber("Blue", () -> m_gripper.m_detectedColor.blue);
+    // m_gripperStatus.addNumber("Proximity", () -> m_gripper.m_proximity);
+    // m_gripperStatus.addBoolean("Purple", () -> m_gripper.isPurple());
+    // m_gripperStatus.addBoolean("Yellow", () -> m_gripper.isYellow());
     m_gripperStatus.addNumber("Gripper Velocity", () -> m_gripper.getVelocity());
 
-    m_pivotArmStatus.addNumber("Pivot Encoder", () -> m_pivotArm.m_pivotEncoder.getPosition());
+    m_pivotArmStatus.addNumber("Pivot Encoder", () -> m_pivotArm.getDistance() + PivotArm.m_encoderTicks);
+    setPivotEncoder = m_pivotArmStatus.add("Encoder Input", m_pivotArm.getDistance()).getEntry();
+    m_pivotArmStatus.add(new SetEncoder(m_pivotArm, setPivotEncoder.get().getDouble()));
 
     m_telescopingArmStatus.addNumber("Telescoping Encoder", () -> m_telescopingArm.getArmDistance());
   }

@@ -4,48 +4,39 @@
 
 package frc.robot.commands.Gripper;
 
-import frc.robot.subsystems.Gripper;
 import edu.wpi.first.wpilibj2.command.CommandBase;
+import frc.robot.subsystems.Gripper;
 
-// Creates a command for the gripper subsystem to run motors to remove an object
-// from the gripper
-public class EjectItem extends CommandBase {
-
-  // Prepares a variable for the gripper
-  private final Gripper m_chompychompy;
-
-  /** Creates a new EjectItem. */
-  public EjectItem(Gripper gripper) {
-    // Appoints the gripper parameter (a subsystem) to the gripper variable
-    m_chompychompy = gripper;
-
+public class StopGripper extends CommandBase {
+  /** Creates a new StopGripper. */
+  public final Gripper m_gripper;
+  public StopGripper(Gripper gripper) {
+    m_gripper = gripper;
     // Use addRequirements() here to declare subsystem dependencies.
-    addRequirements(gripper);
+    addRequirements(m_gripper);
   }
 
   // Called when the command is initially scheduled.
   @Override
   public void initialize() {
-    // Runs the gripper motors at eject speed
-    m_chompychompy.ejectGripper();
+    m_gripper.stopGripper();
   }
 
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    
+    m_gripper.stopGripper();
   }
 
   // Called once the command ends or is interrupted.
   @Override
   public void end(boolean interrupted) {
-    // Stops gripper motors
-    m_chompychompy.stopGripper();
+    m_gripper.stopGripper();
   }
 
   // Returns true when the command should end.
   @Override
   public boolean isFinished() {
-    return false;
+    return true;
   }
 }

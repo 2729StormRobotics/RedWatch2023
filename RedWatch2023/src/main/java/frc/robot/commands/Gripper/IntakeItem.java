@@ -55,7 +55,7 @@ public class IntakeItem extends CommandBase {
   @Override
   public boolean isFinished() {
     // Checks if the cone (isObjectThere) is in the gripper or if the cube (isPurple) is in the gripper
-    if (m_gripper.getVelocity() < 150)
+    if (m_gripper.getVelocity() < 50)
       
       return true;
     
