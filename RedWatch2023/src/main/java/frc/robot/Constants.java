@@ -48,6 +48,7 @@ public final class Constants {
     public static final double kTelescopingGearRatio = 1.0 / 16.0;
     public static final double kPivotingGearRatio = 1.0 / 421.875;
     public static final double kDistancePerRevolution = kTelescopingGearRatio * (7.0 / 8.0) * 3.14; //TODO: put in gear ratio for the climbers!!!
+    public static final double kEncoderOffset = 300; // figure this out
     public static final double kClimberRightSize = 12.0;
     // public static final double kAnglePerRevolution = kPivotingGearRatio * 3.14;
     public static final int kCurrentLimit = 60;
@@ -70,6 +71,7 @@ public final class Constants {
     //Angles for scoring the cubes
     public static final double kMidAngleCube = 64.7306362; // (Actual)
     public static final double kHighAngleCube = 95.7356393; // (Actual)
+  
   }
 
   public static final class IOPorts{

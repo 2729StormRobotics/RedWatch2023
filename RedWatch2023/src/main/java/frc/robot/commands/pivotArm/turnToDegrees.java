@@ -31,7 +31,7 @@ public class turnToDegrees extends CommandBase {
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    m_angle = m_pivotArm.getDistance();
+    m_angle = m_pivotArm.getAngle();
 
     m_pivotArm.m_pivot.set(m_angle > m_degrees ? -0.2 : 0.2);
     m_pivotArm.m_pivot2.set(m_angle >  m_degrees ? 0.2 : -0.2);
