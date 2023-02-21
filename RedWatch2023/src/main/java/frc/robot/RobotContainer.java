@@ -103,13 +103,13 @@ public class RobotContainer {
    * edu.wpi.first.wpilibj2.command.button.JoystickButton}.
    */
   private void configureButtonBindings() {    
-    new JoystickButton(m_weapons, Button.kA.value).onTrue(new Intake(m_gripper));
-    new JoystickButton(m_weapons, Button.kB.value).onTrue(new EjectItem(m_gripper));
+    new JoystickButton(m_weapons, Button.kStart.value).onTrue(new Intake(m_gripper));
+    new JoystickButton(m_weapons, Button.kBack.value).onTrue(new EjectItem(m_gripper));
     new JoystickButton(m_weapons, Button.kY.value).onTrue(new StopGripper(m_gripper));
     
     new JoystickButton(m_weapons, Button.kLeftStick.value).onTrue(new ChangeColor(m_lights, kYellowCone));
     new JoystickButton(m_weapons, Button.kRightStick.value).onTrue(new ChangeColor(m_lights, kPurpleCube));
-    // new JoystickButton(m_weapons, Button.kA.value).onTrue(new turnToDegrees(m_PinkArm, kMidAngleCube));
+    new JoystickButton(m_weapons, Button.kA.value).onTrue(new turnToDegrees(m_PinkArm, kHighAngleCone));
 
     // new JoystickButton(m_weapons, Button.kY.value).toggleOnTrue(new ExtendVal( TelescopingConstants.HighExtendCube, m_arm));
     new JoystickButton(m_weapons, Button.kX.value).toggleOnTrue(new ExtendVal( TelescopingConstants.MidExtendCube, m_arm));

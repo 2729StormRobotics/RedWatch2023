@@ -33,8 +33,8 @@ public class turnToDegrees extends CommandBase {
   public void execute() {
     m_angle = m_pivotArm.getAngle();
 
-    m_pivotArm.m_pivot.set(m_angle > m_degrees ? -0.2 : 0.2);
-    m_pivotArm.m_pivot2.set(m_angle >  m_degrees ? 0.2 : -0.2);
+    m_pivotArm.m_pivot.set(m_angle > m_degrees ? 0.4 : -0.4);
+    m_pivotArm.m_pivot2.set(m_angle >  m_degrees ? 0.4 : -0.4);
   }
 
   // Called once the command ends or is interrupted.
@@ -47,7 +47,7 @@ public class turnToDegrees extends CommandBase {
   // Returns true when the command should end.
   @Override
   public boolean isFinished() {
-    if (Math.abs(m_angle - m_degrees) < 5)
+    if (Math.abs(m_angle - m_degrees) < 1)
       return true;
     
     return false;
