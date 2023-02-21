@@ -67,10 +67,12 @@ public final class Constants {
     public static final double kHighAngleCone = 100.876; //(Actual)
     public static final double kMidAngleCone = 74.055; //(Actual)
     //Angle for scoring in the hybrid node common for cones and cubes
-    public static final double kLowAngle = 12; //41.601 (actual)
+    public static final double kLowAngle = 41.601; //(actual)
     //Angles for scoring the cubes
     public static final double kMidAngleCube = 64.7306362; // (Actual)
     public static final double kHighAngleCube = 95.7356393; // (Actual)
+
+
   
   }
 

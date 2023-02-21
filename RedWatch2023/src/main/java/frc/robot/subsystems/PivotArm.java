@@ -18,6 +18,7 @@ import com.revrobotics.RelativeEncoder;
 import com.revrobotics.CANSparkMax.IdleMode;
 import com.revrobotics.CANSparkMaxLowLevel.MotorType;
 
+import edu.wpi.first.networktables.GenericEntry;
 import edu.wpi.first.wpilibj.DutyCycleEncoder;
 import edu.wpi.first.wpilibj.shuffleboard.BuiltInLayouts;
 import edu.wpi.first.wpilibj.shuffleboard.Shuffleboard;
@@ -26,6 +27,15 @@ import edu.wpi.first.wpilibj.shuffleboard.ShuffleboardTab;
 
 
 public class PivotArm extends SubsystemBase {
+
+  public static double kP = 0.005;
+  public static double kI = 0.00;
+  public static double kD = 0.00;
+  public GenericEntry kPValue;
+  public GenericEntry kIValue;
+  public GenericEntry kDValue;
+  
+  public static final double angleThreshold = 2.5;
 
   public final CANSparkMax m_pivot;
   public final CANSparkMax m_pivot2;
@@ -58,6 +68,13 @@ public class PivotArm extends SubsystemBase {
       m_controlPanelStatus.addNumber("Pivot Encoder", () -> getAngle());
       m_controlPanelStatus.addNumber("Left Encoder", () -> m_pivot.getEncoder().getVelocity());
       m_controlPanelStatus.addNumber("Right Encoder", () -> m_pivot2.getEncoder().getVelocity());
+      m_controlPanelStatus.addNumber("kP", () -> PivotArm.kP);
+      m_controlPanelStatus.addNumber("kI", () -> PivotArm.kI);
+      m_controlPanelStatus.addNumber("kD", () -> PivotArm.kD);
+      kPValue = m_controlPanelStatus.add("P input", 0.005).getEntry();
+      kIValue = m_controlPanelStatus.add("I input", 0.00).getEntry();
+      kDValue = m_controlPanelStatus.add("D input", 0.00).getEntry();
+
 
     }
   
@@ -65,8 +82,9 @@ public class PivotArm extends SubsystemBase {
   
     }
     
-    public void turnMotor(CANSparkMax motor, double speed) {
-      motor.set(speed);
+    public void turnMotor(double speed) {
+      m_pivot.set(speed);
+      m_pivot2.set(speed);
     }
   
     public void encoderReset(RelativeEncoder encoder) {
@@ -111,6 +129,10 @@ public class PivotArm extends SubsystemBase {
   @Override
   public void periodic() {
     // This method will be called once per scheduler run
+    PivotArm.kP = kPValue.get().getDouble();
+    PivotArm.kD = kDValue.get().getDouble();
+    PivotArm.kI = kIValue.get().getDouble();
+    
     
   }
 

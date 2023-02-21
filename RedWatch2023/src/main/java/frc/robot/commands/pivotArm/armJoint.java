@@ -36,13 +36,11 @@ public class armJoint extends CommandBase{
     @Override
     public void execute(){
         if ((m_rightStick.getAsDouble() <= -0.85)) {// &&( m_pinkArm.m_pivotEncoder.getPosition() <= 85)){
-            m_pinkArm.turnMotor(m_pinkArm.m_pivot, -pinkArmConstants.kPivotArmSpeed);
-             m_pinkArm.turnMotor(m_pinkArm.m_pivot2, -pinkArmConstants.kPivotArmSpeed);
+            m_pinkArm.turnMotor(-pinkArmConstants.kPivotArmSpeed);
 
         }
         else if (m_rightStick.getAsDouble() >= 0.85) {//) &&( m_pinkArm.m_pivotEncoder.getPosition() >= 40)) {
-          m_pinkArm.turnMotor(m_pinkArm.m_pivot, pinkArmConstants.kPivotArmSpeed);
-           m_pinkArm.turnMotor(m_pinkArm.m_pivot2, pinkArmConstants.kPivotArmSpeed);
+          m_pinkArm.turnMotor(pinkArmConstants.kPivotArmSpeed);
 
         }
         else {

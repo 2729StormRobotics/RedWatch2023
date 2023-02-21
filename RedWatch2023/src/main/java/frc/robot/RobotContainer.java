@@ -12,6 +12,7 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import frc.robot.CommandGroups.AutoScore;
 import frc.robot.CommandGroups.Intake;
 import frc.robot.Constants.TelescopingConstants;
+import frc.robot.commands.pivotArm.PivotPID;
 import frc.robot.commands.pivotArm.armJoint;
 import frc.robot.commands.pivotArm.turnToDegrees;
 import frc.robot.subsystems.TelescopingArm;
@@ -109,7 +110,7 @@ public class RobotContainer {
     
     new JoystickButton(m_weapons, Button.kLeftStick.value).onTrue(new ChangeColor(m_lights, kYellowCone));
     new JoystickButton(m_weapons, Button.kRightStick.value).onTrue(new ChangeColor(m_lights, kPurpleCube));
-    new JoystickButton(m_weapons, Button.kA.value).onTrue(new turnToDegrees(m_PinkArm, kHighAngleCone));
+    new JoystickButton(m_weapons, Button.kA.value).onTrue(new PivotPID(m_PinkArm, kLowAngle));
 
     // new JoystickButton(m_weapons, Button.kY.value).toggleOnTrue(new ExtendVal( TelescopingConstants.HighExtendCube, m_arm));
     new JoystickButton(m_weapons, Button.kX.value).toggleOnTrue(new ExtendVal( TelescopingConstants.MidExtendCube, m_arm));
