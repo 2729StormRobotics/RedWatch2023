@@ -33,8 +33,6 @@ public class AutoScore extends SequentialCommandGroup {
     m_dist = dist;
 
     addCommands(
-      new AutoScoreSetup(m_pivotArm, m_telescopingArm, m_gripper, m_angle, m_dist),
-      new EjectItem(m_gripper)
-    );
+      new AutoScoreSetup(m_pivotArm, m_telescopingArm, m_gripper, m_angle, m_dist)    );
   }
 }
