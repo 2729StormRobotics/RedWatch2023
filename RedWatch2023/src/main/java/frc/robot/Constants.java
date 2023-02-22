@@ -36,6 +36,8 @@ public final class Constants {
     public static final double potHighStop = 0.535; // 27 inches 0.62 when down
     public static final double Tolerance = 0.5;
     public static final double ArmSpeed = 0.25;
+    public static final double kG = 0.00;
+    public static final double kS = 0.00;
     public static final int kArmExtendPort = 4;
     // pivoting gearbox = 1:125 
     public static final double kTelescopingGearRatio = 1.0 / 12.0;
@@ -59,6 +61,7 @@ public final class Constants {
     public static final double kPivotArmSpeed = 0.2; //0.3; 
     //Sets the position for the arm when neutral
     public static final double kPivotArmNeutral = 0;
+
     
 
     public static final double pivotLowStop = 40;
