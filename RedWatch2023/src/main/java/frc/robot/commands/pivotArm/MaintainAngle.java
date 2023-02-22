@@ -5,36 +5,44 @@
 package frc.robot.commands.pivotArm;
 
 import edu.wpi.first.wpilibj2.command.CommandBase;
+import frc.robot.Constants.pinkArmConstants;
 import frc.robot.subsystems.PivotArm;
+import frc.robot.subsystems.TelescopingArm;
 
 public class MaintainAngle extends CommandBase {
-  /** Creates a new MaintainAngle. */
-  double m_angle;
-  double m_passivePower;
   public final PivotArm m_pivotArm;
-  public MaintainAngle(PivotArm pivotArm, double angle, double passivePower) {
-    m_angle = angle;
-    m_passivePower = passivePower;
+  public final TelescopingArm m_telescopingArm;
+  // public final double m_angle;
+  public double motorPower;
+  /** Creates a new MaintainAngle. */
+  public MaintainAngle(PivotArm pivotArm, TelescopingArm telescopingArm) {
     m_pivotArm = pivotArm;
+    m_telescopingArm = telescopingArm;
+    // m_angle = angle;
     // Use addRequirements() here to declare subsystem dependencies.
-    addRequirements(m_pivotArm);
+    addRequirements(m_pivotArm, m_telescopingArm);
   }
 
   // Called when the command is initially scheduled.
   @Override
-  public void initialize() {}
+  public void initialize() {
+    double distanceExtended = m_telescopingArm.getArmDistance() * 50; // how far the telescoping arm is extended in inches
+    double centerOfMassDistance = distanceExtended * (23.5 / 28) + 11.5; // relationship determined by CAD
+    motorPower = PivotArm.kG * centerOfMassDistance * Math.sin(Math.toRadians(m_pivotArm.getAngle()));
+  }
 
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    if (m_angle - m_pivotArm.getAngle() > 3) {
-      // m_pivotArm.turnMotor(, false);
-    }
+    if (m_pivotArm.getAngle() > 45)
+    m_pivotArm.turnMotor(motorPower);
   }
 
   // Called once the command ends or is interrupted.
   @Override
-  public void end(boolean interrupted) {}
+  public void end(boolean interrupted) {
+    m_pivotArm.turnMotor(0);
+  }
 
   // Returns true when the command should end.
   @Override
