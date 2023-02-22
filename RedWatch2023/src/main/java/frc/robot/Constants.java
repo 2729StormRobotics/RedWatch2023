@@ -30,8 +30,8 @@ public final class Constants {
     public static final double LowExtendHybrid = 14;
     //Add values for the low hybrid node
 
-    public static final double potLowStop = 0.037;
-    public static final double potHighStop = 0.62;
+    public static final double potLowStop = 0.039; // 1 inch
+    public static final double potHighStop = 0.535; // 27 inches 0.62 when down
     public static final double Tolerance = 0.5;
     public static final double ArmSpeed = 0.25;
     public static final int kArmExtendPort = 4;
@@ -167,8 +167,8 @@ public final class Constants {
     public static final int kGripperRightMotor = 9;
     public static final int kGripperLeftMotor = 5;
     // Variable assigned values can change depending on what is needed for the robot.
-    public static final double kGripperIntakeMotorSpeed = 0.45;   
-    public static final double kGripperEjectMotorSpeed = -0.1;
+    public static final double kGripperIntakeMotorSpeed = 0.35;   
+    public static final double kGripperEjectMotorSpeed = -0.2;
     public static final int kBeambreak = 1;
     }
 
