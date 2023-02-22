@@ -70,8 +70,8 @@ public final class Constants {
     public static final double kLowAngle = 41.601; //(actual)
     //Angles for scoring the cubes
     //Ofset to add 30 degrees
-    public static final double kMidAngleCube = 94.7306362; // (Actual)
-    public static final double kHighAngleCube = 95.7356393; // (Actual)
+    public static final double kMidAngleCube = 90.7306362; // (Actual)
+    public static final double kHighAngleCube = 96.7356393; // (Actual)
 
 
   
