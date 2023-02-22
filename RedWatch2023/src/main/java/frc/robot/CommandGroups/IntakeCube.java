@@ -11,16 +11,16 @@ import frc.robot.subsystems.Gripper;
 // NOTE:  Consider using this command inline, rather than writing a subclass.  For more
 // information, see:
 // https://docs.wpilib.org/en/stable/docs/software/commandbased/convenience-features.html
-public class Intake extends SequentialCommandGroup {
+public class IntakeCube extends SequentialCommandGroup {
   /** Creates a new Intake. */
   public final Gripper m_gripper;
-  public Intake(Gripper gripper) {
+  public IntakeCube(Gripper gripper) {
     m_gripper = gripper;
     // Add your commands in the addCommands() call, e.g.
     // addCommands(new FooCommand(), new BarCommand());
     addCommands(
       new RunIntake(m_gripper),
-      new IntakeItem(m_gripper)
+      new IntakeItem(m_gripper, 160.0)
     );
   }
 }

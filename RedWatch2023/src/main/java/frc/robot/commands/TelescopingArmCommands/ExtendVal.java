@@ -34,8 +34,8 @@ public class ExtendVal extends CommandBase {
     
     // Returns true if the potentiometer equals greater than neededPot false otherwise.
     error = neededPot - m_Arm.pot_val;
-    if (error < 0){speed = -TelescopingConstants.ArmSpeed;}
-    if (error > 0){speed = TelescopingConstants.ArmSpeed;}
+    if (error < 0){speed = TelescopingConstants.ArmSpeed;}
+    if (error > 0){speed = -TelescopingConstants.ArmSpeed;}
     // Turns the actuator to a new position.   
     m_Arm.turnMotor(m_Arm.m_ArmExtend, speed);
 

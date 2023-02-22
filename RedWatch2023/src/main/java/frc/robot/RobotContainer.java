@@ -10,7 +10,8 @@ import edu.wpi.first.wpilibj.XboxController;
 import edu.wpi.first.wpilibj.XboxController.Button;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import frc.robot.CommandGroups.AutoScore;
-import frc.robot.CommandGroups.Intake;
+import frc.robot.CommandGroups.IntakeCone;
+import frc.robot.CommandGroups.IntakeCube;
 import frc.robot.Constants.TelescopingConstants;
 import frc.robot.commands.pivotArm.armJoint;
 import frc.robot.commands.pivotArm.turnToDegrees;
@@ -103,17 +104,18 @@ public class RobotContainer {
    * edu.wpi.first.wpilibj2.command.button.JoystickButton}.
    */
   private void configureButtonBindings() {    
-    new JoystickButton(m_weapons, Button.kA.value).onTrue(new Intake(m_gripper));
-    new JoystickButton(m_weapons, Button.kB.value).onTrue(new EjectItem(m_gripper));
-    new JoystickButton(m_weapons, Button.kY.value).onTrue(new StopGripper(m_gripper));
+    new JoystickButton(m_driver, Button.kStart.value).onTrue(new IntakeCube(m_gripper));
+    new JoystickButton(m_driver, Button.kBack.value).onTrue(new IntakeCone(m_gripper));
+    new JoystickButton(m_driver, Button.kX.value).onTrue(new EjectItem(m_gripper));
+    new JoystickButton(m_driver, Button.kY.value).onTrue(new StopGripper(m_gripper));
     
-    new JoystickButton(m_weapons, Button.kLeftStick.value).onTrue(new ChangeColor(m_lights, kYellowCone));
-    new JoystickButton(m_weapons, Button.kRightStick.value).onTrue(new ChangeColor(m_lights, kPurpleCube));
+   // new JoystickButton(m_weapons, Button.kLeftStick.value).onTrue(new ChangeColor(m_lights, kYellowCone));
+   // new JoystickButton(m_weapons, Button.kRightStick.value).onTrue(new ChangeColor(m_lights, kPurpleCube));
     // new JoystickButton(m_weapons, Button.kA.value).onTrue(new turnToDegrees(m_PinkArm, kMidAngleCube));
 
     // new JoystickButton(m_weapons, Button.kY.value).toggleOnTrue(new ExtendVal( TelescopingConstants.HighExtendCube, m_arm));
-    new JoystickButton(m_weapons, Button.kX.value).toggleOnTrue(new ExtendVal( TelescopingConstants.MidExtendCube, m_arm));
-    // new JoystickButton(m_weapons, Button.kA.value).toggleOnTrue(new ExtendVal( TelescopingConstants.LowStop , m_arm));
+    //new JoystickButton(m_weapons, Button.kX.value).toggleOnTrue(new ExtendVal( TelescopingConstants.MidExtendCube, m_arm));
+    new JoystickButton(m_weapons, Button.kA.value).toggleOnTrue(new ExtendVal( TelescopingConstants.LowExtendHybrid , m_arm));
 
   /*  new JoystickButton(m_weapons, Button.kLeftBumper.value).onTrue(new AutoScore(m_PinkArm, m_arm, m_gripper, kHighAngleCone, HighExtendCone));
     new JoystickButton(m_weapons, (int) m_weapons.getLeftTriggerAxis()).onTrue(new AutoScore(m_PinkArm, m_arm, m_gripper, kMidAngleCone, MidExtendCone));
