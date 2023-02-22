@@ -22,12 +22,14 @@ import edu.wpi.first.wpilibj.DoubleSolenoid.Value;
 public final class Constants {
  
   public static final class TelescopingConstants {
-    public static final double MidExtendCube = 14; // previous val 23.5 actual val 13.909128
-    public static final double HighExtendCube = 27; //Actual distance 26.938031
+    public static final double MidExtendCube = 3; // previous val 23.5 actual val 13.909128
+    public static final double HighExtendCube = 18.2; //Actual distance 26.938031
     public static final double HighExtendCone = 27.5; //actual distance 27.697191
-    public static final double MidExtendCone = 21; //Actual distance 20.860632
+    public static final double MidExtendCone = 10.8; //Actual distance 20.860632
     //Low value for turn might change when testing
-    public static final double LowExtendHybrid = 14;
+    public static final double LowExtendCone = 11;
+    public static final double LowExtendCube = 6.7;
+
     //Add values for the low hybrid node
 
     public static final double potLowStop = 0.039; // 1 inch
@@ -64,20 +66,16 @@ public final class Constants {
 
     public static final double kAnglesToTicks = 0;
     //Angles for scoring cones
-    public static final double kHighAngleCone = 100.876; //(Actual)
-    public static final double kMidAngleCone = 74.055; //(Actual)
+    public static final double kHighAngleCone = 112; //(Actual)
+    public static final double kMidAngleCone = 94.5; //(Actual)
     //Angle for scoring in the hybrid node common for cones and cubes
-    public static final double kLowAngle = 41.601; //(actual)
-
+    public static final double kLowAngleCone = 41.5; //(actual)
     public static final double kLowAngleCube = 40; //TEST VALUE
     
     //Angles for scoring the cubes
     //Ofset to add 30 degrees
-    public static final double kMidAngleCube = 90.7306362; // (Actual)
-    public static final double kHighAngleCube = 96.7356393; // (Actual)
-
-
-  
+    public static final double kMidAngleCube = 80.5; // (Actual)
+    public static final double kHighAngleCube = 97; // (Actual)
   }
 
   public static final class IOPorts{
@@ -167,7 +165,8 @@ public final class Constants {
     public static final int kGripperRightMotor = 9;
     public static final int kGripperLeftMotor = 5;
     // Variable assigned values can change depending on what is needed for the robot.
-    public static final double kGripperIntakeMotorSpeed = 0.35;   
+    public static final double kGripperIntakeMotorSpeedCone = 0.65;  
+    public static final double kGripperIntakeMotorSpeedCube = 0.35;    
     public static final double kGripperEjectMotorSpeed = -0.2;
     public static final int kBeambreak = 1;
     }

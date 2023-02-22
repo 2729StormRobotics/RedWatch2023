@@ -10,9 +10,10 @@ import frc.robot.subsystems.Gripper;
 public class RunIntake extends CommandBase {
   /** Creates a new RunIntake. */
   public final Gripper m_gripper;
-  public RunIntake(Gripper gripper) {
+  public final boolean m_isCone;
+  public RunIntake(Gripper gripper, boolean isCone) {
     m_gripper = gripper;
-
+    m_isCone = isCone;
     // Use addRequirements() here to declare subsystem dependencies.
     addRequirements(gripper);
   }
@@ -20,7 +21,10 @@ public class RunIntake extends CommandBase {
   // Called when the command is initially scheduled.
   @Override
   public void initialize() {
-    m_gripper.intakeGripper();
+    if(m_isCone)
+      m_gripper.intakeCone();
+    else  
+      m_gripper.intakeCube();
   }
 
   // Called every time the scheduler runs while the command is scheduled.

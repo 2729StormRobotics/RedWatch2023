@@ -5,7 +5,10 @@
 package frc.robot.CommandGroups;
 
 import edu.wpi.first.wpilibj2.command.SequentialCommandGroup;
+import edu.wpi.first.wpilibj2.command.WaitCommand;
 import frc.robot.commands.Gripper.IntakeItem;
+import frc.robot.commands.Gripper.RunIntake;
+import frc.robot.commands.Gripper.StopGripper;
 import frc.robot.commands.Gripper.RunIntake;
 import frc.robot.subsystems.Gripper;
 
@@ -20,8 +23,10 @@ public class IntakeCone extends SequentialCommandGroup {
     // Add your commands in the addCommands() call, e.g.
     // addCommands(new FooCommand(), new BarCommand());
     addCommands(
-      new RunIntake(m_gripper),
-      new IntakeItem(m_gripper, 50.0)
-    );
+      new RunIntake(m_gripper, true),
+      new IntakeItem(m_gripper, 50.0, true),
+      new WaitCommand(0.5),
+      new StopGripper(m_gripper)
+      );
   }
 }

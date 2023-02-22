@@ -19,8 +19,9 @@ public class IntakeCube extends SequentialCommandGroup {
     // Add your commands in the addCommands() call, e.g.
     // addCommands(new FooCommand(), new BarCommand());
     addCommands(
-      new RunIntake(m_gripper),
-      new IntakeItem(m_gripper, 160.0)
+      new RunIntake(m_gripper, false),
+      new IntakeItem(m_gripper, 160.0, false),
+      new StopGripper(m_gripper)
     );
   }
 }
