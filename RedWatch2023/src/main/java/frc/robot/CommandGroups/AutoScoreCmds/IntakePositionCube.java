@@ -19,7 +19,7 @@ import edu.wpi.first.wpilibj2.command.ParallelCommandGroup;
 // NOTE:  Consider using this command inline, rather than writing a subclass.  For more
 // information, see:
 // https://docs.wpilib.org/en/stable/docs/software/commandbased/convenience-features.html
-public class AutoScorePivotHighCube extends ParallelCommandGroup {
+public class IntakePositionCube extends ParallelCommandGroup {
   
 
   /** Creates a new AutoScorePivot. */
@@ -27,21 +27,21 @@ public class AutoScorePivotHighCube extends ParallelCommandGroup {
   public double m_motorPower = 0;
   public final PivotArm m_pivotArm;
   public final TelescopingArm m_telescopingArm;
-
   public final Gripper m_gripper;
   
-  public AutoScorePivotHighCube(PivotArm pivotArm, TelescopingArm telescopingArm, Gripper gripper) {
+  public IntakePositionCube(PivotArm pivotArm, TelescopingArm telescopingArm, Gripper gripper) {
     // Add your commands in the addCommands() call, e.g.
     // addCommands(new FooCommand(), new BarCommand());
     
 
     m_pivotArm = pivotArm;
     m_telescopingArm = telescopingArm;
+
     m_gripper = gripper;
 
     addCommands(
-      new turnToDegrees(m_pivotArm, kHighAngleCube),
-      new ExtendVal(HighExtendCube, m_telescopingArm)
+      new turnToDegrees(m_pivotArm, kLowAngleCube),
+      new ExtendVal(LowExtendHybrid, m_telescopingArm)
     );
   }
 }
