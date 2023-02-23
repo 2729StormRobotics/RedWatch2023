@@ -27,17 +27,17 @@ public final class Constants {
     public static final double HighExtendCone = 27.5; //actual distance 27.697191
     public static final double MidExtendCone = 10.8; //Actual distance 20.860632
     //Low value for turn might change when testing
-    public static final double LowExtendCone = 11;
+    public static final double LowExtendCone = 16.1;
     public static final double LowExtendCube = 6.7;
 
     //Add values for the low hybrid node
 
     public static final double potLowStop = 0.039; // 1 inch
-    public static final double potHighStop = 0.535; // 27 inches 0.62 when down
+    public static final double potHighStop = 0.6; // 27 inches 0.62 when down
     public static final double Tolerance = 0.5;
     public static final double ArmSpeed = 0.25;
-    public static final double kG = 0.00;
-    public static final double kS = 0.00;
+    public static final double kG = 0.1068;
+    public static final double kS = 0.0110;
     public static final int kArmExtendPort = 4;
     // pivoting gearbox = 1:125 
     public static final double kTelescopingGearRatio = 1.0 / 12.0;
@@ -58,7 +58,7 @@ public final class Constants {
     public static final int kCurrentLimit = 60;
     public static final int kStallLimit = 45;
     //Sets the speed of the pivot arm, needs to be changed depending on the gear ratio for the pivot arm
-    public static final double kPivotArmSpeed = 0.2; //0.3; 
+    public static final double kPivotArmSpeed = 0.5; //0.3; 
     //Sets the position for the arm when neutral
     public static final double kPivotArmNeutral = 0;
 
@@ -72,7 +72,7 @@ public final class Constants {
     public static final double kHighAngleCone = 112; //(Actual)
     public static final double kMidAngleCone = 94.5; //(Actual)
     //Angle for scoring in the hybrid node common for cones and cubes
-    public static final double kLowAngleCone = 41.5; //(actual)
+    public static final double kLowAngleCone = 48.2; //(actual)
     public static final double kLowAngleCube = 40; //TEST VALUE
     
     //Angles for scoring the cubes

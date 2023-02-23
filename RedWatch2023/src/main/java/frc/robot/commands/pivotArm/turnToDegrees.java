@@ -5,6 +5,7 @@
 package frc.robot.commands.pivotArm;
 
 import edu.wpi.first.wpilibj2.command.CommandBase;
+import frc.robot.Constants.pinkArmConstants;
 import frc.robot.subsystems.PivotArm;
 
 public class turnToDegrees extends CommandBase {
@@ -33,8 +34,8 @@ public class turnToDegrees extends CommandBase {
   public void execute() {
     m_angle = m_pivotArm.getAngle();
 
-    m_pivotArm.m_pivot.set(m_angle > m_degrees ? 0.4 : -0.4);
-    m_pivotArm.m_pivot2.set(m_angle >  m_degrees ? 0.4 : -0.4);
+    m_pivotArm.m_pivot.set(m_angle > m_degrees ? pinkArmConstants.kPivotArmSpeed : -pinkArmConstants.kPivotArmSpeed);
+    m_pivotArm.m_pivot2.set(m_angle >  m_degrees ? pinkArmConstants.kPivotArmSpeed : -pinkArmConstants.kPivotArmSpeed);
   }
 
   // Called once the command ends or is interrupted.

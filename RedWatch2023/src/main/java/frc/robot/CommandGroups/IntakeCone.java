@@ -25,7 +25,6 @@ public class IntakeCone extends SequentialCommandGroup {
     addCommands(
       new RunIntake(m_gripper, true),
       new IntakeItem(m_gripper, 50.0, true),
-      new WaitCommand(0.5),
       new StopGripper(m_gripper)
       );
   }

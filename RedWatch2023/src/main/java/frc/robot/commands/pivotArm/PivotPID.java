@@ -28,7 +28,7 @@ public class PivotPID extends PIDCommand {
         // This uses the output
         output -> {
           // Use the output here
-          pivotArm.turnMotor(output);
+          pivotArm.turnMotor(-output - 0.3);
         });
         m_pivotArm = pivotArm;
         m_angle = angle;
