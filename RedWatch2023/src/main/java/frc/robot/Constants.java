@@ -43,6 +43,7 @@ public final class Constants {
     public static final double kTelescopingGearRatio = 1.0 / 12.0;
 
     public static final double kDistancePerRevolution = kTelescopingGearRatio * (7.0 / 8.0) * 3.14; //TODO: put in gear ratio for the climbers!!!
+    public static final double kDunkRetractDistance = 6;
 }
   public static final class pinkArmConstants {
     // Can change the port of the motors
@@ -79,6 +80,7 @@ public final class Constants {
     //Ofset to add 30 degrees
     public static final double kMidAngleCube = 80.5; // (Actual)
     public static final double kHighAngleCube = 97; // (Actual)
+    public static final double kDunkDistance = 5; // degrees to turn to dunk it
   }
 
   public static final class IOPorts{
