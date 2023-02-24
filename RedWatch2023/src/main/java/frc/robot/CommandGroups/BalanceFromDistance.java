@@ -21,7 +21,7 @@ import frc.robot.subsystems.Drivetrain;
 public class BalanceFromDistance extends SequentialCommandGroup {
   /** Creates a new BalanceFromDistance. */
   public final Drivetrain m_drivetrain;
-  private double drivePower = 0.6; // speed for driving a constant velocity
+  private double drivePower = 0.4; // speed for driving a constant velocity
   private double distance = 55; // distance to travel whie going a constant velocity
   public BalanceFromDistance(Drivetrain drivetrain, boolean backwards) {
     m_drivetrain = drivetrain;

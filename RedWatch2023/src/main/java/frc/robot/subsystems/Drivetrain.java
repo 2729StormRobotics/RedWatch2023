@@ -14,6 +14,7 @@ import com.revrobotics.CANSparkMax.IdleMode;
 import com.revrobotics.CANSparkMaxLowLevel.MotorType;
 
 import edu.wpi.first.wpilibj.drive.DifferentialDrive;
+import edu.wpi.first.wpilibj.shuffleboard.ShuffleboardLayout;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
 import com.kauailabs.navx.frc.AHRS;
@@ -27,8 +28,8 @@ import edu.wpi.first.wpilibj.SPI;
 
 public class Drivetrain extends SubsystemBase {
   /** Creates a new TrainDrive. */
-  public static double speedLimiter = 3.5; // the forward drive power gets divided by this value to reduce the speed
-  public static double rotationLimiter = 1.75; // the rotational drive power gets divided by this value to reduce the speed
+  public static double speedLimiter = 2; // the forward drive power gets divided by this value to reduce the speed
+  public static double rotationLimiter = 2.25; // the rotational drive power gets divided by this value to reduce the speed
 
   // declar motors
   public final com.revrobotics.CANSparkMax leftMotor;
@@ -152,7 +153,7 @@ public class Drivetrain extends SubsystemBase {
 }
   
   public double getYaw() {
-    return ahrs.getYaw();
+    return ahrs.getYaw() - 90;
   }
 
   // squares the MAGNITUDE of the value
@@ -173,10 +174,10 @@ public class Drivetrain extends SubsystemBase {
   // Tankdrive command
   public void tankDrive(double leftPower, double rightPower, boolean squareInputs) {
     if (m_reverseDrive) {
-      m_drive.tankDrive(leftPower/2, rightPower/2, squareInputs);
+      m_drive.tankDrive(-leftPower/2, -rightPower/2, squareInputs);
     }
     else {
-      m_drive.tankDrive(leftPower/2, rightPower/2, squareInputs); 
+      m_drive.tankDrive(-leftPower/2, -rightPower/2, squareInputs); 
     }
   }
 
