@@ -27,7 +27,7 @@ import edu.wpi.first.wpilibj.SPI;
 
 public class Drivetrain extends SubsystemBase {
   /** Creates a new TrainDrive. */
-  public static double speedLimiter = 3.5; // the forward drive power gets divided by this value to reduce the speed
+  public static double speedLimiter = 2; // the forward drive power gets divided by this value to reduce the speed
   public static double rotationLimiter = 1.75; // the rotational drive power gets divided by this value to reduce the speed
 
   // declar motors
@@ -152,7 +152,7 @@ public class Drivetrain extends SubsystemBase {
 }
   
   public double getYaw() {
-    return ahrs.getYaw();
+    return ahrs.getYaw() - 90;
   }
 
   // squares the MAGNITUDE of the value
