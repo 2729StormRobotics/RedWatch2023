@@ -53,7 +53,7 @@ public class RobotContainer {
   private final XboxController m_weapons = new XboxController(Constants.DrivetrainConstants.kWeaponsControllerPort);
 
   private SlewRateLimiter m_forwardLimiter = new SlewRateLimiter(1); // controls acceleration of forward speed
-  private SlewRateLimiter m_rotationLimiter = new SlewRateLimiter(0.75); // controls acceleration of rotational speed
+  private SlewRateLimiter m_rotationLimiter = new SlewRateLimiter(1.5); // controls acceleration of rotational speed
 
   // Subsystems
   private final Lights m_lights;
@@ -111,11 +111,11 @@ public class RobotContainer {
    * edu.wpi.first.wpilibj2.command.button.JoystickButton}.
    */
   private void configureButtonBindings() {    
-    /*new JoystickButton(m_driver, Button.kStart.value).onTrue(new IntakeCube(m_gripper));
+    new JoystickButton(m_driver, Button.kStart.value).onTrue(new IntakeCube(m_gripper));
     new JoystickButton(m_driver, Button.kBack.value).onTrue(new IntakeCone(m_gripper));
     new JoystickButton(m_driver, Button.kX.value).onTrue(new EjectItem(m_gripper));
     new JoystickButton(m_driver, Button.kY.value).onTrue(new StopGripper(m_gripper));
-    new JoystickButton(m_driver, Button.kA.value).onTrue(new AutoBalancePID(m_drivetrain));
+    // new JoystickButton(m_driver, Button.kA.value).onTrue(new AutoBalancePID(m_drivetrain));
     new JoystickButton(m_driver, Button.kB.value).onTrue(new ChangeGear());
    // new JoystickButton(m_weapons, Button.kLeftStick.value).onTrue(new ChangeColor(m_lights, kYellowCone));
    // new JoystickButton(m_weapons, Button.kRightStick.value).onTrue(new ChangeColor(m_lights, kPurpleCube));
@@ -137,7 +137,7 @@ public class RobotContainer {
     new JoystickButton(m_weapons, Button.kBack.value).onTrue(new ParallelAutoScoreSetup(m_PinkArm, m_arm, m_gripper, kLowAngleCube, LowExtendCube));
 
     //Cone high 
-   new JoystickButton(m_weapons, Button.kB.value).onTrue(new AutoScoreSetup(m_PinkArm, m_arm, m_gripper, kHighAngleCone, HighExtendCone));
+  //  new JoystickButton(m_weapons, Button.kB.value).onTrue(new AutoScoreSetup(m_PinkArm, m_arm, m_gripper, kHighAngleCone, HighExtendCone));
     //cone mid
     new JoystickButton(m_weapons, Button.kA.value).onTrue(new AutoScoreSetup(m_PinkArm, m_arm, m_gripper, kMidAngleCone, MidExtendCone));
 

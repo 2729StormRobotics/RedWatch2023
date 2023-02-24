@@ -28,8 +28,8 @@ import edu.wpi.first.wpilibj.SPI;
 
 public class Drivetrain extends SubsystemBase {
   /** Creates a new TrainDrive. */
-  public static double speedLimiter = 2; // the forward drive power gets divided by this value to reduce the speed
-  public static double rotationLimiter = 1.75; // the rotational drive power gets divided by this value to reduce the speed
+  public static int speedLimiter = 3; // the forward drive power gets divided by this value to reduce the speed
+  public static double rotationLimiter = 2.75; // the rotational drive power gets divided by this value to reduce the speed
 
   // declar motors
   public final com.revrobotics.CANSparkMax leftMotor;

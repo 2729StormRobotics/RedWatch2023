@@ -59,7 +59,7 @@ public final class Constants {
     public static final int kCurrentLimit = 60;
     public static final int kStallLimit = 45;
     //Sets the speed of the pivot arm, needs to be changed depending on the gear ratio for the pivot arm
-    public static final double kPivotArmSpeed = 0.5; //0.3; 
+    public static final double kPivotArmSpeed = 0.4; //0.3; 
     //Sets the position for the arm when neutral
     public static final double kPivotArmNeutral = 0;
 
