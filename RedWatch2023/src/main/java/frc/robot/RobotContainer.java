@@ -10,6 +10,7 @@ import edu.wpi.first.wpilibj.XboxController;
 import edu.wpi.first.wpilibj.XboxController.Button;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import frc.robot.CommandGroups.AutoScoreSetup;
+import frc.robot.CommandGroups.BalanceFromDistance;
 import frc.robot.CommandGroups.IntakeCone;
 import frc.robot.CommandGroups.IntakeCube;
 import frc.robot.CommandGroups.ParallelAutoScoreSetup;
@@ -71,6 +72,7 @@ public class RobotContainer {
     m_arm = new TelescopingArm();
 
     SmartDashboard.putData(CommandScheduler.getInstance());
+    SmartDashboard.putNumber("Speed Limiter", Drivetrain.speedLimiter);
 
     // Setting default commands
     m_arm.setDefaultCommand(
@@ -112,10 +114,9 @@ public class RobotContainer {
     /*new JoystickButton(m_driver, Button.kStart.value).onTrue(new IntakeCube(m_gripper));
     new JoystickButton(m_driver, Button.kBack.value).onTrue(new IntakeCone(m_gripper));
     new JoystickButton(m_driver, Button.kX.value).onTrue(new EjectItem(m_gripper));
-    new JoystickButton(m_driver, Button.kY.value).onTrue(new StopGripper(m_gripper));*/
-    new JoystickButton(m_driver, Button.kA.value).onTrue(new AutoBalance(m_drivetrain));
+    new JoystickButton(m_driver, Button.kY.value).onTrue(new StopGripper(m_gripper));
+    new JoystickButton(m_driver, Button.kA.value).onTrue(new AutoBalancePID(m_drivetrain));
     new JoystickButton(m_driver, Button.kB.value).onTrue(new ChangeGear());
-
    // new JoystickButton(m_weapons, Button.kLeftStick.value).onTrue(new ChangeColor(m_lights, kYellowCone));
    // new JoystickButton(m_weapons, Button.kRightStick.value).onTrue(new ChangeColor(m_lights, kPurpleCube));
    
@@ -124,7 +125,7 @@ public class RobotContainer {
     //new JoystickButton(m_weapons, Button.kA.value).toggleOnTrue(new ExtendVal( TelescopingConstants.LowExtendHybrid , m_arm));
     
     //cube high 
-    // new JoystickButton(m_weapons, Button.kY.value).onTrue(new AutoScoreSetup(m_PinkArm, m_arm, m_gripper, kHighAngleCube, HighExtendCube));
+     new JoystickButton(m_weapons, Button.kY.value).onTrue(new AutoScoreSetup(m_PinkArm, m_arm, m_gripper, kHighAngleCube, HighExtendCube));
     //cube mid
     // new JoystickButton(m_weapons, Button.kX.value).onTrue(new AutoScoreSetup(m_PinkArm, m_arm, m_gripper, kMidAngleCube, MidExtendCube));
     new JoystickButton(m_weapons, Button.kX.value).onTrue(new PivotPID(m_PinkArm, kMidAngleCube));
@@ -136,12 +137,9 @@ public class RobotContainer {
     new JoystickButton(m_weapons, Button.kBack.value).onTrue(new ParallelAutoScoreSetup(m_PinkArm, m_arm, m_gripper, kLowAngleCube, LowExtendCube));
 
     //Cone high 
-    // new JoystickButton(m_weapons, Button.kB.value).onTrue(new AutoScoreSetup(m_PinkArm, m_arm, m_gripper, kHighAngleCone, HighExtendCone));
+   new JoystickButton(m_weapons, Button.kB.value).onTrue(new AutoScoreSetup(m_PinkArm, m_arm, m_gripper, kHighAngleCone, HighExtendCone));
     //cone mid
     new JoystickButton(m_weapons, Button.kA.value).onTrue(new AutoScoreSetup(m_PinkArm, m_arm, m_gripper, kMidAngleCone, MidExtendCone));
-
-    new JoystickButton(m_weapons, Button.kY.value).onTrue(new MaintainPos(m_PinkArm, m_arm));
-
 
   }
   /**

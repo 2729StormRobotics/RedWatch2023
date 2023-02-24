@@ -14,6 +14,7 @@ import com.revrobotics.CANSparkMax.IdleMode;
 import com.revrobotics.CANSparkMaxLowLevel.MotorType;
 
 import edu.wpi.first.wpilibj.drive.DifferentialDrive;
+import edu.wpi.first.wpilibj.shuffleboard.ShuffleboardLayout;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
 import com.kauailabs.navx.frc.AHRS;
@@ -173,10 +174,10 @@ public class Drivetrain extends SubsystemBase {
   // Tankdrive command
   public void tankDrive(double leftPower, double rightPower, boolean squareInputs) {
     if (m_reverseDrive) {
-      m_drive.tankDrive(leftPower/2, rightPower/2, squareInputs);
+      m_drive.tankDrive(-leftPower/2, -rightPower/2, squareInputs);
     }
     else {
-      m_drive.tankDrive(leftPower/2, rightPower/2, squareInputs); 
+      m_drive.tankDrive(-leftPower/2, -rightPower/2, squareInputs); 
     }
   }
 
