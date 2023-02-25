@@ -82,7 +82,7 @@ public final class Constants {
     //Ofset to add 30 degrees
     public static final double kMidAngleCube = 80.5; // (Actual)
     public static final double kHighAngleCube = 97; // (Actual)
-    public static final double kDunkDistance = 5; // degrees to turn to dunk it
+    public static final double kDunkDistance = 3; // degrees to turn to dunk it
   }
 
   public static final class IOPorts{
