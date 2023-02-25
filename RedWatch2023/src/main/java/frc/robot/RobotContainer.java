@@ -26,8 +26,9 @@ import frc.robot.commands.ChangeGear;
 import frc.robot.commands.curvatureDrive;
 import frc.robot.commands.AutoBalancing.AutoBalance;
 import frc.robot.commands.AutoBalancing.AutoBalancePID;
-import frc.robot.commands.Gripper.CheckObjectForColorChange;
 import frc.robot.commands.Lights.ChangeColor;
+import frc.robot.commands.Lights.CheckObjectForColorChange;
+import frc.robot.commands.Lights.animateCandle;
 import frc.robot.commands.TelescopingArmCommands.ArmControl;
 import frc.robot.commands.TelescopingArmCommands.ExtendVal;
 import frc.robot.commands.TelescopingArmCommands.MaintainPos;
@@ -98,7 +99,9 @@ public class RobotContainer {
     m_PinkArm.setDefaultCommand(
       new armJoint(() -> m_weapons.getRightY(), m_PinkArm)
     );
-
+    m_lights.setDefaultCommand(
+      new animateCandle(m_lights, m_weapons)
+    );
     // Configure the button bindings
 
     configureButtonBindings();
@@ -117,9 +120,7 @@ public class RobotContainer {
     new JoystickButton(m_driver, Button.kY.value).onTrue(new StopGripper(m_gripper));
     // new JoystickButton(m_driver, Button.kA.value).onTrue(new AutoBalancePID(m_drivetrain));
     new JoystickButton(m_driver, Button.kB.value).onTrue(new ChangeGear());
-   // new JoystickButton(m_weapons, Button.kLeftStick.value).onTrue(new ChangeColor(m_lights, kYellowCone));
-   // new JoystickButton(m_weapons, Button.kRightStick.value).onTrue(new ChangeColor(m_lights, kPurpleCube));
-   
+   new JoystickButton(m_weapons, Button.kLeftStick.value).onTrue(new animateCandle(m_lights, m_weapons));   
     // new JoystickButton(m_weapons, Button.kY.value).toggleOnTrue(new ExtendVal( TelescopingConstants.HighExtendCube, m_arm));
     //new JoystickButton(m_weapons, Button.kX.value).toggleOnTrue(new ExtendVal( TelescopingConstants.MidExtendCube, m_arm));
     //new JoystickButton(m_weapons, Button.kA.value).toggleOnTrue(new ExtendVal( TelescopingConstants.LowExtendHybrid , m_arm));
