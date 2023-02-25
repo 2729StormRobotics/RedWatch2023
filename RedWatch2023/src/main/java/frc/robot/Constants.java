@@ -25,7 +25,7 @@ public final class Constants {
     public static final double MidExtendCube = 3; // previous val 23.5 actual val 13.909128
     public static final double HighExtendCube = 18.2; //Actual distance 26.938031
     public static final double HighExtendCone = 27.5; //actual distance 27.697191
-    public static final double MidExtendCone = 10.8; //Actual distance 20.860632
+    public static final double MidExtendCone = 13.7; //Actual distance 20.860632
     //Low value for turn might change when testing
     public static final double LowExtendCone = 16.1;
     public static final double LowExtendCube = 6.7;
@@ -71,7 +71,7 @@ public final class Constants {
     public static final double kAnglesToTicks = 0;
     //Angles for scoring cones
     public static final double kHighAngleCone = 112; //(Actual)
-    public static final double kMidAngleCone = 94.5; //(Actual)
+    public static final double kMidAngleCone = 96.2; //(Actual)
     //Angle for scoring in the hybrid node common for cones and cubes
     public static final double kLowAngleCone = 48.2; //(actual)
     public static final double kLowAngleCube = 40; //TEST VALUE
