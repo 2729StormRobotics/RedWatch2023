@@ -14,12 +14,16 @@ public class IntakeItem extends CommandBase {
   // Starteth a variable f'r the gripp'r
   // Create a variable for the gripper
   private final Gripper m_gripper;
+  private final double m_velocityLimit; 
+  private final boolean m_isCone; 
 
   /** Creates a new IntakeItem. */
-  public IntakeItem(Gripper gripper) {
+  public IntakeItem(Gripper gripper, Double velocityLimit, boolean isCone) {
     // Setteth gripp'r variabl' to the gripp'r subsyst'm
     // Set gripper variable to the gripper subsystem
     m_gripper = gripper;
+    m_velocityLimit = velocityLimit;
+    m_isCone = isCone;
     
     // Use addRequirements() here to declare subsystem dependencies.
     addRequirements(gripper);
@@ -30,12 +34,16 @@ public class IntakeItem extends CommandBase {
   @Override
   public void initialize() {
     // Runs the gripper motors at intake speed
-    if (m_gripper.getVelocity() <= 100)
+    if (m_gripper.getVelocity() <= 70)
       m_gripper.stopGripper();
 
-    else
-      m_gripper.intakeGripper();
-
+    else{
+    if(m_isCone)  
+      m_gripper.intakeCone();
+    else 
+      m_gripper.intakeCube(); 
+      
+  }
   }
 
   // Called every time the scheduler runs while the command is scheduled.
@@ -46,7 +54,7 @@ public class IntakeItem extends CommandBase {
   @Override
   public void end(boolean interrupted) {
     // Stops gripper motors
-    m_gripper.stopGripper();
+    // m_gripper.stopGripper();
 
   }
 
@@ -55,7 +63,7 @@ public class IntakeItem extends CommandBase {
   @Override
   public boolean isFinished() {
     // Checks if the cone (isObjectThere) is in the gripper or if the cube (isPurple) is in the gripper
-    if (m_gripper.getVelocity() < 150)
+    if (m_gripper.getVelocity() < m_velocityLimit)
       
       return true;
     

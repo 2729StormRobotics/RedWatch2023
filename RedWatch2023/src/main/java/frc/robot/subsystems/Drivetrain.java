@@ -4,9 +4,6 @@
 
 package frc.robot.subsystems;
 
-import java.sql.Driver;
-import java.util.Map;
-
 //import com.analog.adis16470.frc.ADIS16470_IMU;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Constants;
@@ -20,10 +17,7 @@ import com.revrobotics.CANSparkMaxLowLevel.MotorType;
 
 
 import edu.wpi.first.wpilibj.drive.DifferentialDrive;
-import edu.wpi.first.wpilibj.shuffleboard.BuiltInLayouts;
-import edu.wpi.first.wpilibj.shuffleboard.Shuffleboard;
 import edu.wpi.first.wpilibj.shuffleboard.ShuffleboardLayout;
-import edu.wpi.first.wpilibj.shuffleboard.ShuffleboardTab;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
 import com.kauailabs.navx.frc.AHRS;
@@ -31,7 +25,6 @@ import com.kauailabs.navx.frc.AHRS;
 import edu.wpi.first.math.controller.RamseteController;
 import edu.wpi.first.math.geometry.Pose2d;
 import edu.wpi.first.math.kinematics.DifferentialDriveKinematics;
-import edu.wpi.first.math.kinematics.DifferentialDriveOdometry;
 import edu.wpi.first.math.kinematics.DifferentialDriveWheelSpeeds;
 import edu.wpi.first.math.trajectory.Trajectory.State;
 import edu.wpi.first.math.util.Units;
@@ -44,8 +37,8 @@ public class Drivetrain extends SubsystemBase {
   public String trajString = "./pathplanner/generatedJSON/Forward Back.wpilib.json";
   public static double speedLimiter = 3.5; // the forward drive power gets divided by this value to reduce the speed
   public static double rotationLimiter = 1.75; // the rotational drive power gets divided by this value to reduce the speed
-
-  // delare motors
+public static double speedLimiter = 2;
+  // declar motors
   public final com.revrobotics.CANSparkMax leftMotor;
   public final com.revrobotics.CANSparkMax rightMotor;
   public final com.revrobotics.CANSparkMax leftMotor2;
@@ -64,37 +57,28 @@ public class Drivetrain extends SubsystemBase {
   public final RelativeEncoder m_leftEncoder;
   public final RelativeEncoder m_rightEncoder;
 
- // private final ADIS16470_IMU m_imu;
-
   private final DifferentialDrive m_drive;
 
-  private final ShuffleboardTab m_drivetrainTab;
-  private final ShuffleboardLayout m_drivetrainStatus;
-
   public boolean m_reverseDrive = false;
-  private static AHRS navx;
   AHRS ahrs;
   
-
-
   public Drivetrain() {
     // define motors
-    leftMotor = new com.revrobotics.CANSparkMax(Constants.LEFT_MOTOR_ID, MotorType.kBrushless);
-    leftMotor2 = new com.revrobotics.CANSparkMax(Constants.LEFT_MOTOR2_ID, MotorType.kBrushless);
-    rightMotor = new com.revrobotics.CANSparkMax(Constants.RIGHT_MOTOR_ID, MotorType.kBrushless);
-    rightMotor2 = new com.revrobotics.CANSparkMax(Constants.RIGHT_MOTOR2_ID, MotorType.kBrushless);
+    leftMotor = new com.revrobotics.CANSparkMax(Constants.DrivetrainConstants.LEFT_MOTOR_ID, MotorType.kBrushless);
+    leftMotor2 = new com.revrobotics.CANSparkMax(Constants.DrivetrainConstants.LEFT_MOTOR2_ID, MotorType.kBrushless);
+    rightMotor = new com.revrobotics.CANSparkMax(Constants.DrivetrainConstants.RIGHT_MOTOR_ID, MotorType.kBrushless);
+    rightMotor2 = new com.revrobotics.CANSparkMax(Constants.DrivetrainConstants.RIGHT_MOTOR2_ID, MotorType.kBrushless);
 
     // initialize motors
-    motorInit(leftMotor, Constants.kLeftReversedDefault);
-    motorInit(leftMotor2, Constants.kLeftReversedDefault);
-    motorInit(rightMotor, Constants.kRightReversedDefault);
-    motorInit(rightMotor2, Constants.kRightReversedDefault);
-    //m_odometry = new DifferentialDriveOdometry(ahrs.getRotation2d());
+    motorInit(leftMotor, Constants.DrivetrainConstants.kLeftReversedDefault);
+    motorInit(leftMotor2, Constants.DrivetrainConstants.kLeftReversedDefault);
+    motorInit(rightMotor, Constants.DrivetrainConstants.kRightReversedDefault);
+    motorInit(rightMotor2, Constants.DrivetrainConstants.kRightReversedDefault);
 
-    leftMotor.setSmartCurrentLimit(Constants.STALL_LIMIT);
-    rightMotor.setSmartCurrentLimit(Constants.STALL_LIMIT);
-    leftMotor2.setSmartCurrentLimit(Constants.STALL_LIMIT);
-    rightMotor2.setSmartCurrentLimit(Constants.STALL_LIMIT);
+    leftMotor.setSmartCurrentLimit(Constants.DrivetrainConstants.STALL_LIMIT);
+    rightMotor.setSmartCurrentLimit(Constants.DrivetrainConstants.STALL_LIMIT);
+    leftMotor2.setSmartCurrentLimit(Constants.DrivetrainConstants.STALL_LIMIT);
+    rightMotor2.setSmartCurrentLimit(Constants.DrivetrainConstants.STALL_LIMIT);
 
     leftMotor.setIdleMode(IdleMode.kBrake);
     leftMotor2.setIdleMode(IdleMode.kBrake);
@@ -112,12 +96,6 @@ public class Drivetrain extends SubsystemBase {
     // initiailze drivetrain
     m_drive = new DifferentialDrive(leftMotor, rightMotor);
 
-    // initialize shuffleboard for drivetrain
-    m_drivetrainTab = Shuffleboard.getTab(Constants.kShuffleboardTab);
-    m_drivetrainStatus = m_drivetrainTab.getLayout("Status", BuiltInLayouts.kList)
-      .withProperties(Map.of("Label position", "TOP"));
-    shuffleboardInit();
-
     // initialize NavX gyro
     try {
       ahrs = new AHRS(SPI.Port.kMXP);
@@ -134,7 +112,7 @@ public class Drivetrain extends SubsystemBase {
   public void motorInit(CANSparkMax motor, boolean invert) {
     motor.restoreFactoryDefaults();
     motor.setIdleMode(IdleMode.kBrake);
-    motor.setSmartCurrentLimit(Constants.kCurrentLimit);
+    motor.setSmartCurrentLimit(Constants.DrivetrainConstants.kCurrentLimit);
     motor.setInverted(invert);
 
     encoderInit(motor.getEncoder());
@@ -142,8 +120,8 @@ public class Drivetrain extends SubsystemBase {
 
   private void encoderInit(RelativeEncoder encoder) {
     // set conversion factor and velocity factor (converting encoder ticks to real units)
-    encoder.setPositionConversionFactor(Constants.kEncoderDistanceRatio);
-    encoder.setVelocityConversionFactor(Constants.kHighSpeedPerPulseEncoderRatio);
+    encoder.setPositionConversionFactor(Constants.DrivetrainConstants.kEncoderDistanceRatio);
+    encoder.setVelocityConversionFactor(Constants.DrivetrainConstants.kHighSpeedPerPulseEncoderRatio);
     encoderReset(encoder);
 
   }
@@ -187,11 +165,13 @@ public class Drivetrain extends SubsystemBase {
   }
 
   public double getPitch() {
-    return ahrs.getPitch();
-  }
-
+    return ahrs.getYaw();
+}
   public double getHeading() {
     return ahrs.getAngle();
+  }
+  public double getYaw() {
+    return ahrs.getYaw() - 90;
   }
 
   // squares the MAGNITUDE of the value
@@ -206,43 +186,22 @@ public class Drivetrain extends SubsystemBase {
   // positive stickY values moves forward
   // positive stickX values goes counterclockwise
   public void curvatureDrive(double stickY, double stickX, boolean stickButton) {
-    m_drive.curvatureDrive(stickY, stickX, stickButton);
-  }
-
-  private void shuffleboardInit() {
-    m_drivetrainStatus.addNumber("Left Speed", () -> getLeftSpeed());
-    m_drivetrainStatus.addNumber("Right Speed", () -> getRightSpeed());
-    m_drivetrainStatus.addNumber("Left Position", () -> getLeftDistance());
-    m_drivetrainStatus.addNumber("Right Position", () -> getRightDistance());
-    m_drivetrainStatus.addNumber("Angle", () -> getPitch());
-    m_drivetrainStatus.addBoolean("Reversed?", () -> m_reverseDrive);
-
-    m_drivetrainStatus.addNumber("Average Distance", () -> getAverageDistance());
-
-    m_drivetrainStatus.add("Reset Position", new ResetPosition(this));
-
+    m_drive.curvatureDrive(-stickY, -stickX, stickButton);
   }
 
   // Tankdrive command
   public void tankDrive(double leftPower, double rightPower, boolean squareInputs) {
     if (m_reverseDrive) {
-      m_drive.tankDrive(leftPower/2, rightPower/2, squareInputs);
+      m_drive.tankDrive(-leftPower/2, -rightPower/2, squareInputs);
     }
     else {
-      m_drive.tankDrive(leftPower/2, rightPower/2, squareInputs); 
+      m_drive.tankDrive(-leftPower/2, -rightPower/2, squareInputs); 
     }
   }
 
   public void stopDrive() {
     m_drive.tankDrive(0, 0);
   }
-    // public Pose2d getPose() {
-    //   return m_odometry.getPoseMeters();
-    // }
-    // public void resetOdometry(Pose2d pose) {
-    //   resetEncoders();
-    //   m_odometry.resetPosition(pose, ahrs.getRotation2d());
-    // }
 
   public DifferentialDriveWheelSpeeds getWheelSpeeds() {
     return new DifferentialDriveWheelSpeeds(m_leftEncoder.getVelocity(), m_rightEncoder.getVelocity());
@@ -266,8 +225,7 @@ public class Drivetrain extends SubsystemBase {
     rightMotor.setVoltage(rightVolts);
     m_drive.feed();
   }
-
-
+  
   @Override
   public void periodic() {
     // This method will be called once per scheduler run

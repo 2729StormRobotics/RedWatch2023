@@ -5,22 +5,27 @@
 package frc.robot.CommandGroups;
 
 import edu.wpi.first.wpilibj2.command.SequentialCommandGroup;
-import frc.robot.commands.Gripper.*;
+import edu.wpi.first.wpilibj2.command.WaitCommand;
+import frc.robot.commands.Gripper.IntakeItem;
+import frc.robot.commands.Gripper.RunIntake;
+import frc.robot.commands.Gripper.StopGripper;
+import frc.robot.commands.Gripper.RunIntake;
 import frc.robot.subsystems.Gripper;
 
 // NOTE:  Consider using this command inline, rather than writing a subclass.  For more
 // information, see:
 // https://docs.wpilib.org/en/stable/docs/software/commandbased/convenience-features.html
-public class Intake extends SequentialCommandGroup {
-  /** Creates a new Intake. */
+public class IntakeCone extends SequentialCommandGroup {
+  /** Creates a new IntakeCone. */
   public final Gripper m_gripper;
-  public Intake(Gripper gripper) {
-    m_gripper = gripper;
+  public IntakeCone(Gripper gripper) {
+     m_gripper = gripper;
     // Add your commands in the addCommands() call, e.g.
     // addCommands(new FooCommand(), new BarCommand());
     addCommands(
-      new RunIntake(m_gripper),
-      new IntakeItem(m_gripper)
-    );
+      new RunIntake(m_gripper, true),
+      new IntakeItem(m_gripper, 50.0, true),
+      new StopGripper(m_gripper)
+      );
   }
 }
