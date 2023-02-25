@@ -33,7 +33,7 @@ public class animateCandle extends CommandBase {
     }else if(m_animate.getPOV() == 45){
       m_Lights.setDefault();
     }else if(m_animate.getPOV() == 90){
-      m_Lights.askForCube();
+      m_Lights.askForCube();  
     }else if(m_animate.getPOV() == 135){
       m_Lights.askForCone();
     }else if(m_animate.getPOV() == 180){

@@ -10,6 +10,8 @@ import edu.wpi.first.wpilibj.XboxController;
 import edu.wpi.first.wpilibj.XboxController.Button;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import frc.robot.CommandGroups.AutoScoreSetup;
+import frc.robot.CommandGroups.IntakePos;
+
 import frc.robot.CommandGroups.BalanceFromDistance;
 import frc.robot.CommandGroups.IntakeCone;
 import frc.robot.CommandGroups.IntakeCube;
@@ -141,6 +143,9 @@ public class RobotContainer {
   //  new JoystickButton(m_weapons, Button.kB.value).onTrue(new AutoScoreSetup(m_PinkArm, m_arm, m_gripper, kHighAngleCone, HighExtendCone));
     //cone mid
     new JoystickButton(m_weapons, Button.kA.value).onTrue(new AutoScoreSetup(m_PinkArm, m_arm, m_gripper, kMidAngleCone, MidExtendCone));
+
+    //TESTING THE NEUTRAL POSITION
+    new JoystickButton(m_weapons, Button.kLeftBumper.value).onTrue(new IntakePos(m_PinkArm, m_arm, m_gripper, fullIn, kNeutralPos, neutralPosTelescoping));
 
   }
   /**

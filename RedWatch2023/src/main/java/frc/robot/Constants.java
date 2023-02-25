@@ -30,9 +30,11 @@ public final class Constants {
     public static final double LowExtendCone = 16.1;
     public static final double LowExtendCube = 6.7;
 
+    public static final double fullIn = 1.66;
+    public static final double neutralPosTelescoping = 5;
     //Add values for the low hybrid node
 
-    public static final double potLowStop = 0.039; // 1 inch
+    public static final double potLowStop = 0.025; // 1 inch
     public static final double potHighStop = 0.6; // 27 inches 0.62 when down
     public static final double Tolerance = 0.5;
     public static final double ArmSpeed = 0.25;
@@ -63,8 +65,6 @@ public final class Constants {
     //Sets the position for the arm when neutral
     public static final double kPivotArmNeutral = 0;
 
-    
-
     public static final double pivotLowStop = 40;
     public static final double pivotHighStop = 85;
 
@@ -75,6 +75,8 @@ public final class Constants {
     //Angle for scoring in the hybrid node common for cones and cubes
     public static final double kLowAngleCone = 48.2; //(actual)
     public static final double kLowAngleCube = 40; //TEST VALUE
+
+    public static final double kNeutralPos = 33;
     
     //Angles for scoring the cubes
     //Ofset to add 30 degrees
