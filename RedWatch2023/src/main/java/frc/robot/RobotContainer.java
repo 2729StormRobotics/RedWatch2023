@@ -139,8 +139,9 @@ public class RobotContainer {
     //Cone high 
    new JoystickButton(m_weapons, Button.kB.value).onTrue(new AutoScoreSetup(m_PinkArm, m_arm, m_gripper, kHighAngleCone, HighExtendCone));
     //cone mid
+    */
     new JoystickButton(m_weapons, Button.kA.value).onTrue(new AutoScoreSetup(m_PinkArm, m_arm, m_gripper, kMidAngleCone, MidExtendCone));
-
+    
   }
   /**
    * Use this to pass the autonomous command to the main {@link Robot} class.

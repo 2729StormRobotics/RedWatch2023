@@ -25,6 +25,7 @@ import com.kauailabs.navx.frc.AHRS;
 import edu.wpi.first.math.controller.RamseteController;
 import edu.wpi.first.math.geometry.Pose2d;
 import edu.wpi.first.math.kinematics.DifferentialDriveKinematics;
+import edu.wpi.first.math.kinematics.DifferentialDriveOdometry;
 import edu.wpi.first.math.kinematics.DifferentialDriveWheelSpeeds;
 import edu.wpi.first.math.trajectory.Trajectory.State;
 import edu.wpi.first.math.util.Units;
@@ -35,9 +36,9 @@ import edu.wpi.first.wpilibj.SPI;
 public class Drivetrain extends SubsystemBase {
   /** Creates a new Drivetrain. */
   public String trajString = "./pathplanner/generatedJSON/Forward Back.wpilib.json";
-  public static double speedLimiter = 3.5; // the forward drive power gets divided by this value to reduce the speed
+   // the forward drive power gets divided by this value to reduce the speed
   public static double rotationLimiter = 1.75; // the rotational drive power gets divided by this value to reduce the speed
-public static double speedLimiter = 2;
+  public static double speedLimiter = 2;
   // declar motors
   public final com.revrobotics.CANSparkMax leftMotor;
   public final com.revrobotics.CANSparkMax rightMotor;

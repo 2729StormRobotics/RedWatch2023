@@ -67,7 +67,7 @@ public class FollowTrajectory extends CommandBase {
     ); // Stops the robot
 
     // Reset odometry to the starting pose of the trajectory.
-    // drive.resetOdometry(trajectory.getInitialPose());
+    drive.resetOdometry(trajectory.getInitialPose());
   }
 
   @Override
