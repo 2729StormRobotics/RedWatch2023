@@ -39,7 +39,7 @@ public class AutoBalance extends CommandBase {
     drivePower = drivePower * Constants.BalanceConstants.kP;
     drivePower = Math.copySign(drivePower, error);
     */
-    m_Drivetrain.tankDrive(drivePower, drivePower, false);
+    m_Drivetrain.tankDrive(drivePower, drivePower, true);
   }
   
    @Override

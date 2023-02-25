@@ -137,7 +137,7 @@ public class Drivetrain extends SubsystemBase {
   }
 
   public double getAverageDistance() {
-    return (getRightDistance() + getLeftDistance())/2; 
+    return -(getRightDistance() + getLeftDistance())/2; 
   }
 
   public double getAverageSpeed() {

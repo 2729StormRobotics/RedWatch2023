@@ -18,7 +18,7 @@ public class ForwardUntilTilted extends CommandBase {
   private double drivePower;
   
   //set offset here
-  private double limit = 5; // angle threshhold for command to be considered finished
+  private double limit = 15; // angle threshhold for command to be considered finished
   /** Creates a new ForwardUntilTilted. */
   public ForwardUntilTilted(Drivetrain drivetrain, double power) {
     drivePower = power;
@@ -30,8 +30,7 @@ public class ForwardUntilTilted extends CommandBase {
   // Called when the command is initially scheduled.
   @Override
   public void initialize() {
-    m_Drivetrain.resetGyroAngle();
-    this.currentAngle = m_Drivetrain.getPitch();
+    this.currentAngle = m_Drivetrain.getYaw();
     
   }
 
@@ -39,7 +38,7 @@ public class ForwardUntilTilted extends CommandBase {
   @Override
   public void execute() {
     // drive forward, update the gyro angle
-    this.currentAngle = m_Drivetrain.getPitch();
+    this.currentAngle = m_Drivetrain.getYaw();
     m_Drivetrain.tankDrive(-drivePower, -drivePower, false);
 
   }

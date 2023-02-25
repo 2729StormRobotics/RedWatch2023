@@ -9,6 +9,7 @@ import edu.wpi.first.wpilibj.GenericHID;
 import edu.wpi.first.wpilibj.XboxController;
 import edu.wpi.first.wpilibj.XboxController.Button;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
+import frc.robot.CommandGroups.AutoBalance_x6;
 import frc.robot.CommandGroups.AutoScoreSetup;
 import frc.robot.CommandGroups.IntakePos;
 
@@ -28,6 +29,7 @@ import frc.robot.commands.ChangeGear;
 import frc.robot.commands.curvatureDrive;
 import frc.robot.commands.AutoBalancing.AutoBalance;
 import frc.robot.commands.AutoBalancing.AutoBalancePID;
+import frc.robot.commands.AutoBalancing.ForwardUntilTilted;
 import frc.robot.commands.Lights.ChangeColor;
 import frc.robot.commands.Lights.CheckObjectForColorChange;
 import frc.robot.commands.Lights.animateCandle;
@@ -120,7 +122,7 @@ public class RobotContainer {
     new JoystickButton(m_driver, Button.kBack.value).onTrue(new IntakeCone(m_gripper));
     new JoystickButton(m_driver, Button.kX.value).onTrue(new EjectItem(m_gripper));
     new JoystickButton(m_driver, Button.kY.value).onTrue(new StopGripper(m_gripper));
-    // new JoystickButton(m_driver, Button.kA.value).onTrue(new AutoBalancePID(m_drivetrain));
+    new JoystickButton(m_driver, Button.kA.value).onTrue(new BalanceFromDistance(m_drivetrain, false));
     new JoystickButton(m_driver, Button.kB.value).onTrue(new ChangeGear());
    new JoystickButton(m_weapons, Button.kLeftStick.value).onTrue(new animateCandle(m_lights, m_weapons));   
     // new JoystickButton(m_weapons, Button.kY.value).toggleOnTrue(new ExtendVal( TelescopingConstants.HighExtendCube, m_arm));
