@@ -33,9 +33,11 @@ public final class Constants {
     public static final double LowExtendCone = 16.1;
     public static final double LowExtendCube = 6.7;
 
+    public static final double fullIn = 1.66;
+    public static final double neutralPosTelescoping = 5;
     //Add values for the low hybrid node
 
-    public static final double potLowStop = 0.039; // 1 inch
+    public static final double potLowStop = 0.025; // 1 inch
     public static final double potHighStop = 0.6; // 27 inches 0.62 when down
     public static final double Tolerance = 0.5;
     public static final double ArmSpeed = 0.25;
@@ -62,11 +64,9 @@ public final class Constants {
     public static final int kCurrentLimit = 60;
     public static final int kStallLimit = 45;
     //Sets the speed of the pivot arm, needs to be changed depending on the gear ratio for the pivot arm
-    public static final double kPivotArmSpeed = 0.5; //0.3; 
+    public static final double kPivotArmSpeed = 0.4; //0.3; 
     //Sets the position for the arm when neutral
     public static final double kPivotArmNeutral = 0;
-
-    
 
     public static final double pivotLowStop = 40;
     public static final double pivotHighStop = 85;
@@ -78,12 +78,14 @@ public final class Constants {
     //Angle for scoring in the hybrid node common for cones and cubes
     public static final double kLowAngleCone = 48.2; //(actual)
     public static final double kLowAngleCube = 40; //TEST VALUE
+
+    public static final double kNeutralPos = 33;
     
     //Angles for scoring the cubes
     //Ofset to add 30 degrees
     public static final double kMidAngleCube = 80.5; // (Actual)
     public static final double kHighAngleCube = 97; // (Actual)
-    public static final double kDunkDistance = 5; // degrees to turn to dunk it
+    public static final double kDunkDistance = 3; // degrees to turn to dunk it
   }
   public static final class IOPorts{
     public static final int kDriverController = 1;
@@ -154,8 +156,8 @@ public final class Constants {
 	public static final class BalanceConstants{
 		public static final double kBalancedBeamAngle = 0;
 		public static final double kBalancedThreshold = 1;
-		public static double kP = .018;
-		public static double kI = 0.001;
+		public static double kP = .001;
+		public static double kI = 0.0005;
 		public static double kD = 0.00;
 		}
     public static class AutoPathConstants {
@@ -253,7 +255,7 @@ public final class Constants {
 
     public static class LightConstants {
         public static final String kShuffleboardTab = "Lights";
-        public static final int kBlinkinDriverPort = 4; //TODO: Find a port for this
+        public static final int kPhoenixDriverPort = 11; //TODO: Find a port for this
 	  	  public static final double kDisabled = 0.61; //TODO: Find what color we want for this and its value
 		    public static final double kLightsOff = 0.99;
         public static final double kRedBall = 0.67;

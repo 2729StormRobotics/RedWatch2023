@@ -21,11 +21,11 @@ public class ChangeGear extends CommandBase {
   // Called when the command is initially scheduled.
   @Override
   public void initialize() {
-    if (Drivetrain.speedLimiter == 2) {
+    if (Drivetrain.speedLimiter == 3) {
       Drivetrain.speedLimiter = 4;
     }
-    if (Drivetrain.speedLimiter == 4) {
-      Drivetrain.speedLimiter = 2;
+    else if (Drivetrain.speedLimiter == 4) {
+      Drivetrain.speedLimiter = 3;
     }
   }
 

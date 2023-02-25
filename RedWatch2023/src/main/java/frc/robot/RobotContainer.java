@@ -9,8 +9,12 @@ import edu.wpi.first.wpilibj.GenericHID;
 import edu.wpi.first.wpilibj.XboxController;
 import edu.wpi.first.wpilibj.XboxController.Button;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
+import frc.robot.CommandGroups.AutoBalance_x6;
 import frc.robot.CommandGroups.AutoScoreSetup;
+import frc.robot.CommandGroups.IntakePos;
+
 import frc.robot.CommandGroups.BalanceFromDistance;
+import frc.robot.CommandGroups.Dunk;
 import frc.robot.CommandGroups.IntakeCone;
 import frc.robot.CommandGroups.IntakeCube;
 import frc.robot.CommandGroups.ParallelAutoScoreSetup;
@@ -26,8 +30,10 @@ import frc.robot.commands.ChangeGear;
 import frc.robot.commands.curvatureDrive;
 import frc.robot.commands.AutoBalancing.AutoBalance;
 import frc.robot.commands.AutoBalancing.AutoBalancePID;
-import frc.robot.commands.Gripper.CheckObjectForColorChange;
+import frc.robot.commands.AutoBalancing.ForwardUntilTilted;
 import frc.robot.commands.Lights.ChangeColor;
+import frc.robot.commands.Lights.CheckObjectForColorChange;
+import frc.robot.commands.Lights.animateCandle;
 import frc.robot.commands.TelescopingArmCommands.ArmControl;
 import frc.robot.commands.TelescopingArmCommands.ExtendVal;
 import frc.robot.commands.TelescopingArmCommands.MaintainPos;
@@ -53,7 +59,7 @@ public class RobotContainer {
   private final XboxController m_weapons = new XboxController(Constants.DrivetrainConstants.kWeaponsControllerPort);
 
   private SlewRateLimiter m_forwardLimiter = new SlewRateLimiter(1); // controls acceleration of forward speed
-  private SlewRateLimiter m_rotationLimiter = new SlewRateLimiter(0.75); // controls acceleration of rotational speed
+  private SlewRateLimiter m_rotationLimiter = new SlewRateLimiter(1.5); // controls acceleration of rotational speed
 
   // Subsystems
   private final Lights m_lights;
@@ -98,7 +104,9 @@ public class RobotContainer {
     m_PinkArm.setDefaultCommand(
       new armJoint(() -> m_weapons.getRightY(), m_PinkArm)
     );
-
+    m_lights.setDefaultCommand(
+      new animateCandle(m_lights, m_weapons)
+    );
     // Configure the button bindings
 
     configureButtonBindings();
@@ -111,35 +119,35 @@ public class RobotContainer {
    * edu.wpi.first.wpilibj2.command.button.JoystickButton}.
    */
   private void configureButtonBindings() {    
-    /*new JoystickButton(m_driver, Button.kStart.value).onTrue(new IntakeCube(m_gripper));
-    new JoystickButton(m_driver, Button.kBack.value).onTrue(new IntakeCone(m_gripper));
+    new JoystickButton(m_driver, Button.kBack.value).onTrue(new IntakeCube(m_gripper));
+    new JoystickButton(m_driver, Button.kStart.value).onTrue(new IntakeCone(m_gripper));
     new JoystickButton(m_driver, Button.kX.value).onTrue(new EjectItem(m_gripper));
     new JoystickButton(m_driver, Button.kY.value).onTrue(new StopGripper(m_gripper));
-    new JoystickButton(m_driver, Button.kA.value).onTrue(new AutoBalancePID(m_drivetrain));
+    // new JoystickButton(m_driver, Button.kA.value).onTrue(new BalanceFromDistance(m_drivetrain, false));
     new JoystickButton(m_driver, Button.kB.value).onTrue(new ChangeGear());
-   // new JoystickButton(m_weapons, Button.kLeftStick.value).onTrue(new ChangeColor(m_lights, kYellowCone));
-   // new JoystickButton(m_weapons, Button.kRightStick.value).onTrue(new ChangeColor(m_lights, kPurpleCube));
-   
+   new JoystickButton(m_weapons, Button.kLeftStick.value).onTrue(new animateCandle(m_lights, m_weapons));   
     // new JoystickButton(m_weapons, Button.kY.value).toggleOnTrue(new ExtendVal( TelescopingConstants.HighExtendCube, m_arm));
     //new JoystickButton(m_weapons, Button.kX.value).toggleOnTrue(new ExtendVal( TelescopingConstants.MidExtendCube, m_arm));
     //new JoystickButton(m_weapons, Button.kA.value).toggleOnTrue(new ExtendVal( TelescopingConstants.LowExtendHybrid , m_arm));
     
     //cube high 
-     new JoystickButton(m_weapons, Button.kY.value).onTrue(new AutoScoreSetup(m_PinkArm, m_arm, m_gripper, kHighAngleCube, HighExtendCube));
+     new JoystickButton(m_weapons, Button.kY.value).onTrue(new ParallelAutoScoreSetup(m_PinkArm, m_arm, m_gripper, kHighAngleCube, HighExtendCube));
     //cube mid
-    // new JoystickButton(m_weapons, Button.kX.value).onTrue(new AutoScoreSetup(m_PinkArm, m_arm, m_gripper, kMidAngleCube, MidExtendCube));
-    new JoystickButton(m_weapons, Button.kX.value).onTrue(new PivotPID(m_PinkArm, kMidAngleCube));
+     new JoystickButton(m_weapons, Button.kX.value).onTrue(new ParallelAutoScoreSetup(m_PinkArm, m_arm, m_gripper, kMidAngleCube, MidExtendCube));
     
     
     //intake cone
     new JoystickButton(m_weapons, Button.kStart.value).onTrue(new ParallelAutoScoreSetup(m_PinkArm, m_arm, m_gripper, kLowAngleCone, LowExtendCone));
     // intake cube
     new JoystickButton(m_weapons, Button.kBack.value).onTrue(new ParallelAutoScoreSetup(m_PinkArm, m_arm, m_gripper, kLowAngleCube, LowExtendCube));
-
+    
+    //dunk
+    new JoystickButton(m_weapons, Button.kB.value).onTrue(new Dunk(m_PinkArm, m_arm, m_gripper));
+    
     //Cone high 
-   new JoystickButton(m_weapons, Button.kB.value).onTrue(new AutoScoreSetup(m_PinkArm, m_arm, m_gripper, kHighAngleCone, HighExtendCone));
+  //  new JoystickButton(m_weapons, Button.kB.value).onTrue(new AutoScoreSetup(m_PinkArm, m_arm, m_gripper, kHighAngleCone, HighExtendCone));
     //cone mid
-    */
+    
     new JoystickButton(m_weapons, Button.kA.value).onTrue(new AutoScoreSetup(m_PinkArm, m_arm, m_gripper, kMidAngleCone, MidExtendCone));
     
   }
