@@ -35,8 +35,8 @@
          () -> distance,
          // This uses the output
          output -> {
-          if (Math.abs(output) > 0.65)
-            output = Math.copySign(0.65, output); 
+          if (Math.abs(output) > 0.4)
+            output = Math.copySign(0.4, output); 
            // Use the output here
            // drive forward
            drivetrain.tankDrive(-output, -output, false);

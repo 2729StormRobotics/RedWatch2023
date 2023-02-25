@@ -127,8 +127,8 @@ public final class Constants {
 	public static final class BalanceConstants{
 		public static final double kBalancedBeamAngle = 0;
 		public static final double kBalancedThreshold = 1;
-		public static double kP = .018;
-		public static double kI = 0.001;
+		public static double kP = .001;
+		public static double kI = 0.0005;
 		public static double kD = 0.00;
 	}
 
@@ -178,7 +178,7 @@ public final class Constants {
 
     public static class LightConstants {
         public static final String kShuffleboardTab = "Lights";
-        public static final int kBlinkinDriverPort = 4; //TODO: Find a port for this
+        public static final int kBlinkinDriverPort = 11; //TODO: Find a port for this
 	  	  public static final double kDisabled = 0.61; //TODO: Find what color we want for this and its value
 		    public static final double kLightsOff = 0.99;
         public static final double kRedBall = 0.67;

@@ -6,6 +6,7 @@ package frc.robot.CommandGroups;
 
 import edu.wpi.first.wpilibj2.command.SequentialCommandGroup;
 import edu.wpi.first.wpilibj2.command.WaitCommand;
+import frc.robot.commands.AutoBalancing.AutoBalance;
 import frc.robot.commands.AutoBalancing.AutoBalancePID;
 import frc.robot.subsystems.Drivetrain;
 
@@ -21,8 +22,8 @@ public class AutoBalance_x6 extends SequentialCommandGroup {
     // addCommands(new FooCommand(), new BarCommand());
     addCommands(new AutoBalancePID(m_drivetrain),
     new WaitCommand(.2),
-    new AutoBalancePID(m_drivetrain),
+    new AutoBalance(m_drivetrain),
     new WaitCommand(.2),
-    new AutoBalancePID(m_drivetrain));
+    new AutoBalance(m_drivetrain));
   }
 }
