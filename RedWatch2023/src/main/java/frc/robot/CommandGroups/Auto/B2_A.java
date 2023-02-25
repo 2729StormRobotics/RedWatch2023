@@ -28,11 +28,11 @@ public class B2_A extends SequentialCommandGroup {
     addCommands(
       // Score
       new AutoForwardPID(-57 , m_Drivetrain),
-      new BalanceFromDistance(m_Drivetrain, true),
       new AutoForwardPID(-75 , m_Drivetrain),
-      new TurnInPlace(subsystem, 180, 0.5),
-      new AutoForwardPID(32 , m_Drivetrain)
-      
+      new TurnInPlace(m_Drivetrain, 180, 0.5),
+      new AutoForwardPID(32 , m_Drivetrain),
+      // intake
+      new BalanceFromDistance(m_Drivetrain, true)
 
       );
   }
