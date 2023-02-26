@@ -7,11 +7,13 @@ package frc.robot.CommandGroups.Auto;
 import edu.wpi.first.wpilibj2.command.SequentialCommandGroup;
 import frc.robot.CommandGroups.AutoScoreSetup;
 import frc.robot.CommandGroups.BalanceFromDistance;
+import frc.robot.CommandGroups.Dunk;
 import frc.robot.CommandGroups.ParallelAutoScoreSetup;
 import frc.robot.commands.AutoForwardPID;
 import frc.robot.Constants.TelescopingConstants;
 import frc.robot.Constants.pinkArmConstants;
 import frc.robot.commands.TurnInPlace;
+import frc.robot.commands.TurnInPlacePID;
 import frc.robot.commands.Gripper.EjectItem;
 import frc.robot.commands.TelescopingArmCommands.ExtendVal;
 import frc.robot.subsystems.Drivetrain;
@@ -43,6 +45,7 @@ public class B1_A extends SequentialCommandGroup {
     addCommands(
       // Score
       new AutoScoreSetup(m_PinkArm, m_arm, m_gripper, pinkArmConstants.kMidAngleCone, TelescopingConstants.MidExtendCone),
+      new Dunk(m_PinkArm, m_arm, m_gripper),
       new EjectItem(m_gripper),
       new ExtendVal(5, m_arm),
       new AutoForwardPID(-50 , m_Drivetrain),

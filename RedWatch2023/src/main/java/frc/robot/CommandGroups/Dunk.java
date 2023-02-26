@@ -31,6 +31,7 @@ public class Dunk extends SequentialCommandGroup {
     // Add your commands in the addCommands() call, e.g.
     // addCommands(new FooCommand(), new BarCommand());
     addCommands(
+      new ExtendVal(m_telescopingArm.getDistance() - 2, m_telescopingArm),
       new turnToDegrees(m_pivotArm, m_pivotArm.getAngle() - pinkArmConstants.kDunkDistance),
       new EjectItem(m_gripper),
       new ExtendVal(m_telescopingArm.getDistance() - TelescopingConstants.kDunkRetractDistance, m_telescopingArm),
