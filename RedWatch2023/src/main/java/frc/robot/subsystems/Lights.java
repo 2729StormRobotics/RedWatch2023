@@ -17,7 +17,7 @@ public class Lights extends SubsystemBase {
   /** Creates a new Lights. */
 
   public final CANdle m_candle;
-  private final int Ledcount = 44;
+  private final int Ledcount = 45;
   
   public int R;
   public int G;

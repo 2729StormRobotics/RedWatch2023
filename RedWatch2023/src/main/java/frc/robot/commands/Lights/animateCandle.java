@@ -29,6 +29,18 @@ public class animateCandle extends CommandBase {
   @Override
   public void execute() {
     if(m_animate.getPOV() == 0){
+      m_Lights.setDefault();
+    }else if(m_animate.getPOV() == 90){
+      m_Lights.askForCube();  
+    }else if(m_animate.getPOV() == 180){
+      m_Lights.askForCone();
+    }else if(m_animate.getPOV() == 270){
+      m_Lights.partyMode();
+    }else if(m_animate.getPOV() == 315){
+      // m_Lights.epilepsy();
+      m_Lights.resetLights();
+    }
+    /*if(m_animate.getPOV() == 0){
       m_Lights.resetLights();
     }else if(m_animate.getPOV() == 45){
       m_Lights.setDefault();
@@ -43,8 +55,9 @@ public class animateCandle extends CommandBase {
     }else if(m_animate.getPOV() == 270){
       m_Lights.partyMode();
     }else if(m_animate.getPOV() == 315){
-      m_Lights.epilepsy();
-    }
+      // m_Lights.epilepsy();
+      m_Lights.resetLights();
+    } */
   }
 
   // Called once the command ends or is interrupted.
