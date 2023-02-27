@@ -5,12 +5,12 @@
 package frc.robot.commands.TelescopingArmCommands;
 
 import edu.wpi.first.wpilibj2.command.CommandBase;
-import frc.robot.subsystems.MeasuringPotentiometer;
+import frc.robot.subsystems.TelescopingArm;
 
 public class ResetPot extends CommandBase {
   /** Creates a new ResetPot. */
-  private MeasuringPotentiometer m_pot;
-  public ResetPot(MeasuringPotentiometer pot) {
+  private TelescopingArm m_pot;
+  public ResetPot(TelescopingArm pot) {
     m_pot = pot;
     // Use addRequirements() here to declare subsystem dependencies.
     addRequirements(pot);

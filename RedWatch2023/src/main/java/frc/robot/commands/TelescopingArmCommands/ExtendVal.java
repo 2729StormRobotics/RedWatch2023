@@ -12,13 +12,12 @@ public class ExtendVal extends CommandBase {
   
   // Computes the speed of the telescoping arm.
   private final TelescopingArm m_Arm;
-  private final MeasuringPotentiometer m_pot;
   private double neededPot=10;
-  private boolean isReverse = false;
-  
+  double speed;
+  boolean rev = false;
+  double error;
   /** Creates a new ExtendHigh. */
-  public ExtendVal( double potLength, MeasuringPotentiometer potentiometer, TelescopingArm subsystem) {
-    m_pot = potentiometer;
+  public ExtendVal( double potLength, TelescopingArm subsystem) {
     m_Arm = subsystem;
     neededPot = potLength;
     // Use addRequirements() here to declare subsystem dependencies.
@@ -34,11 +33,11 @@ public class ExtendVal extends CommandBase {
   public void execute() {
     
     // Returns true if the potentiometer equals greater than neededPot false otherwise.
-    boolean rev = false;
-    rev = (m_pot.pot_val > neededPot);
-    
+    error = neededPot - m_Arm.pot_val;
+    if (error < 0){speed = TelescopingConstants.ArmSpeed;}
+    if (error > 0){speed = -TelescopingConstants.ArmSpeed;}
     // Turns the actuator to a new position.   
-    m_Arm.turnMotor(m_Arm.m_ArmExtend, rev);
+    m_Arm.turnMotor(m_Arm.m_ArmExtend, speed);
 
   }
 
@@ -52,6 +51,6 @@ public class ExtendVal extends CommandBase {
   @Override
   public boolean isFinished() {
     // Returns true if the current value is equal to the desired value
-    return ((m_pot.pot_val >= neededPot-TelescopingConstants.Tolerance) && (m_pot.pot_val <= neededPot+TelescopingConstants.Tolerance));
+    return (Math.abs(error) < TelescopingConstants.Tolerance);
   }
 }

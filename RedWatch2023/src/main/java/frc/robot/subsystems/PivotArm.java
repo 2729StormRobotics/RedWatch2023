@@ -10,11 +10,16 @@ import java.util.Map;
 
 import edu.wpi.first.wpilibj2.command.CommandBase;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
+import frc.robot.Constants.pinkArmConstants;
+import frc.robot.commands.ResetPosition;
+
 import com.revrobotics.CANSparkMax;
 import com.revrobotics.RelativeEncoder;
 import com.revrobotics.CANSparkMax.IdleMode;
 import com.revrobotics.CANSparkMaxLowLevel.MotorType;
 
+import edu.wpi.first.networktables.GenericEntry;
+import edu.wpi.first.wpilibj.DutyCycleEncoder;
 import edu.wpi.first.wpilibj.shuffleboard.BuiltInLayouts;
 import edu.wpi.first.wpilibj.shuffleboard.Shuffleboard;
 import edu.wpi.first.wpilibj.shuffleboard.ShuffleboardLayout;
@@ -23,28 +28,35 @@ import edu.wpi.first.wpilibj.shuffleboard.ShuffleboardTab;
 
 public class PivotArm extends SubsystemBase {
 
+  public static double kP = 0.02;
+  public static double kI = 0.005;
+  public static double kD = 0.00;
+  public static double kG = 0.00;
+  public GenericEntry kPValue;
+  public GenericEntry kIValue;
+  public GenericEntry kDValue;
+  
+  public static final double angleThreshold = 2.5;
+
   public final CANSparkMax m_pivot;
   public final CANSparkMax m_pivot2;
-
-  public final RelativeEncoder m_pivotEncoder;
   
   private final ShuffleboardLayout m_controlPanelStatus;
   private final ShuffleboardTab m_controlPanelTab;
+
+
+  public final DutyCycleEncoder m_pivotEncoder = new DutyCycleEncoder(2);
 
   /** Creates a new Subystem for the pink arm called pinkArm.  
   * Note!!! this subsystem covers the pivot joint of the pink arm Telescoping is stored seperately
   */
 
   public PivotArm() {
-      m_pivot = new CANSparkMax(kJoint1Port, MotorType.kBrushless);
-      m_pivot2 = new CANSparkMax(kJoint2Port, MotorType.kBrushless);
+      m_pivot = new CANSparkMax(kLeftPivotPort, MotorType.kBrushless);
+      m_pivot2 = new CANSparkMax(kRightPivotPort, MotorType.kBrushless);
       
-      setMotor(m_pivot, false, true);
-      setMotor(m_pivot2, false, true);
-      m_pivotEncoder = m_pivot.getEncoder();
-      positionEncoderInit(m_pivotEncoder);
-
-      m_pivot2.follow(m_pivot);
+      setMotor(m_pivot, true);
+      setMotor(m_pivot2, false);
 
       m_controlPanelTab = Shuffleboard.getTab("Arm");
       m_controlPanelStatus = m_controlPanelTab.getLayout("Encoder", BuiltInLayouts.kList)
@@ -54,27 +66,26 @@ public class PivotArm extends SubsystemBase {
     }
 
     private void shuffleboardInit() {
-      m_controlPanelStatus.addNumber("Pivot Encoder", () -> m_pivotEncoder.getPosition());
+      m_controlPanelStatus.addNumber("Pivot Encoder", () -> getAngle());
+      m_controlPanelStatus.addNumber("Left Encoder", () -> m_pivot.getEncoder().getVelocity());
+      m_controlPanelStatus.addNumber("Right Encoder", () -> m_pivot2.getEncoder().getVelocity());
+      m_controlPanelStatus.addNumber("kP", () -> PivotArm.kP);
+      m_controlPanelStatus.addNumber("kI", () -> PivotArm.kI);
+      m_controlPanelStatus.addNumber("kD", () -> PivotArm.kD);
+      kPValue = m_controlPanelStatus.add("P input", 0.005).getEntry();
+      kIValue = m_controlPanelStatus.add("I input", 0.00).getEntry();
+      kDValue = m_controlPanelStatus.add("D input", 0.00).getEntry();
+
+
     }
   
     public void changeMode(String mode) {
   
     }
     
-    public void turnMotor(CANSparkMax motor, boolean inverse) {
-      //moves the motor backwards in respect to the button click
-      if (inverse) {
-        motor.set(-kPivotArmSpeed);
-      }
-      //moves the motor forwards in respect to the button click
-      else {
-        motor.set(kPivotArmSpeed);
-      }
-    }
-  
-  
-    private void pivotEncoderInit(RelativeEncoder encoder) {
-      encoder.setPositionConversionFactor(kAnglePerRevolution);
+    public void turnMotor(double speed) {
+      m_pivot.set(speed);
+      m_pivot2.set(speed);
     }
   
     public void encoderReset(RelativeEncoder encoder) {
@@ -82,23 +93,14 @@ public class PivotArm extends SubsystemBase {
     }
   
     //Gets the distance of the endoder and the motor
-    public double getDistance() {
-      return -m_pivotEncoder.getPosition();
+    public double getAngle() {
+      return m_pivotEncoder.getAbsolutePosition() * 360 - 304 + 90;
     }
 
-    private void positionEncoderInit(RelativeEncoder encoder) {
-      encoder.setPositionConversionFactor(kDistancePerRevolution);
-  
-      encoderReset(encoder);
-    }
-
-
-    public void setMotor(CANSparkMax motor, boolean inverse, boolean pivot) {
+    public void setMotor(CANSparkMax motor, boolean inverse) {
       motor.restoreFactoryDefaults();
       motor.setIdleMode(IdleMode.kBrake);
       motor.setInverted(inverse);
-      if (pivot)
-        motor.setSmartCurrentLimit(kStallLimit, kCurrentLimit);
     }
   
   /**
@@ -128,6 +130,11 @@ public class PivotArm extends SubsystemBase {
   @Override
   public void periodic() {
     // This method will be called once per scheduler run
+    PivotArm.kP = kPValue.get().getDouble();
+    PivotArm.kD = kDValue.get().getDouble();
+    PivotArm.kI = kIValue.get().getDouble();
+    
+    
   }
 
   @Override

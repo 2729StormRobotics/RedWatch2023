@@ -12,23 +12,27 @@ public class ChangeColor extends CommandBase {
 
   // Instantiating variables lights and color
   private final Lights m_flashyflashy;
-  private final double m_pigmentation;
+  private final int m_R;
+  private final int m_G;
+  private final int m_B;
 
   /** Creates a new ChangeColor. */
-  public ChangeColor(Lights lights, double color) {
+  public ChangeColor(Lights light, int R, int G, int B) {
     // Assigning lights and color to their corresponding variables
-    m_flashyflashy = lights;
-    m_pigmentation = color;
+    m_flashyflashy = light;
+    m_R = R;
+    m_G = G;
+    m_B = B;
 
     // Use addRequirements() here to declare subsystem dependencies.
-    addRequirements(lights);
+    addRequirements(light);
   }
 
   // Called when the command is initially scheduled.
   @Override
   public void initialize() {
     // Set the lights color
-    m_flashyflashy.setGiven(m_pigmentation);
+    m_flashyflashy.setGiven(m_R, m_G, m_B);
   }
 
   // Called every time the scheduler runs while the command is scheduled.

@@ -5,25 +5,23 @@
 package frc.robot.CommandGroups;
 
 import edu.wpi.first.wpilibj2.command.SequentialCommandGroup;
-import edu.wpi.first.wpilibj2.command.WaitCommand;
-import frc.robot.commands.AutoBalancing.AutoBalance;
-import frc.robot.commands.AutoBalancing.AutoBalancePID;
-import frc.robot.subsystems.Drivetrain;
+import frc.robot.commands.Gripper.*;
+import frc.robot.subsystems.Gripper;
 
 // NOTE:  Consider using this command inline, rather than writing a subclass.  For more
 // information, see:
 // https://docs.wpilib.org/en/stable/docs/software/commandbased/convenience-features.html
-public class AutoBalance_x6 extends SequentialCommandGroup {
-  /** Creates a new AutoBalance_x6. */
-  public final Drivetrain m_drivetrain;
-  public AutoBalance_x6(Drivetrain drivetrain) {
-    m_drivetrain = drivetrain;
+public class IntakeCube extends SequentialCommandGroup {
+  /** Creates a new Intake. */
+  public final Gripper m_gripper;
+  public IntakeCube(Gripper gripper) {
+    m_gripper = gripper;
     // Add your commands in the addCommands() call, e.g.
     // addCommands(new FooCommand(), new BarCommand());
-    addCommands(new AutoBalancePID(m_drivetrain),
-    new WaitCommand(.2),
-    new AutoBalance(m_drivetrain),
-    new WaitCommand(.2),
-    new AutoBalance(m_drivetrain));
+    addCommands(
+      new RunIntake(m_gripper, false),
+      new IntakeItem(m_gripper, 160.0, false),
+      new StopGripper(m_gripper)
+    );
   }
 }

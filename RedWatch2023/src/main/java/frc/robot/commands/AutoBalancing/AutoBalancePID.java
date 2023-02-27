@@ -29,7 +29,7 @@ public class AutoBalancePID extends PIDCommand {
         new PIDController(Constants.BalanceConstants.kP, Constants.BalanceConstants.kI, Constants.BalanceConstants.kD),
        
         // This should return the measurement
-        () -> drivetrain.getPitch(),
+        () -> drivetrain.getYaw(),
         // This should return the setpoint (can also be a constant)
         () -> Constants.BalanceConstants.kBalancedBeamAngle,
         // This uses the output
