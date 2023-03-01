@@ -58,7 +58,7 @@ public class RobotContainer {
   private final XboxController m_driver = new XboxController(Constants.DrivetrainConstants.kDriverControllerPort);
   private final XboxController m_weapons = new XboxController(Constants.DrivetrainConstants.kWeaponsControllerPort);
 
-  private SlewRateLimiter m_forwardLimiter = new SlewRateLimiter(1); // controls acceleration of forward speed
+  private SlewRateLimiter m_forwardLimiter = new SlewRateLimiter(2); // controls acceleration of forward speed
   private SlewRateLimiter m_rotationLimiter = new SlewRateLimiter(1.5); // controls acceleration of rotational speed
 
   // Subsystems
@@ -94,8 +94,9 @@ public class RobotContainer {
     // Left Joystick: forwards/backward, Right Joystick: turn in place left/right
     m_drivetrain.setDefaultCommand(
     new curvatureDrive(
-      () -> Math.copySign(Constants.DrivetrainConstants.kS, m_driver.getLeftY())
-      + m_forwardLimiter.calculate(m_driver.getLeftY() / Drivetrain.speedLimiter), 
+      () -> Math.min(
+        Math.copySign(Constants.DrivetrainConstants.kS, m_driver.getLeftY())
+      + m_forwardLimiter.calculate(m_driver.getLeftY() / Drivetrain.speedLimiter), 0.5),
       () -> Math.copySign(Constants.DrivetrainConstants.kS, m_driver.getRightX()) 
       + m_rotationLimiter.calculate(m_driver.getRightX() / Drivetrain.rotationLimiter),
       () -> true, m_drivetrain));
@@ -136,9 +137,9 @@ public class RobotContainer {
      new JoystickButton(m_weapons, Button.kX.value).onTrue(new ParallelAutoScoreSetup(m_PinkArm, m_arm, m_gripper, kMidAngleCube, MidExtendCube));
     
     //Cone high 
-    new JoystickButton(m_weapons, Button.kB.value).onTrue(new ParallelAutoScoreSetup(m_PinkArm, m_arm, m_gripper, kHighAngleCone, HighExtendCone));
+   // new JoystickButton(m_weapons, Button.kB.value).onTrue(new ParallelAutoScoreSetup(m_PinkArm, m_arm, m_gripper, kHighAngleCone, HighExtendCone));
     //cone mid
-    new JoystickButton(m_weapons, Button.kA.value).onTrue(new ParallelAutoScoreSetup(m_PinkArm, m_arm, m_gripper, kMidAngleCone, MidExtendCone));
+    //new JoystickButton(m_weapons, Button.kA.value).onTrue(new ParallelAutoScoreSetup(m_PinkArm, m_arm, m_gripper, kMidAngleCone, MidExtendCone));
     
     //intake cone
     new JoystickButton(m_weapons, Button.kRightBumper.value).onTrue(new ParallelAutoScoreSetup(m_PinkArm, m_arm, m_gripper, kLowAngleCone, LowExtendCone));
