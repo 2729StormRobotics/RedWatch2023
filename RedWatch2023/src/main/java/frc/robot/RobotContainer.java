@@ -106,7 +106,7 @@ public class RobotContainer {
       new armJoint(() -> m_weapons.getRightY(), m_PinkArm)
     );
     m_lights.setDefaultCommand(
-      new animateCandle(m_lights, m_weapons)
+      new animateCandle(m_lights, m_driver)
     );
     // Configure the button bindings
 
@@ -120,10 +120,10 @@ public class RobotContainer {
    * edu.wpi.first.wpilibj2.command.button.JoystickButton}.
    */
   private void configureButtonBindings() {    
-    new JoystickButton(m_driver, Button.kLeftBumper.value).onTrue(new IntakeCube(m_gripper));
-    new JoystickButton(m_driver, Button.kRightBumper.value).onTrue(new IntakeCone(m_gripper));
-    new JoystickButton(m_driver, Button.kX.value).onTrue(new EjectItem(m_gripper));
-    new JoystickButton(m_driver, Button.kY.value).onTrue(new StopGripper(m_gripper));
+    // new JoystickButton(m_driver, Button.kLeftBumper.value).onTrue(new IntakeCube(m_gripper));
+    // new JoystickButton(m_driver, Button.kRightBumper.value).onTrue(new IntakeCone(m_gripper));
+    // new JoystickButton(m_driver, Button.kX.value).onTrue(new EjectItem(m_gripper));
+    // new JoystickButton(m_driver, Button.kY.value).onTrue(new StopGripper(m_gripper));
     // new JoystickButton(m_driver, Button.kA.value).onTrue(new BalanceFromDistance(m_drivetrain, false));
     new JoystickButton(m_driver, Button.kB.value).onTrue(new ChangeGear());
     new JoystickButton(m_weapons, Button.kLeftStick.value).onTrue(new animateCandle(m_lights, m_weapons));   
