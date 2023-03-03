@@ -35,6 +35,8 @@ import edu.wpi.first.wpilibj.SPI;
 
 public class Drivetrain extends SubsystemBase {
   /** Creates a new TrainDrive. */
+  
+  public String trajString = "./pathplanner/generatedJSON/Forward Back.wpilib.json";
   public static double speedLimiter = 2.5; // the forward drive power gets divided by this value to reduce the speed
   public static double rotationLimiter = 2.75; // the rotational drive power gets divided by this value to reduce the speed
 

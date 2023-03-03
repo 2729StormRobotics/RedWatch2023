@@ -28,6 +28,7 @@ import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.CommandScheduler;
 import frc.robot.commands.ChangeGear;
 import frc.robot.commands.curvatureDrive;
+import frc.robot.commands.Auto.FollowPath;
 import frc.robot.commands.AutoBalancing.AutoBalance;
 import frc.robot.commands.AutoBalancing.AutoBalancePID;
 import frc.robot.commands.AutoBalancing.ForwardUntilTilted;
@@ -161,6 +162,6 @@ public class RobotContainer {
    */
   public Command getAutonomousCommand() {
     // An ExampleCommand will run in autonomous
-    return null;
+    return new FollowPath(m_drivetrain, m_drivetrain.trajString);
   }
 }
