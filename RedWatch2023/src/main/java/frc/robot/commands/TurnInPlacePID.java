@@ -20,8 +20,8 @@ public class TurnInPlacePID extends PIDCommand {
 
         super(
             new PIDController(TURN_kP, TURN_kI, TURN_kD),
-            drivetrain::getHeading,
-            drivetrain.getHeading()+ turnDeg, // setpoint initialized in initalize
+            drivetrain::getPitch,
+            drivetrain.getPitch()+ turnDeg, // setpoint initialized in initalize
             output -> drivetrain.tankDrive(output + Math.copySign(TURN_kF, output), -output - Math.copySign(TURN_kF, output), true),
             drivetrain
         );
@@ -36,6 +36,8 @@ public class TurnInPlacePID extends PIDCommand {
 
     @Override
     public void initialize() {
+        
+    m_drivetrain.ahrs.reset();
         super.initialize();
 
         // Hack to make sure the robot turns turnDeg degrees from current heading and not turnDeg degrees from 0

@@ -69,7 +69,7 @@ public class Drivetrain extends SubsystemBase {
   private final DifferentialDrive m_drive;
 
   public boolean m_reverseDrive = false;
-  AHRS ahrs;
+  public AHRS ahrs;
   
   public Drivetrain() {
     // m_controlpanelTab = Shuffleboard.getTab(ControlPanelConstants.kShuffleboardTab);
@@ -171,7 +171,7 @@ public class Drivetrain extends SubsystemBase {
   }
 
   public double getAverageDistance() {
-    return -(getRightDistance() + getLeftDistance())/2; 
+    return (getRightDistance() + getLeftDistance())/2; 
   }
 
   public double getAverageSpeed() {
@@ -183,13 +183,13 @@ public class Drivetrain extends SubsystemBase {
   }
 
   public double getPitch() {
-    return ahrs.getYaw();
+    return ahrs.getPitch();
 }
   public double getHeading() {
     return ahrs.getAngle();
   }
   public double getYaw() {
-    return ahrs.getYaw() - 90;
+    return ahrs.getYaw();
   }
 
   // squares the MAGNITUDE of the value
@@ -249,8 +249,10 @@ public class Drivetrain extends SubsystemBase {
     SmartDashboard.putNumber("Average Speed", getAverageSpeed()); // How fast the robot is
     SmartDashboard.putNumber("Left Position", getLeftDistance()); // How far the robot is
     SmartDashboard.putNumber("Right Position", getRightDistance());
-    SmartDashboard.putNumber("Pitch", getPitch()); // Pitch of robot
-    SmartDashboard.putNumber("Yaw", getYaw());
+    SmartDashboard.putNumber("Pitch", ahrs.getPitch()); // Pitch of robot
+    SmartDashboard.putNumber("Yaw", ahrs.getYaw());
+    SmartDashboard.putNumber("Roll", ahrs.getRoll());
+    // SmartDashboard.putNumber("something", ahrs.get
     m_odometry.update(
         ahrs.getRotation2d(), getLeftDistance(),getRightDistance());
     // This method will be called once per scheduler run

@@ -35,8 +35,11 @@
          () -> distance,
          // This uses the output
          output -> {
-          if (Math.abs(output) > 0.4)
-            output = Math.copySign(0.4, output); 
+          if (Math.abs(output) > 0.6)
+            output = Math.copySign(0.6, output); 
+          if (Math.abs(output) < Constants.DrivetrainConstants.kS) {
+            output = Math.copySign(Constants.DrivetrainConstants.kS, output);
+          } 
            // Use the output here
            // drive forward
            drivetrain.tankDrive(-output, -output, false);
@@ -64,7 +67,7 @@
    @Override
    public boolean isFinished() {
     
-     return Math.abs((m_drivetrain.getAverageDistance() - m_distance)) < 3;
+     return Math.abs((m_drivetrain.getAverageDistance() - m_distance)) < 0.0225;
    }
  
    // manually added end function

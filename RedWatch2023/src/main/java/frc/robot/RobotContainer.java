@@ -28,6 +28,7 @@ import frc.robot.CommandGroups.Dunk;
 import frc.robot.CommandGroups.IntakeCone;
 import frc.robot.CommandGroups.IntakeCube;
 import frc.robot.CommandGroups.ParallelAutoScoreSetup;
+import frc.robot.CommandGroups.Auto.B1_Testing;
 import frc.robot.Constants.TelescopingConstants;
 import frc.robot.commands.pivotArm.PivotPID;
 import frc.robot.commands.pivotArm.armJoint;
@@ -37,7 +38,11 @@ import frc.robot.subsystems.PivotArm;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.CommandScheduler;
 import edu.wpi.first.wpilibj2.command.RamseteCommand;
+import frc.robot.commands.AutoForwardPID;
 import frc.robot.commands.ChangeGear;
+import frc.robot.commands.ResetPosition;
+import frc.robot.commands.TurnInPlace;
+import frc.robot.commands.TurnInPlacePID;
 import frc.robot.commands.curvatureDrive;
 import frc.robot.commands.Auto.FollowPath;
 import frc.robot.commands.AutoBalancing.AutoBalance;
@@ -140,7 +145,12 @@ public class RobotContainer {
     // new JoystickButton(m_driver, Button.kX.value).onTrue(new EjectItem(m_gripper));
     // new JoystickButton(m_driver, Button.kY.value).onTrue(new StopGripper(m_gripper));
     // new JoystickButton(m_driver, Button.kA.value).onTrue(new BalanceFromDistance(m_drivetrain, false));
+    new JoystickButton(m_driver, Button.kStart.value).onTrue(new ResetPosition(m_drivetrain));
     new JoystickButton(m_driver, Button.kB.value).onTrue(new ChangeGear());
+    new JoystickButton(m_driver, Button.kA.value).onTrue(new AutoForwardPID(2, m_drivetrain));
+    new JoystickButton(m_driver, Button.kY.value).onTrue(new AutoForwardPID(5, m_drivetrain));
+    new JoystickButton(m_driver, Button.kX.value).onTrue(new TurnInPlace (m_drivetrain, 180, 0.7));
+    new JoystickButton(m_driver, Button.kBack.value).onTrue(new TurnInPlacePID (180, m_drivetrain));
   //   new JoystickButton(m_weapons, Button.kLeftStick.value).onTrue(new animateCandle(m_lights, m_weapons));   
   //   // new JoystickButton(m_weapons, Button.kY.value).toggleOnTrue(new ExtendVal( TelescopingConstants.HighExtendCube, m_arm));
   //   //new JoystickButton(m_weapons, Button.kX.value).toggleOnTrue(new ExtendVal( TelescopingConstants.MidExtendCube, m_arm));
@@ -174,16 +184,17 @@ public class RobotContainer {
    *
    * @return the command to run in autonomous
    */
-  public Command getAutonomousCommand() {
+  public Command getAutonomousCommand(Trajectory traj) {
     // Create a voltage constraint to ensure we don't accelerate too fast
-    var autoVoltageConstraint =
-        new DifferentialDriveVoltageConstraint(
-            new SimpleMotorFeedforward(
-                Constants.AutoPathConstants.ksVolts,
-                Constants.AutoPathConstants.kvVoltSecondsPerMeter,
-                Constants.AutoPathConstants.kaVoltSecondsSquaredPerMeter),
-            Constants.AutoPathConstants.kDriveKinematics,
-            12  );
+
+    // var autoVoltageConstraint =
+    //     new DifferentialDriveVoltageConstraint(
+    //         new SimpleMotorFeedforward(
+    //             Constants.AutoPathConstants.ksVolts,
+    //             Constants.AutoPathConstants.kvVoltSecondsPerMeter,
+    //             Constants.AutoPathConstants.kaVoltSecondsSquaredPerMeter),
+    //         Constants.AutoPathConstants.kDriveKinematics,
+    //         3  );
 
     // Create config for trajectory
     TrajectoryConfig config =
@@ -206,10 +217,10 @@ public class RobotContainer {
             new Pose2d(3, 0, new Rotation2d(0)),
             // Pass config
             config);
-    m_drivetrain.m_field.getObject("traj").setTrajectory(exampleTrajectory);
+    m_drivetrain.m_field.getObject("traj").setTrajectory(traj);
     RamseteCommand ramseteCommand =
         new RamseteCommand(
-            exampleTrajectory,
+            traj,
             m_drivetrain::getPose,
             new RamseteController(Constants.AutoPathConstants.kRamseteB, Constants.AutoPathConstants.kRamseteZeta),
             new SimpleMotorFeedforward(
@@ -225,9 +236,10 @@ public class RobotContainer {
             m_drivetrain);
 
     // Reset odometry to the starting pose of the trajectory.
-    m_drivetrain.resetOdometry(exampleTrajectory.getInitialPose());
+    m_drivetrain.resetOdometry(traj.getInitialPose());
 
     // Run path following command, then stop at the end.
+    // return new B1_Testing(m_drivetrain);
     return ramseteCommand.andThen(() -> m_drivetrain.tankDriveVolts(0, 0));
   }
 }

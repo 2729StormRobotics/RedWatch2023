@@ -4,6 +4,7 @@
 
 package frc.robot.commands;
 
+import edu.wpi.first.math.MathShared;
 import edu.wpi.first.wpilibj2.command.CommandBase;
 import frc.robot.subsystems.Drivetrain;
 
@@ -11,7 +12,8 @@ public class TurnInPlace extends CommandBase {
   private Drivetrain m_drivetrain;
   private double turnDeg;
   private double setpoint;
-  private double speed = 0.3;
+  private double speed = 0.6;
+  private final double tolerance = 3;
   /** Creates a new TurnInPlace. */
   public TurnInPlace(Drivetrain drivetrain, double degrees, double turnSpeed) {
     m_drivetrain = drivetrain;
@@ -24,7 +26,8 @@ public class TurnInPlace extends CommandBase {
   // Called when the command is initially scheduled.
   @Override
   public void initialize() {
-    setpoint = m_drivetrain.getHeading()+ turnDeg;
+    m_drivetrain.ahrs.reset();
+    setpoint = m_drivetrain.getYaw()+ turnDeg;
   }
 
   // Called every time the scheduler runs while the command is scheduled.
@@ -40,6 +43,6 @@ public class TurnInPlace extends CommandBase {
   // Returns true when the command should end.
   @Override
   public boolean isFinished() {
-    return (m_drivetrain.getHeading() == setpoint);
+    return (Math.abs((m_drivetrain.getYaw() - setpoint)) < tolerance);
   }
 }

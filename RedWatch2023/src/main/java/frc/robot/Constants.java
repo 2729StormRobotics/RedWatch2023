@@ -173,10 +173,11 @@ public final class Constants {
         new TrapezoidProfile.Constraints(
           kMaxAngularSpeedRadiansPerSecond, kMaxAngularSpeedRadiansPerSecondSquared);
 
-      public static final double ksVolts = 0.090384;
-      public static final double kvVoltSecondsPerMeter = 3.2965;
-      public static final double kaVoltSecondsSquaredPerMeter = 1.0828;
-      public static final double kPDriveVel = 4.3113 * Math.pow(10, -6);
+      public static final double ksVolts = 0.056518;//-0.056518 
+      public static final double kvVoltSecondsPerMeter = 1.6077;//1.6077
+      public static final double kaVoltSecondsSquaredPerMeter = 1.0305;//1.0305
+      public static final double kPDriveVel = 0.00000043113;
+      // public static final double kPDriveVel = 1.1109;
       public static final double kRamseteB_radSquaredPerMetersSquared = 2;
       public static final double kRamseteZeta_PerRad = 1;
       public static final double kTrackWidthMeters = Units.inchesToMeters(21.0);
@@ -211,7 +212,7 @@ public final class Constants {
       }
 	// PID Control (all experimentally determined)
 	public static final class AutoForwardPIDValues{
-		public static final double kP = 0.0576;
+		public static final double kP = 0.76;
 		public static final double kI = 0;
 		public static final double kD = 0;	
 		public static final double kVelocityTolerance = 5.0;
