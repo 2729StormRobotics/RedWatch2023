@@ -173,13 +173,13 @@ public final class Constants {
         new TrapezoidProfile.Constraints(
           kMaxAngularSpeedRadiansPerSecond, kMaxAngularSpeedRadiansPerSecondSquared);
 
-      public static final double ksVolts = 0.20322;
-      public static final double kvVoltSecondsPerMeter = 3.2976;
-      public static final double kaVoltSecondsSquaredPerMeter = 0.67542;
-      public static final double kPDriveVel = 4.569;
+      public static final double ksVolts = 0.090384;
+      public static final double kvVoltSecondsPerMeter = 3.2965;
+      public static final double kaVoltSecondsSquaredPerMeter = 1.0828;
+      public static final double kPDriveVel = 4.3113 * Math.pow(10, -6);
       public static final double kRamseteB_radSquaredPerMetersSquared = 2;
       public static final double kRamseteZeta_PerRad = 1;
-      public static final double kTrackWidthMeters = Units.inchesToMeters(23.0);
+      public static final double kTrackWidthMeters = Units.inchesToMeters(21.0);
       public static final DifferentialDriveKinematics kDriveKinematics = new DifferentialDriveKinematics(kTrackWidthMeters);
       public static final double kMaxSpeedMetersPerSecond = 3;
       public static final double kMaxAccelerationMetersPerSecondSquared = 1;
@@ -188,8 +188,8 @@ public final class Constants {
       public static final double kRamseteZeta = 0.7;
       //#endregion
       // since the encoder is build into the motor we need to account for gearing
-      public static final double kWheelDiameter = 6.0;
-      public static final double kGearRatio = 1.0 / 12.0;
+      public static final double kWheelDiameter = 0.1524;
+      public static final double kGearRatio = 1.0 / 12.9;
       public static final double kDistancePerRevolution = kWheelDiameter * kGearRatio * 3.14;
       public static final double kSpeedPerRevolution = kDistancePerRevolution / 60.0;
     
