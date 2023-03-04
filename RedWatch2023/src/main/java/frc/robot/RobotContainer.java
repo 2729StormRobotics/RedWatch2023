@@ -77,30 +77,30 @@ public class RobotContainer {
   private SlewRateLimiter m_rotationLimiter = new SlewRateLimiter(1.5); // controls acceleration of rotational speed
 
   // Subsystems
-  private final Lights m_lights;
-  private final Gripper m_gripper;
+  // private final Lights m_lights;
+  // private final Gripper m_gripper;
   private final Drivetrain m_drivetrain;
-  private final PivotArm m_PinkArm;
-  private final TelescopingArm m_arm;
+  // private final PivotArm m_PinkArm;
+  // private final TelescopingArm m_arm;
 
   /** The container for the robot. Contains subsystems, OI devices, and commands. */
   public RobotContainer() {
     // Subsystems Instantiation
-    m_gripper = new Gripper();
-    m_lights = new Lights();
+    // m_gripper = new Gripper();
+    // m_lights = new Lights();
     m_drivetrain = new Drivetrain();
-    m_PinkArm = new PivotArm();
-    m_arm = new TelescopingArm();
+    // m_PinkArm = new PivotArm();
+    // m_arm = new TelescopingArm();
 
     SmartDashboard.putData(CommandScheduler.getInstance());
     SmartDashboard.putNumber("Speed Limiter", Drivetrain.speedLimiter);
 
     // Setting default commands
-    m_arm.setDefaultCommand(
-      new ArmControl(() -> m_weapons.getLeftY(), m_arm));
+    // m_arm.setDefaultCommand(
+    //   new ArmControl(() -> m_weapons.getLeftY(), m_arm));
 
     // Control Panel
-    new ControlPanel(m_drivetrain, m_gripper, m_lights, m_PinkArm, m_arm);
+    // new ControlPanel(m_drivetrain, m_gripper, m_lights, m_PinkArm, m_arm);
 
     // Lights
     // m_lights.setDefaultCommand(new CheckObjectForColorChange(m_lights, m_gripper));
@@ -117,12 +117,12 @@ public class RobotContainer {
       () -> true, m_drivetrain));
     
     // Pink Arm
-    m_PinkArm.setDefaultCommand(
-      new armJoint(() -> m_weapons.getRightY(), m_PinkArm)
-    );
-    m_lights.setDefaultCommand(
-      new animateCandle(m_lights, m_driver)
-    );
+    // m_PinkArm.setDefaultCommand(
+    //   new armJoint(() -> m_weapons.getRightY(), m_PinkArm)
+    // );
+    // m_lights.setDefaultCommand(
+    //   new animateCandle(m_lights, m_driver)
+    // );
     // Configure the button bindings
 
     configureButtonBindings();
@@ -141,25 +141,25 @@ public class RobotContainer {
     // new JoystickButton(m_driver, Button.kY.value).onTrue(new StopGripper(m_gripper));
     // new JoystickButton(m_driver, Button.kA.value).onTrue(new BalanceFromDistance(m_drivetrain, false));
     new JoystickButton(m_driver, Button.kB.value).onTrue(new ChangeGear());
-    new JoystickButton(m_weapons, Button.kLeftStick.value).onTrue(new animateCandle(m_lights, m_weapons));   
-    // new JoystickButton(m_weapons, Button.kY.value).toggleOnTrue(new ExtendVal( TelescopingConstants.HighExtendCube, m_arm));
-    //new JoystickButton(m_weapons, Button.kX.value).toggleOnTrue(new ExtendVal( TelescopingConstants.MidExtendCube, m_arm));
-    //new JoystickButton(m_weapons, Button.kA.value).toggleOnTrue(new ExtendVal( TelescopingConstants.LowExtendHybrid , m_arm));
+  //   new JoystickButton(m_weapons, Button.kLeftStick.value).onTrue(new animateCandle(m_lights, m_weapons));   
+  //   // new JoystickButton(m_weapons, Button.kY.value).toggleOnTrue(new ExtendVal( TelescopingConstants.HighExtendCube, m_arm));
+  //   //new JoystickButton(m_weapons, Button.kX.value).toggleOnTrue(new ExtendVal( TelescopingConstants.MidExtendCube, m_arm));
+  //   //new JoystickButton(m_weapons, Button.kA.value).toggleOnTrue(new ExtendVal( TelescopingConstants.LowExtendHybrid , m_arm));
     
-    //cube high 
-     new JoystickButton(m_weapons, Button.kY.value).onTrue(new ParallelAutoScoreSetup(m_PinkArm, m_arm, m_gripper, kHighAngleCube, HighExtendCube));
-    //cube mid
-     new JoystickButton(m_weapons, Button.kX.value).onTrue(new ParallelAutoScoreSetup(m_PinkArm, m_arm, m_gripper, kMidAngleCube, MidExtendCube));
+  //   //cube high 
+  //    new JoystickButton(m_weapons, Button.kY.value).onTrue(new ParallelAutoScoreSetup(m_PinkArm, m_arm, m_gripper, kHighAngleCube, HighExtendCube));
+  //   //cube mid
+  //    new JoystickButton(m_weapons, Button.kX.value).onTrue(new ParallelAutoScoreSetup(m_PinkArm, m_arm, m_gripper, kMidAngleCube, MidExtendCube));
     
-    //Cone high 
-   // new JoystickButton(m_weapons, Button.kB.value).onTrue(new ParallelAutoScoreSetup(m_PinkArm, m_arm, m_gripper, kHighAngleCone, HighExtendCone));
-    //cone mid
-    //new JoystickButton(m_weapons, Button.kA.value).onTrue(new ParallelAutoScoreSetup(m_PinkArm, m_arm, m_gripper, kMidAngleCone, MidExtendCone));
+  //   //Cone high 
+  //  // new JoystickButton(m_weapons, Button.kB.value).onTrue(new ParallelAutoScoreSetup(m_PinkArm, m_arm, m_gripper, kHighAngleCone, HighExtendCone));
+  //   //cone mid
+  //   //new JoystickButton(m_weapons, Button.kA.value).onTrue(new ParallelAutoScoreSetup(m_PinkArm, m_arm, m_gripper, kMidAngleCone, MidExtendCone));
     
-    //intake cone
-    new JoystickButton(m_weapons, Button.kRightBumper.value).onTrue(new ParallelAutoScoreSetup(m_PinkArm, m_arm, m_gripper, kLowAngleCone, LowExtendCone));
-    // intake cube
-    new JoystickButton(m_weapons, Button.kLeftBumper.value).onTrue(new ParallelAutoScoreSetup(m_PinkArm, m_arm, m_gripper, kLowAngleCube, LowExtendCube));
+  //   //intake cone
+  //   new JoystickButton(m_weapons, Button.kRightBumper.value).onTrue(new ParallelAutoScoreSetup(m_PinkArm, m_arm, m_gripper, kLowAngleCone, LowExtendCone));
+  //   // intake cube
+  //   new JoystickButton(m_weapons, Button.kLeftBumper.value).onTrue(new ParallelAutoScoreSetup(m_PinkArm, m_arm, m_gripper, kLowAngleCube, LowExtendCube));
     
 
     //dunk

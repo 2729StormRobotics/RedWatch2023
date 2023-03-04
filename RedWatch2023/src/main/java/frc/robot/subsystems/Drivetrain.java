@@ -20,6 +20,7 @@ import edu.wpi.first.wpilibj.drive.DifferentialDrive;
 import edu.wpi.first.wpilibj.motorcontrol.MotorControllerGroup;
 import edu.wpi.first.wpilibj.motorcontrol.PWMSparkMax;
 import edu.wpi.first.wpilibj.shuffleboard.ShuffleboardLayout;
+import edu.wpi.first.wpilibj.shuffleboard.ShuffleboardTab;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj.smartdashboard.Field2d;
 import com.kauailabs.navx.frc.AHRS;
@@ -62,6 +63,8 @@ public class Drivetrain extends SubsystemBase {
   // declare encoders
   public final RelativeEncoder m_leftEncoder;
   public final RelativeEncoder m_rightEncoder;
+  // private final ShuffleboardLayout m_drivetrainStatus;
+  // private final ShuffleboardTab m_controlpanelTab;
 
   private final DifferentialDrive m_drive;
 
@@ -69,9 +72,14 @@ public class Drivetrain extends SubsystemBase {
   AHRS ahrs;
   
   public Drivetrain() {
-    // define motors
-    SmartDashboard.putData("Field", m_field);
+    // m_controlpanelTab = Shuffleboard.getTab(ControlPanelConstants.kShuffleboardTab);
 
+    // // define motors
+    // SmartDashboard.putData("Field", m_field);
+    // m_drivetrainStatus = m_controlpanelTab.getLayout("Drivetrain Status", BuiltInLayouts.kList)
+    // .withProperties(Map.of("Label position", "TOP"))
+    // .withPosition(0, 0)
+    // .withSize(2, 4);
     leftMotor = new com.revrobotics.CANSparkMax(Constants.DrivetrainConstants.LEFT_MOTOR_ID, MotorType.kBrushless);
     leftMotor2 = new com.revrobotics.CANSparkMax(Constants.DrivetrainConstants.LEFT_MOTOR2_ID, MotorType.kBrushless);
     rightMotor = new com.revrobotics.CANSparkMax(Constants.DrivetrainConstants.RIGHT_MOTOR_ID, MotorType.kBrushless);
@@ -155,11 +163,11 @@ public class Drivetrain extends SubsystemBase {
   }
 
   private double getLeftSpeed() {
-    return -m_leftEncoder.getVelocity();
+    return m_leftEncoder.getVelocity();
   }
 
   private double getRightSpeed() {
-    return -m_rightEncoder.getVelocity();
+    return m_rightEncoder.getVelocity();
   }
 
   public double getAverageDistance() {
@@ -238,7 +246,11 @@ public class Drivetrain extends SubsystemBase {
   
   @Override
   public void periodic() {
-
+    SmartDashboard.putNumber("Average Speed", getAverageSpeed()); // How fast the robot is
+    SmartDashboard.putNumber("Left Position", getLeftDistance()); // How far the robot is
+    SmartDashboard.putNumber("Right Position", getRightDistance());
+    SmartDashboard.putNumber("Pitch", getPitch()); // Pitch of robot
+    SmartDashboard.putNumber("Yaw", getYaw());
     m_odometry.update(
         ahrs.getRotation2d(), getLeftDistance(),getRightDistance());
     // This method will be called once per scheduler run
