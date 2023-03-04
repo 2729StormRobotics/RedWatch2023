@@ -206,7 +206,7 @@ public class RobotContainer {
             new Pose2d(3, 0, new Rotation2d(0)),
             // Pass config
             config);
-
+    m_drivetrain.m_field.getObject("traj").setTrajectory(exampleTrajectory);
     RamseteCommand ramseteCommand =
         new RamseteCommand(
             exampleTrajectory,

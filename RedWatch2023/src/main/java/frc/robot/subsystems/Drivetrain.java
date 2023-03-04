@@ -17,9 +17,11 @@ import com.revrobotics.CANSparkMaxLowLevel.MotorType;
 
 
 import edu.wpi.first.wpilibj.drive.DifferentialDrive;
+import edu.wpi.first.wpilibj.motorcontrol.MotorControllerGroup;
+import edu.wpi.first.wpilibj.motorcontrol.PWMSparkMax;
 import edu.wpi.first.wpilibj.shuffleboard.ShuffleboardLayout;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
-
+import edu.wpi.first.wpilibj.smartdashboard.Field2d;
 import com.kauailabs.navx.frc.AHRS;
 
 import edu.wpi.first.math.controller.RamseteController;
@@ -35,16 +37,18 @@ import edu.wpi.first.wpilibj.SPI;
 
 public class Drivetrain extends SubsystemBase {
   /** Creates a new TrainDrive. */
-  
+  public final Field2d m_field = new Field2d();
   public String trajString = "./pathplanner/generatedJSON/Forward Back.wpilib.json";
   public static double speedLimiter = 2.5; // the forward drive power gets divided by this value to reduce the speed
   public static double rotationLimiter = 2.75; // the rotational drive power gets divided by this value to reduce the speed
-
   // declar motors
   public final com.revrobotics.CANSparkMax leftMotor;
   public final com.revrobotics.CANSparkMax rightMotor;
   public final com.revrobotics.CANSparkMax leftMotor2;
   public final com.revrobotics.CANSparkMax rightMotor2;
+
+  private final MotorControllerGroup m_leftMotors;
+  private final MotorControllerGroup m_rightMotors;
 
   //public final com.revrobotics.CANSparkMax leftMotor2;
   
@@ -66,6 +70,8 @@ public class Drivetrain extends SubsystemBase {
   
   public Drivetrain() {
     // define motors
+    SmartDashboard.putData("Field", m_field);
+
     leftMotor = new com.revrobotics.CANSparkMax(Constants.DrivetrainConstants.LEFT_MOTOR_ID, MotorType.kBrushless);
     leftMotor2 = new com.revrobotics.CANSparkMax(Constants.DrivetrainConstants.LEFT_MOTOR2_ID, MotorType.kBrushless);
     rightMotor = new com.revrobotics.CANSparkMax(Constants.DrivetrainConstants.RIGHT_MOTOR_ID, MotorType.kBrushless);
@@ -87,6 +93,8 @@ public class Drivetrain extends SubsystemBase {
     rightMotor.setIdleMode(IdleMode.kBrake);
     rightMotor2.setIdleMode(IdleMode.kBrake);
 
+    m_leftMotors = new MotorControllerGroup(leftMotor, leftMotor2);
+    m_rightMotors = new MotorControllerGroup(rightMotor, rightMotor2);
     // group the left and right motors together as two groups
     leftMotor2.follow(leftMotor);
     rightMotor2.follow(rightMotor);
@@ -94,7 +102,7 @@ public class Drivetrain extends SubsystemBase {
     // initialize encoders
     m_leftEncoder = leftMotor.getEncoder();
     m_rightEncoder = rightMotor.getEncoder();
-
+    resetEncoders();
     // initiailze drivetrain
     m_drive = new DifferentialDrive(leftMotor, rightMotor);
 
@@ -217,19 +225,22 @@ public class Drivetrain extends SubsystemBase {
   }
   public void resetOdometry(Pose2d pose) {
     resetEncoders();
-    m_odometry.resetPosition( ahrs.getRotation2d(),0,0,pose);
+    m_odometry.resetPosition( ahrs.getRotation2d(),getLeftDistance(),getRightDistance(),pose);
   }
   public DifferentialDriveWheelSpeeds getRamsetTargetWheelSpeeds(State tragectorySample) {
     return m_kinematics.toWheelSpeeds(m_ramseteController.calculate(getPose(), tragectorySample));
   }
   public void tankDriveVolts(double leftVolts, double rightVolts) {
-    leftMotor.setVoltage(leftVolts);
-    rightMotor.setVoltage(rightVolts);
+    m_leftMotors.setVoltage(leftVolts);
+    m_rightMotors.setVoltage(rightVolts);
     m_drive.feed();
   }
   
   @Override
   public void periodic() {
+
+    m_odometry.update(
+        ahrs.getRotation2d(), getLeftDistance(),getRightDistance());
     // This method will be called once per scheduler run
     double newKP = SmartDashboard.getNumber("P value", 0.0);
     if (newKP != Constants.BalanceConstants.kP){
@@ -246,5 +257,7 @@ public class Drivetrain extends SubsystemBase {
         Constants.BalanceConstants.kD = newKD;   
         SmartDashboard.putNumber("D value", Constants.BalanceConstants.kD);
     }
+    m_field.setRobotPose(m_odometry.getPoseMeters());
+
   }
 }
