@@ -183,7 +183,7 @@ public class RobotContainer {
                 Constants.AutoPathConstants.kvVoltSecondsPerMeter,
                 Constants.AutoPathConstants.kaVoltSecondsSquaredPerMeter),
             Constants.AutoPathConstants.kDriveKinematics,
-            10);
+            12  );
 
     // Create config for trajectory
     TrajectoryConfig config =
@@ -191,9 +191,9 @@ public class RobotContainer {
                 Constants.AutoPathConstants.kMaxSpeedMetersPerSecond,
                 Constants.AutoPathConstants.kMaxAccelerationMetersPerSecondSquared)
             // Add kinematics to ensure max speed is actually obeyed
-            .setKinematics(Constants.AutoPathConstants.kDriveKinematics)
+            .setKinematics(Constants.AutoPathConstants.kDriveKinematics);
             // Apply the voltage constraint
-            .addConstraint(autoVoltageConstraint);
+            // .addConstraint(autoVoltageConstraint);
 
     // An example trajectory to follow.  All units in meters.
     Trajectory exampleTrajectory =

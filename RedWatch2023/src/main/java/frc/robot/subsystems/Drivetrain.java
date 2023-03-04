@@ -131,7 +131,7 @@ public class Drivetrain extends SubsystemBase {
   private void encoderInit(RelativeEncoder encoder) {
     // set conversion factor and velocity factor (converting encoder ticks to real units)
     encoder.setPositionConversionFactor(Constants.DrivetrainConstants.kEncoderDistanceRatio);
-    encoder.setVelocityConversionFactor(Constants.DrivetrainConstants.kHighSpeedPerPulseEncoderRatio);
+    // encoder.setVelocityConversionFactor(Constants.DrivetrainConstants.kHighSpeedPerPulseEncoderRatio);
     encoderReset(encoder);
 
   }
@@ -147,11 +147,11 @@ public class Drivetrain extends SubsystemBase {
   }
 
   public double getLeftDistance() {
-    return -m_leftEncoder.getPosition();
+    return m_leftEncoder.getPosition();
   }
 
   public double getRightDistance() {
-    return -m_rightEncoder.getPosition();
+    return m_rightEncoder.getPosition();
   }
 
   private double getLeftSpeed() {
