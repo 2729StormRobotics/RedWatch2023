@@ -55,8 +55,11 @@ public class Vision extends SubsystemBase {
     else if (height.equals("MEDIUM")) {
       ydist = Constants.VisionConstants.kMediumTargetHeight - Constants.VisionConstants.kLimeLightHeight;
     }
+    else {
+      return 0;
+    }
     double xdist = ydist / Math.tan(Math.toRadians(angle));
-    return xdist;
+    return Math.abs(xdist);
   }
 
   public double getDistanceFromCone() {

@@ -14,18 +14,20 @@ public class FollowTarget extends CommandBase {
   /** Creates a new FollowTarget. */
   public final Drivetrain m_drivetrain;
   public final Vision m_vision;
-  final double LINEAR_P = 0.01;
+  final double LINEAR_P = 0.003;
   final double ANGULAR_P = 0.01;
   double turnPower;
   double forwardPower;
   double forwardError;
   double turnError;
+  String m_height;
 
   PIDController m_forwardController = new PIDController(LINEAR_P, 0, 0);
   PIDController m_turnController = new PIDController(ANGULAR_P, 0, 0);
-  public FollowTarget(Drivetrain drivetrain, Vision vision) {
+  public FollowTarget(Drivetrain drivetrain, Vision vision, String height) {
     m_drivetrain = drivetrain;
     m_vision = vision;
+    m_height = height;
     // Use addRequirements() here to declare subsystem dependencies.
     addRequirements(m_drivetrain, m_vision);
   }
@@ -33,17 +35,19 @@ public class FollowTarget extends CommandBase {
   // Called when the command is initially scheduled.
   @Override
   public void initialize() {
-    forwardError = m_vision.getDistanceFromCone();
-    turnError = m_vision.getY();
+    forwardError = m_vision.getDistanceFromTarget(m_height);
+    turnError = m_vision.getX();
     m_drivetrain.tankDrive(0, 0, false);
   }
 
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
+    forwardError = m_vision.getDistanceFromTarget(m_height);
+    turnError = m_vision.getX();
     turnPower = turnError * ANGULAR_P;
     forwardPower = forwardError * LINEAR_P;
-    m_drivetrain.curvatureDrive(forwardPower, turnPower, true);
+    m_drivetrain.curvatureDrive(-forwardPower, turnPower, true);
   }
 
   // Called once the command ends or is interrupted.
@@ -55,6 +59,6 @@ public class FollowTarget extends CommandBase {
   // Returns true when the command should end.
   @Override
   public boolean isFinished() {
-    return (forwardError < 5 && Math.abs(turnError) < 2.5);
+    return (forwardError < 15 && Math.abs(turnError) < 2.5);
   }
 }
