@@ -121,7 +121,7 @@ public class Drivetrain extends SubsystemBase {
       DriverStation.reportError("Error instantiating navX MXP: " + ex.getMessage(), true);
     }
 
-    m_kinematics = new DifferentialDriveKinematics(Units.inchesToMeters(Constants.kTrackWidth));
+    m_kinematics = new DifferentialDriveKinematics(Units.inchesToMeters(Constants.DrivetrainConstants.kTrackWidth));
     m_odometry = new DifferentialDriveOdometry(
       ahrs.getRotation2d(), getLeftDistance(), getRightDistance());
     

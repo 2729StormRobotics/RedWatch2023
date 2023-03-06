@@ -147,10 +147,9 @@ public class RobotContainer {
     // new JoystickButton(m_driver, Button.kA.value).onTrue(new BalanceFromDistance(m_drivetrain, false));
     new JoystickButton(m_driver, Button.kStart.value).onTrue(new ResetPosition(m_drivetrain));
     new JoystickButton(m_driver, Button.kB.value).onTrue(new ChangeGear());
-    new JoystickButton(m_driver, Button.kA.value).onTrue(new AutoForwardPID(2, m_drivetrain));
     new JoystickButton(m_driver, Button.kY.value).onTrue(new AutoForwardPID(5, m_drivetrain));
-    new JoystickButton(m_driver, Button.kX.value).onTrue(new TurnInPlace (m_drivetrain, 180, 0.7));
-    new JoystickButton(m_driver, Button.kBack.value).onTrue(new TurnInPlacePID (180, m_drivetrain));
+    new JoystickButton(m_driver, Button.kX.value).onTrue(new B1_Testing(m_drivetrain));
+    new JoystickButton(m_driver, Button.kA.value).onTrue(new TurnInPlacePID (180, m_drivetrain));
   //   new JoystickButton(m_weapons, Button.kLeftStick.value).onTrue(new animateCandle(m_lights, m_weapons));   
   //   // new JoystickButton(m_weapons, Button.kY.value).toggleOnTrue(new ExtendVal( TelescopingConstants.HighExtendCube, m_arm));
   //   //new JoystickButton(m_weapons, Button.kX.value).toggleOnTrue(new ExtendVal( TelescopingConstants.MidExtendCube, m_arm));

@@ -43,10 +43,11 @@ public class B1_Testing extends SequentialCommandGroup {
       // new EjectItem(m_gripper),
       // new ExtendVal(5, m_arm),
       // new AutoForwardPID(-50 , m_Drivetrain),
-      new AutoForwardPID(10 , m_Drivetrain),
+      new AutoForwardPID(-1.64 , m_Drivetrain),
+      new AutoForwardPID(-2.24 , m_Drivetrain),
       // new ParallelAutoScoreSetup(m_PinkArm, m_arm, m_gripper, pinkArmConstants.kLowAngleCube,TelescopingConstants.LowExtendCube),
-      new TurnInPlace(m_Drivetrain, 180, 0.5),
-      new AutoForwardPID(1 , m_Drivetrain)
+      new TurnInPlacePID(180, m_Drivetrain),
+      new AutoForwardPID(0.88 , m_Drivetrain)
       );
   }
 }

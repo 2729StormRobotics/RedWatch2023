@@ -91,32 +91,7 @@ public final class Constants {
     public static final int kDriverController = 1;
     public static final int kWeaponsContoller = 2;
   }
-  public static final int RIGHT_MOTOR2_ID = 36;
-	public static final int RIGHT_MOTOR_ID = 12;
-	public static final int LEFT_MOTOR2_ID = 3;
-	public static final int LEFT_MOTOR_ID = 14;
-	public static final int STALL_LIMIT = 45;
-	public static final int kDriverControllerPort = 1;
-	public static final int kWeaponsControllerPort = 2;
-	public static final String kShuffleboardTab = "Control Panel";
-	public static final int kCurrentLimit = 60;
-	public static final boolean kLeftReversedDefault = true;
-	public static final boolean kRightReversedDefault = !kLeftReversedDefault;
-	public static final double kTrackWidth = 29; // inches
-	
-	public static final double kS = 0.18; // minimum voltage to make the drivetrain move on the ground
-	// driver encoder calculations
-  public static final double TURN_kP = -2e-3;
-  public static final double TURN_kI = 0;
-  public static final double TURN_kD = -2e-4;
-  public static final double TURN_kF = 0.1;
-	// since the encoder is build into the motor we need to account for gearing
-	public static final double kWheelDiameterInches = 6.0;
-	private static final double kWheelDiameterFeet = kWheelDiameterInches / 12.0;
-	private static final double kInitialGear = 14.0 / 58.0 * 18.0 / 38.0;
-	private static final double kHighGear = kInitialGear * 32.0 / 34.0;
-	private static final double kLowGear = kInitialGear * 22.0 / 44.0;
-
+  
   public static final class DrivetrainConstants {
     public static final int LEFT_MOTOR2_ID = 2;
     public static final int LEFT_MOTOR_ID = 1;
@@ -148,9 +123,16 @@ public final class Constants {
     // experimentally determined (inches per encoder count)
     public static final double kEncoderDistanceRatio = Units.inchesToMeters((1/12.9)*Math.PI*6);
     public static double kRightAngleTurnArcLength = 7.25 * Math.PI;
-    public static final double kHighSpeedPerPulseEncoderRatio = kEncoderDistanceRatio / 60.0;
+    public static final double kHighSpeedPerPulseEncoderRatio = kEncoderDistanceRatio / 60.0;  
     public static final double kControllerDeadzone = 0.1;
+    
+    public static final double kTurnAngleP = 0.029;
+    public static final double kTurnAngleI = 0.0;
+    public static final double kTurnAngleD = 0.0;
+    public static final double kTurnAngleTolerance = 2;
+    public static final double kTurnSpeedTolerance = 3.0;
   }
+
 
 
 	public static final class BalanceConstants{

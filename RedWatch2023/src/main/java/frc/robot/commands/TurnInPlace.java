@@ -12,7 +12,7 @@ public class TurnInPlace extends CommandBase {
   private Drivetrain m_drivetrain;
   private double turnDeg;
   private double setpoint;
-  private double speed = 0.6;
+  private double speed = 0.3;
   private final double tolerance = 3;
   /** Creates a new TurnInPlace. */
   public TurnInPlace(Drivetrain drivetrain, double degrees, double turnSpeed) {
