@@ -7,6 +7,7 @@ package frc.robot.commands.Vision;
 import edu.wpi.first.math.controller.PIDController;
 import edu.wpi.first.wpilibj2.command.CommandBase;
 import edu.wpi.first.wpilibj2.command.PIDCommand;
+import frc.robot.Constants;
 import frc.robot.subsystems.Drivetrain;
 import frc.robot.subsystems.Vision;
 
@@ -46,7 +47,13 @@ public class FollowTarget extends CommandBase {
     forwardError = m_vision.getDistanceFromTarget(m_height);
     turnError = m_vision.getX();
     turnPower = turnError * ANGULAR_P;
+    if (Math.abs(turnPower) < 0.1) {
+      turnPower = Math.copySign(0.1, turnPower);
+    }
     forwardPower = forwardError * LINEAR_P;
+    if (Math.abs(forwardPower) < Constants.DrivetrainConstants.kS) {
+      forwardPower = Math.copySign(Constants.DrivetrainConstants.kS, forwardPower);
+    }
     m_drivetrain.curvatureDrive(-forwardPower, turnPower, true);
   }
 
@@ -59,6 +66,7 @@ public class FollowTarget extends CommandBase {
   // Returns true when the command should end.
   @Override
   public boolean isFinished() {
-    return (forwardError < 15 && Math.abs(turnError) < 2.5);
+    return (forwardError < 55
+    && Math.abs(turnError) < 1);
   }
 }

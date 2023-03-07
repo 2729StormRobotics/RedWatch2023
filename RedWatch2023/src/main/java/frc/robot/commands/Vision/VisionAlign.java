@@ -31,7 +31,7 @@ public class VisionAlign extends CommandBase {
   // Called when the command is initially scheduled.
   @Override
   public void initialize() {
-    m_vision.setPipeline(Constants.VisionConstants.kMediumTargetHeight);
+    m_vision.setPipeline(Constants.VisionConstants.kLowTapePipeline);
     turnError = m_vision.getX();
     m_drivetrain.tankDrive(0, 0, false);
   }
@@ -52,13 +52,12 @@ public class VisionAlign extends CommandBase {
   @Override
   public void end(boolean interrupted) {
     m_drivetrain.tankDrive(0, 0, false);
-    m_vision.setPipeline(Constants.VisionConstants.kAprilTagPipeline);
   }
 
   // Returns true when the command should end.
   @Override
   public boolean isFinished() {
-    return (Math.abs(m_vision.getX()) < 1);
+    return (Math.abs(m_vision.getX()) < 0.5);
     // return false;
   }
 }

@@ -82,5 +82,6 @@ public class Vision extends SubsystemBase {
     SmartDashboard.putNumber("LimelightY", y);
     SmartDashboard.putNumber("LimelightArea", area);
     SmartDashboard.putString("Target", Vision.target);
+    SmartDashboard.putNumber("Distance", getDistanceFromTarget("MEDIUM"));
   }
 }

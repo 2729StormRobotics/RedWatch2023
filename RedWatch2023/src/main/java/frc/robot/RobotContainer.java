@@ -135,7 +135,8 @@ public class RobotContainer {
 
     new JoystickButton(m_driver, Button.kA.value).onTrue(new AprilTagMode(m_vision));
     new JoystickButton(m_driver, Button.kRightBumper.value).whileTrue(new VisionAlign(m_drivetrain, m_vision));
-    new JoystickButton(m_driver, Button.kY.value).whileTrue(new FollowTarget(m_drivetrain, m_vision, "MEDIUM"));
+    new JoystickButton(m_driver, Button.kLeftBumper.value).whileTrue(new FollowTarget(m_drivetrain, m_vision, "MEDIUM"));
+    new JoystickButton(m_driver, Button.kX.value).whileTrue(new curvatureDrive(() -> 0.29, () -> 0.29, () -> true, m_drivetrain));
     // new JoystickButton(m_weapons, Button.kLeftStick.value).onTrue(new animateCandle(m_lights, m_weapons));   
     // new JoystickButton(m_weapons, Button.kY.value).toggleOnTrue(new ExtendVal( TelescopingConstants.HighExtendCube, m_arm));
     //new JoystickButton(m_weapons, Button.kX.value).toggleOnTrue(new ExtendVal( TelescopingConstants.MidExtendCube, m_arm));

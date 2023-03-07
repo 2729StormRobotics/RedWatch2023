@@ -188,8 +188,8 @@ public final class Constants {
 
     public static class VisionConstants {
       public static final int kAprilTagPipeline = 1;
-      public static final double kHighTapePipeline = 0;
-      public static final double kLowTapePipeline = 2;
+      public static final int kHighTapePipeline = 2;
+      public static final int kLowTapePipeline = 0;
       public static final int kReflectiveTapePipeline = 0;
       public static final int kLightOffValue = 1;
       public static final int kLightOnValue = 3;
