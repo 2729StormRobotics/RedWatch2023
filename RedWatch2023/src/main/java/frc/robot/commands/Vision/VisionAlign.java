@@ -32,6 +32,7 @@ public class VisionAlign extends CommandBase {
   @Override
   public void initialize() {
     m_vision.setPipeline(Constants.VisionConstants.kLowTapePipeline);
+    m_vision.setLight(Constants.VisionConstants.kLightOnValue);
     turnError = m_vision.getX();
     m_drivetrain.tankDrive(0, 0, false);
   }
