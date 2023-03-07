@@ -24,7 +24,7 @@ public class ResetPosition extends CommandBase {
   public void initialize() {
     m_drivetrain.resetAllEncoders();
     m_drivetrain.resetGyroAngle();
-    m_drivetrain.ahrs.calibrate();
+    // m_drivetrain.ahrs.calibrate();
   }
 
   // Called every time the scheduler runs while the command is scheduled.

@@ -35,8 +35,8 @@
          () -> distance,
          // This uses the output
          output -> {
-          if (Math.abs(output) > 0.6)
-            output = Math.copySign(0.6, output); 
+          if (Math.abs(output) > 1)
+            output = Math.copySign(1, output); 
           if (Math.abs(output) < Constants.DrivetrainConstants.kS) {
             output = Math.copySign(Constants.DrivetrainConstants.kS, output);
           } 

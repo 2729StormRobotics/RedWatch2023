@@ -40,7 +40,7 @@ public class Drivetrain extends SubsystemBase {
   /** Creates a new TrainDrive. */
   public final Field2d m_field = new Field2d();
   public String trajString = "./pathplanner/generatedJSON/Forward Back.wpilib.json";
-  public static double speedLimiter = 2.5; // the forward drive power gets divided by this value to reduce the speed
+  public static double speedLimiter = 1; // the forward drive power gets divided by this value to reduce the speed
   public static double rotationLimiter = 2.75; // the rotational drive power gets divided by this value to reduce the speed
   // declar motors
   public final com.revrobotics.CANSparkMax leftMotor;
