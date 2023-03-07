@@ -87,20 +87,22 @@ public class RobotContainer {
   private SlewRateLimiter m_rotationLimiter = new SlewRateLimiter(1.5); // controls acceleration of rotational speed
 
   // Subsystems
-  // private final Lights m_lights;
+  private final Lights m_lights;
   // private final Gripper m_gripper;
   private final Drivetrain m_drivetrain;
   private final PivotArm m_PinkArm;
   private final TelescopingArm m_arm;
+  private final Vision m_Vision;
 
   /** The container for the robot. Contains subsystems, OI devices, and commands. */
   public RobotContainer() {
     // Subsystems Instantiation
     // m_gripper = new Gripper();
-    // m_lights = new Lights();
+    m_lights = new Lights();
     m_drivetrain = new Drivetrain();
     m_PinkArm = new PivotArm();
     m_arm = new TelescopingArm();
+    m_Vision = new Vision();
 
     SmartDashboard.putData(CommandScheduler.getInstance());
     SmartDashboard.putNumber("Speed Limiter", Drivetrain.speedLimiter);
@@ -130,9 +132,9 @@ public class RobotContainer {
     // m_PinkArm.setDefaultCommand(
     //   new armJoint(() -> m_weapons.getRightY(), m_PinkArm)
     // );
-    // m_lights.setDefaultCommand(
-    //   new animateCandle(m_lights, m_driver)
-    // );
+    m_lights.setDefaultCommand(
+      new animateCandle(m_lights, m_driver)
+    );
     // Configure the button bindings
 
     configureButtonBindings();
@@ -153,7 +155,7 @@ public class RobotContainer {
     new JoystickButton(m_driver, Button.kStart.value).onTrue(new ResetPosition(m_drivetrain));
     new JoystickButton(m_driver, Button.kB.value).onTrue(new ChangeGear());
     new JoystickButton(m_driver, Button.kY.value).onTrue(new AutoForwardPID(5, m_drivetrain));
-    new JoystickButton(m_driver, Button.kX.value).onTrue(new B1_A(m_drivetrain));
+    new JoystickButton(m_driver, Button.kX.value).onTrue(new B1_A(m_drivetrain, m_Vision));
     new JoystickButton(m_driver, Button.kA.value).onTrue(new TurnInPlacePID (180, m_drivetrain));
     new JoystickButton(m_driver, Button.kBack.value).onTrue(new ResetPosition ( m_drivetrain));
   //   new JoystickButton(m_weapons, Button.kLeftStick.value).onTrue(new animateCandle(m_lights, m_weapons));   
