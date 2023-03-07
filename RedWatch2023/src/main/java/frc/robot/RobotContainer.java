@@ -35,6 +35,7 @@ import frc.robot.commands.pivotArm.PivotPID;
 import frc.robot.commands.pivotArm.armJoint;
 import frc.robot.commands.pivotArm.turnToDegrees;
 import frc.robot.subsystems.TelescopingArm;
+import frc.robot.subsystems.Vision;
 import frc.robot.subsystems.PivotArm;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.CommandScheduler;
@@ -55,6 +56,9 @@ import frc.robot.commands.Lights.animateCandle;
 import frc.robot.commands.TelescopingArmCommands.ArmControl;
 import frc.robot.commands.TelescopingArmCommands.ExtendVal;
 import frc.robot.commands.TelescopingArmCommands.MaintainPos;
+import frc.robot.commands.Vision.AprilTagMode;
+import frc.robot.commands.Vision.FollowTarget;
+import frc.robot.commands.Vision.VisionAlign;
 import frc.robot.subsystems.ControlPanel;
 import frc.robot.subsystems.Drivetrain;
 import frc.robot.subsystems.Gripper;
@@ -86,8 +90,8 @@ public class RobotContainer {
   // private final Lights m_lights;
   // private final Gripper m_gripper;
   private final Drivetrain m_drivetrain;
-  // private final PivotArm m_PinkArm;
-  // private final TelescopingArm m_arm;
+  private final PivotArm m_PinkArm;
+  private final TelescopingArm m_arm;
 
   /** The container for the robot. Contains subsystems, OI devices, and commands. */
   public RobotContainer() {
@@ -95,15 +99,15 @@ public class RobotContainer {
     // m_gripper = new Gripper();
     // m_lights = new Lights();
     m_drivetrain = new Drivetrain();
-    // m_PinkArm = new PivotArm();
-    // m_arm = new TelescopingArm();
+    m_PinkArm = new PivotArm();
+    m_arm = new TelescopingArm();
 
     SmartDashboard.putData(CommandScheduler.getInstance());
     SmartDashboard.putNumber("Speed Limiter", Drivetrain.speedLimiter);
 
     // Setting default commands
-    // m_arm.setDefaultCommand(
-    //   new ArmControl(() -> m_weapons.getLeftY(), m_arm));
+    m_arm.setDefaultCommand(
+      new ArmControl(() -> m_weapons.getLeftY(), m_arm));
 
     // Control Panel
     // new ControlPanel(m_drivetrain, m_gripper, m_lights, m_PinkArm, m_arm);

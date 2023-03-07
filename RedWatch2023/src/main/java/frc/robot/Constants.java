@@ -219,11 +219,6 @@ public final class Constants {
     public static final Value kIntakeLowerValue = Value.kReverse;
     }
 
-  public static final class VisionConstants {
-    public static final double kCAMERA_HEIGHT = 0.0;
-    public static final double kTARGET_HEIGHT = 0.0;
-    public static final double kCAMERA_PITCH = 0.0;
-  }
 
 	public static class GripperConstants {
     // Most likely only be using one motor, but written code for 2 in case.
@@ -248,6 +243,22 @@ public final class Constants {
         public static final double kDefaultColor = 0.93; //TODO: Find what we want default to be (same as disabled?)
         public static final double kParty = -0.99;
     }
+
+    public static class VisionConstants {
+      public static final int kAprilTagPipeline = 1;
+      public static final int kHighTapePipeline = 2;
+      public static final int kLowTapePipeline = 0;
+      public static final int kReflectiveTapePipeline = 0;
+      public static final int kLightOffValue = 1;
+      public static final int kLightOnValue = 3;
+      public static final double kLimeLightAngle = -13;
+      public static final double kHighTargetHeight = 45;
+      public static final double kMediumTargetHeight = 23.5;
+      public static final double kLimeLightHeight = 39.013; // from the CAD for the ALPHA BOT
+      public static final double kMidNodeXDist = 22.75; // horizontal distance from mid nodes to edge of the grid
+      public static final double kLimeLightDepth = 19.939; // distance from limelight to front of the bot (with bumpers)
+
+  }
 
 	public static class ControlPanelConstants {
 		public static final String kShuffleboardTab = "Control Panel";
