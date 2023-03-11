@@ -29,12 +29,17 @@ public class AutoBalancePID extends PIDCommand {
         new PIDController(Constants.BalanceConstants.kP, Constants.BalanceConstants.kI, Constants.BalanceConstants.kD),
        
         // This should return the measurement
-        () -> drivetrain.getYaw(),
+        () -> drivetrain.getPitch(),
         // This should return the setpoint (can also be a constant)
         () -> Constants.BalanceConstants.kBalancedBeamAngle,
         // This uses the output
         output -> {
-          drivetrain.tankDrive(output, output, false);
+          if (Math.abs(output) > 0.4)
+            output = Math.copySign(0.4, output); 
+          // if (Math.abs(output) < Constants.DrivetrainConstants.kS) {
+          //   output = Math.copySign(Constants.DrivetrainConstants.kS, output);
+          // } 
+          drivetrain.tankDrive(-output, -output, false);
           // Use the output here
         });
         m_drivetrain = drivetrain;
@@ -53,7 +58,7 @@ public class AutoBalancePID extends PIDCommand {
   // Returns true when the command should end.
   @Override
   public boolean isFinished() {
-    if(Math.abs(Constants.BalanceConstants.kBalancedBeamAngle - m_drivetrain.getPitch()) < Constants.BalanceConstants.kBalancedThreshold)
+    if(Math.abs(m_drivetrain.getPitch()) < Constants.BalanceConstants.kBalancedThreshold)
       return true;
     return false;
   }

@@ -36,9 +36,9 @@ public class BalanceFromDistance extends SequentialCommandGroup {
     addCommands(
       new ForwardUntilTilted(m_drivetrain, drivePower),
       new ResetPosition(m_drivetrain),
-      new AutoForwardPID(distance, m_drivetrain),
-     new WaitCommand(0.2),
-     new AutoBalance_x6(drivetrain)
+      new AutoForwardPID(distance, m_drivetrain)
+    //  new WaitCommand(0.2),
+    //  new AutoBalance_x6(drivetrain)
     );
   }
 }

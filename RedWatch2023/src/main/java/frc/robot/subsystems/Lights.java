@@ -6,7 +6,7 @@ package frc.robot.subsystems;
 
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import static frc.robot.Constants.LightConstants.*;
-
+import java.util.Random;
 import com.ctre.phoenix.led.*;
 import com.ctre.phoenix.led.CANdle.LEDStripType;
 import com.ctre.phoenix.led.CANdle.VBatOutputMode;
@@ -18,13 +18,14 @@ public class Lights extends SubsystemBase {
 
   public final CANdle m_candle;
   private final int Ledcount = 45;
-  
+  public Random rand;
   public int R;
   public int G;
   public int B;
   public String current_animation;
 
   public Lights() {
+    rand = new Random();
     CANdleConfiguration LEDConfig = new CANdleConfiguration();
     LEDConfig.statusLedOffWhenActive = false;
     LEDConfig.disableWhenLOS = false;
@@ -115,6 +116,10 @@ public class Lights extends SubsystemBase {
 
   // Makes lights blink white very fast
   public void epilepsy() {
+    int red = rand.nextInt(255); 
+    int green = rand.nextInt(255); 
+    int blue = rand.nextInt(255); 
+
     m_candle.animate(new StrobeAnimation(255, 255, 255, 0, 98.0 / 256.0, Ledcount));
     R = 255;
     G = 255;
