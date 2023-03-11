@@ -28,8 +28,8 @@ import edu.wpi.first.wpilibj.SPI;
 
 public class Drivetrain extends SubsystemBase {
   /** Creates a new TrainDrive. */
-  public static double speedLimiter = 2.5; // the forward drive power gets divided by this value to reduce the speed
-  public static double rotationLimiter = 2.75; // the rotational drive power gets divided by this value to reduce the speed
+  public static double speedLimiter = Constants.DrivetrainConstants.kSpeedLimiter; // the forward drive power gets divided by this value to reduce the speed
+  public static double rotationLimiter = Constants.DrivetrainConstants.kTurnSpeedLimiter; // the rotational drive power gets divided by this value to reduce the speed
 
   // declar motors
   public final com.revrobotics.CANSparkMax leftMotor;
@@ -67,9 +67,9 @@ public class Drivetrain extends SubsystemBase {
     rightMotor2.setSmartCurrentLimit(Constants.DrivetrainConstants.STALL_LIMIT);
 
     leftMotor.setIdleMode(IdleMode.kBrake);
-    leftMotor2.setIdleMode(IdleMode.kBrake);
+    leftMotor2.setIdleMode(IdleMode.kCoast);
     rightMotor.setIdleMode(IdleMode.kBrake);
-    rightMotor2.setIdleMode(IdleMode.kBrake);
+    rightMotor2.setIdleMode(IdleMode.kCoast);
 
     // group the left and right motors together as two groups
     leftMotor2.follow(leftMotor);

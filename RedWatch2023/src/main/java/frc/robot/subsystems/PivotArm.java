@@ -45,7 +45,7 @@ public class PivotArm extends SubsystemBase {
   private final ShuffleboardTab m_controlPanelTab;
 
 
-  public final DutyCycleEncoder m_pivotEncoder = new DutyCycleEncoder(2);
+  public final DutyCycleEncoder m_pivotEncoder = new DutyCycleEncoder(9);
 
   /** Creates a new Subystem for the pink arm called pinkArm.  
   * Note!!! this subsystem covers the pivot joint of the pink arm Telescoping is stored seperately
@@ -94,8 +94,9 @@ public class PivotArm extends SubsystemBase {
   
     //Gets the distance of the endoder and the motor
     public double getAngle() {
-      return m_pivotEncoder.getAbsolutePosition() * 360 - 304 + 90;
+      return m_pivotEncoder.getAbsolutePosition() * 360;
     }
+    
 
     public void setMotor(CANSparkMax motor, boolean inverse) {
       motor.restoreFactoryDefaults();

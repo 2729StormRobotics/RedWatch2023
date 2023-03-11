@@ -10,6 +10,7 @@
 package frc.robot.commands;
 
 import edu.wpi.first.wpilibj2.command.CommandBase;
+import frc.robot.Constants;
 import frc.robot.subsystems.Drivetrain;
 
 public class ChangeGear extends CommandBase {
@@ -21,11 +22,11 @@ public class ChangeGear extends CommandBase {
   // Called when the command is initially scheduled.
   @Override
   public void initialize() {
-    if (Drivetrain.speedLimiter == 2.5) {
-      Drivetrain.speedLimiter = 3.5;
+    if (Drivetrain.speedLimiter == Constants.DrivetrainConstants.kSpeedLimiter) {
+      Drivetrain.speedLimiter = Constants.DrivetrainConstants.kLowGearSpeedLimiter;
     }
-    else if (Drivetrain.speedLimiter == 3.5) {
-      Drivetrain.speedLimiter = 2.5;
+    else if (Drivetrain.speedLimiter == Constants.DrivetrainConstants.kLowGearSpeedLimiter) {
+      Drivetrain.speedLimiter = Constants.DrivetrainConstants.kSpeedLimiter;
     }
   }
 
