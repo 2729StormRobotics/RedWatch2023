@@ -30,6 +30,9 @@ public final class Constants {
     public static final double LowExtendCone = 16.1;
     public static final double LowExtendCube = 6.7;
 
+//CHANGE DEPENDING ON THE VALS TAKEN FOR SUBSTATION
+    public static final double Substation = 4;
+
     public static final double fullIn = 1.66;
     public static final double neutralPosTelescoping = 5;
     //Add values for the low hybrid node
@@ -76,6 +79,9 @@ public final class Constants {
     public static final double kLowAngleCone = 48.2; //(actual)
     public static final double kLowAngleCube = 40; //TEST VALUE
 
+    //EDIT DEPENDING ON SUBSTATION VALS
+    public static final double kSubstation = 102;
+
     public static final double kNeutralPos = 33;
     
     //Angles for scoring the cubes
@@ -104,7 +110,7 @@ public final class Constants {
     public static final boolean kRightReversedDefault = !kLeftReversedDefault;
     public static final double kTrackWidth = 29; // inches
 
-    public static final double kSpeedLimiter = 1; //divide speed by this number for new max speed 
+    public static final double kSpeedLimiter = 1.75; //divide speed by this number for new max speed 
     public static final double kLowGearSpeedLimiter = 3.5;  //divide speed by this number for new max speed 
     public static final double kTurnSpeedLimiter = 2;
 
@@ -126,7 +132,7 @@ public final class Constants {
     public static final double kEncoderDistanceRatio = 1.125753635;
     public static double kRightAngleTurnArcLength = 7.25 * Math.PI;
     public static final double kHighSpeedPerPulseEncoderRatio = kEncoderDistanceRatio / 60.0;
-    public static final double kControllerDeadzone = 0.1;
+    public static final double kControllerDeadzone = 0.025;
   }
 
 
