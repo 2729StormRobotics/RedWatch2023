@@ -17,7 +17,7 @@ public class Lights extends SubsystemBase {
   /** Creates a new Lights. */
 
   public final CANdle m_candle;
-  private final int Ledcount = 45;
+  private final int Ledcount = 86;
   
   public int R;
   public int G;
@@ -39,7 +39,7 @@ public class Lights extends SubsystemBase {
 
   // Sets lights to default animation
   public void setDefault(){
-    m_candle.animate(new LarsonAnimation(225, 0, 0, 0, 0.05, Ledcount, BounceMode.Front, 15));
+    m_candle.animate(new LarsonAnimation(225, 0, 0, 0, 0.05, Ledcount, BounceMode.Front, 20));
     R = 225;
     G = 0;
     B = 0;
