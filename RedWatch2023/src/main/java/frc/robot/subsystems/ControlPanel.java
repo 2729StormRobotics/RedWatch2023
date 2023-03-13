@@ -100,6 +100,7 @@ public class ControlPanel extends SubsystemBase {
     
 
     m_telescopingArmStatus.addNumber("Telescoping Encoder", () -> m_telescopingArm.getArmDistance());
+    m_telescopingArmStatus.addNumber("Pot value", () -> m_telescopingArm.pot_val);
   }
 
   @Override
