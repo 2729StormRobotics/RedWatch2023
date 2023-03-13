@@ -43,6 +43,9 @@ public final class Constants {
     public static final double ArmSpeed = 0.25;
     public static final double kG = 0.1068;
     public static final double kS = 0.0110;
+    public static final double kP = 0.02;
+    public static final double kI = 0.00;
+    public static final double kD = 0.00;
     public static final int kArmExtendPort = 4;
     // pivoting gearbox = 1:125 
     public static final double kTelescopingGearRatio = 1.0 / 12.0;
@@ -60,6 +63,10 @@ public final class Constants {
     public static final double kDistancePerRevolution = kTelescopingGearRatio * (7.0 / 8.0) * 3.14; //TODO: put in gear ratio for the climbers!!!
     public static final double kEncoderOffset = 300; // figure this out
     public static final double kClimberRightSize = 12.0;
+
+    public static double kP = 0.02;
+    public static double kI = 0.00;
+    public static double kD = 0.00;
     // public static final double kAnglePerRevolution = kPivotingGearRatio * 3.14;
     public static final int kCurrentLimit = 60;
     public static final int kStallLimit = 45;
