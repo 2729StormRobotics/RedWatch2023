@@ -67,6 +67,7 @@ public class PivotArm extends SubsystemBase {
 
     private void shuffleboardInit() {
       m_controlPanelStatus.addNumber("Pivot Encoder", () -> getAngle());
+      m_controlPanelStatus.addBoolean("Is Connected", () -> m_pivotEncoder.isConnected());
       m_controlPanelStatus.addNumber("Left Encoder", () -> m_pivot.getEncoder().getVelocity());
       m_controlPanelStatus.addNumber("Right Encoder", () -> m_pivot2.getEncoder().getVelocity());
       kPValue = m_controlPanelStatus.add("P input", 0.005).getEntry();
@@ -91,7 +92,7 @@ public class PivotArm extends SubsystemBase {
   
     //Gets the distance of the endoder and the motor
     public double getAngle() {
-      return m_pivotEncoder.getAbsolutePosition() * 360;
+      return (360 - m_pivotEncoder.getAbsolutePosition() * 360) - 114.03170385079261 + 90;
     }
     
 
