@@ -29,15 +29,15 @@ public class PivotPID extends PIDCommand {
         // This uses the output
         output -> {
           // Use the output here
-          if (Math.abs(output) > 0.6) {
-            output = Math.copySign(0.6, output);
+          if (Math.abs(output) > 0.8) {
+            output = Math.copySign(0.8, output);
           } 
-          if (Math.abs(output) < 0.2) {
-            output = Math.copySign(0.2, output);
+          if (Math.abs(output) < 0.4) {
+            output = Math.copySign(0.4, output);
           }
            // Use the output here
            // drive forward
-           pivotArm.turnMotor(output);
+           pivotArm.turnMotor(-output);
         });
         m_pivotArm = pivotArm;
         m_angle = angle;
