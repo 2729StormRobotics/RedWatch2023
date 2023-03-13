@@ -40,7 +40,8 @@ public final class Constants {
     public static final double potLowStop = 0.025; // 1 inch
     public static final double potHighStop = 0.6; // 27 inches 0.62 when down
     public static final double Tolerance = 0.5;
-    public static final double ArmSpeed = 0.25;
+    public static final double ArmSpeed = 0.5;
+    public static final double AutoArmSpeed = 0.5;
     public static final double kG = 0.1068;
     public static final double kS = 0.0110;
     public static final double kP = 0.02;
