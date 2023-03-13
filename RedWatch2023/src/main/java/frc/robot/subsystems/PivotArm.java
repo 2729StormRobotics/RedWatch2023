@@ -45,7 +45,7 @@ public class PivotArm extends SubsystemBase {
   private final ShuffleboardTab m_controlPanelTab;
 
 
-  public final DutyCycleEncoder m_pivotEncoder = new DutyCycleEncoder(9);
+  public final DutyCycleEncoder m_pivotEncoder = new DutyCycleEncoder(8);
 
   /** Creates a new Subystem for the pink arm called pinkArm.  
   * Note!!! this subsystem covers the pivot joint of the pink arm Telescoping is stored seperately
@@ -69,9 +69,6 @@ public class PivotArm extends SubsystemBase {
       m_controlPanelStatus.addNumber("Pivot Encoder", () -> getAngle());
       m_controlPanelStatus.addNumber("Left Encoder", () -> m_pivot.getEncoder().getVelocity());
       m_controlPanelStatus.addNumber("Right Encoder", () -> m_pivot2.getEncoder().getVelocity());
-      m_controlPanelStatus.addNumber("kP", () -> PivotArm.kP);
-      m_controlPanelStatus.addNumber("kI", () -> PivotArm.kI);
-      m_controlPanelStatus.addNumber("kD", () -> PivotArm.kD);
       kPValue = m_controlPanelStatus.add("P input", 0.005).getEntry();
       kIValue = m_controlPanelStatus.add("I input", 0.00).getEntry();
       kDValue = m_controlPanelStatus.add("D input", 0.00).getEntry();
@@ -131,9 +128,6 @@ public class PivotArm extends SubsystemBase {
   @Override
   public void periodic() {
     // This method will be called once per scheduler run
-    PivotArm.kP = kPValue.get().getDouble();
-    PivotArm.kD = kDValue.get().getDouble();
-    PivotArm.kI = kIValue.get().getDouble();
     
     
   }

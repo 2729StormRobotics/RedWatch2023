@@ -24,7 +24,7 @@ public final AnalogPotentiometer pot;
 private final ShuffleboardTab m_controlPanelTab;
 private final ShuffleboardLayout m_controlPanelStatus; 
 public double pot_val;
-public double offset = 2.475;
+public double offset = -1.865771628831399;
 public final RelativeEncoder m_ArmEncoder;
 
 /**
@@ -40,7 +40,7 @@ public final RelativeEncoder m_ArmEncoder;
     m_ArmEncoder = m_ArmExtend.getEncoder();
     positionEncoderInit(m_ArmEncoder);
     // Initialize the shuffleboard.
-    pot = new AnalogPotentiometer(9);
+    pot = new AnalogPotentiometer(1);
     m_controlPanelTab = Shuffleboard.getTab("stringpot");
     m_controlPanelStatus = m_controlPanelTab.getLayout("String Pot", BuiltInLayouts.kList)
     .withSize(3, 3)
