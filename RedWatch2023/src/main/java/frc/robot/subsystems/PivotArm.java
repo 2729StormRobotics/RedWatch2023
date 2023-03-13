@@ -28,9 +28,7 @@ import edu.wpi.first.wpilibj.shuffleboard.ShuffleboardTab;
 
 public class PivotArm extends SubsystemBase {
 
-  public static double kP = 0.02;
-  public static double kI = 0.005;
-  public static double kD = 0.00;
+
   public static double kG = 0.00;
   public GenericEntry kPValue;
   public GenericEntry kIValue;
