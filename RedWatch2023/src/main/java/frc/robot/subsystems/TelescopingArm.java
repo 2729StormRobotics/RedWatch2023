@@ -40,7 +40,7 @@ public final RelativeEncoder m_ArmEncoder;
     m_ArmEncoder = m_ArmExtend.getEncoder();
     positionEncoderInit(m_ArmEncoder);
     // Initialize the shuffleboard.
-    pot = new AnalogPotentiometer(1);
+    pot = new AnalogPotentiometer(9);
     m_controlPanelTab = Shuffleboard.getTab("stringpot");
     m_controlPanelStatus = m_controlPanelTab.getLayout("String Pot", BuiltInLayouts.kList)
     .withSize(3, 3)
