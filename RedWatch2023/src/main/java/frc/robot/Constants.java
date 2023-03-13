@@ -28,7 +28,7 @@ public final class Constants {
     public static final double MidExtendCone = 13.7; //Actual distance 20.860632
     //Low value for turn might change when testing
     public static final double LowExtendCone = 16.1;
-    public static final double LowExtendCube = 6.7;
+    public static final double LowExtendCube = 8.7;
 
 //CHANGE DEPENDING ON THE VALS TAKEN FOR SUBSTATION
     public static final double Substation = 4;
