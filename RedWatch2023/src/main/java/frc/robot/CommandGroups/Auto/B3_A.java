@@ -50,7 +50,7 @@ public class B3_A extends SequentialCommandGroup {
       new ExtendVal(5, m_arm),
       // new AutoForwardPID(-50 , m_Drivetrain),
       new AutoForwardPID(-175 , m_Drivetrain),
-      // new ParallelAutoScoreSetup(m_PinkArm, m_arm, m_gripper, pinkArmConstants.kLowAngleCube,TelescopingConstants.LowExtendCube),
+      new ParallelAutoScoreSetup(m_PinkArm, m_arm, m_gripper, pinkArmConstants.kLowAngleCube,TelescopingConstants.LowExtendCube),
       new TurnInPlace(subsystem, 180, 0.5),
       new AutoForwardPID(12 , m_Drivetrain)
       );
