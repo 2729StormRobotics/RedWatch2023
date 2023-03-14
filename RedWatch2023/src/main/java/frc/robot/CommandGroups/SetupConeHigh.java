@@ -27,9 +27,8 @@ public class SetupConeHigh extends SequentialCommandGroup {
     // Add your commands in the addCommands() call, e.g.
     // addCommands(new FooCommand(), new BarCommand());
     addCommands(
-      new ArmOut(m_TelescopingArm, m_PivotArm),
-      new ParallelAutoScoreSetup(m_PivotArm, m_TelescopingArm, kHighAngleConeIntermediate, HighExtendCone),
-      new PivotPID(m_PivotArm, kHighAngleCone)
-    );
+      new SetupScore(m_PivotArm, m_TelescopingArm, kHighAngleConeIntermediate, HighExtendCone),
+      new PivotPID(pivotArm, kHighAngleCone)    
+);
   }
 }

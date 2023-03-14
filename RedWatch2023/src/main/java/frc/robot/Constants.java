@@ -90,7 +90,7 @@ public final class Constants {
     public static final double kMidAngleCone = 96.2; //(Actual)
     //Angle for scoring in the hybrid node common for cones and cubes
     public static final double kLowAngleCone = 48.2; //(actual)
-    public static final double kLowAngleCube = 39.39 ; //TEST VALUE
+    public static final double kLowAngleCube = 42.5 ; //TEST VALUE
 
     //EDIT DEPENDING ON SUBSTATION VALS
     public static final double kSubstation = 102;
@@ -246,7 +246,7 @@ public final class Constants {
     public static final int kGripperLeftMotor = 5;
     // Variable assigned values can change depending on what is needed for the robot.
     public static final double kGripperIntakeMotorSpeedCone = 0.65;  
-    public static final double kGripperIntakeMotorSpeedCube = 0.35;    
+    public static final double kGripperIntakeMotorSpeedCube = 0.3;    
     public static final double kGripperEjectMotorSpeed = -0.2;
     public static final int kBeambreak = 1;
     }
