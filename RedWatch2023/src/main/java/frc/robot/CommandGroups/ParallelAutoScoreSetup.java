@@ -19,17 +19,15 @@ public class ParallelAutoScoreSetup extends ParallelCommandGroup {
 
   public final PivotArm m_pivotArm;
   public final TelescopingArm m_telescopingArm;
-  public final Gripper m_gripper;
   public final double m_angle;
   public final double m_dist;
   
   /** Creates a new AutoScoreSetup. */
-  public ParallelAutoScoreSetup(PivotArm pivotArm, TelescopingArm telescopingArm, Gripper gripper, double angle, double dist) {
+  public ParallelAutoScoreSetup(PivotArm pivotArm, TelescopingArm telescopingArm, double angle, double dist) {
     // Add your commands in the addCommands() call, e.g.
     // addCommands(new FooCommand(), new BarCommand());
     m_pivotArm = pivotArm;
     m_telescopingArm = telescopingArm;
-    m_gripper = gripper;
     m_angle = angle;
     m_dist = dist;
 
