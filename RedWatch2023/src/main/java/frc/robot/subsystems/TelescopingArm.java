@@ -24,7 +24,7 @@ public final AnalogPotentiometer pot;
 private final ShuffleboardTab m_controlPanelTab;
 private final ShuffleboardLayout m_controlPanelStatus; 
 public double pot_val;
-public double offset = 0;
+public double offset = -1.865771628831399;
 public final RelativeEncoder m_ArmEncoder;
 
 /**
@@ -36,7 +36,7 @@ public final RelativeEncoder m_ArmEncoder;
     //Initializes the arm encoder.
     m_ArmExtend = new CANSparkMax(kArmExtendPort, MotorType.kBrushless);
     // setMotor(motor, INVERSE);
-    setMotor(m_ArmExtend, false);
+    setMotor(m_ArmExtend, true);
     m_ArmEncoder = m_ArmExtend.getEncoder();
     positionEncoderInit(m_ArmEncoder);
     // Initialize the shuffleboard.

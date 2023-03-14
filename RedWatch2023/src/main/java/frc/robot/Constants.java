@@ -31,18 +31,26 @@ public final class Constants {
     public static final double MidExtendCone = 13.7; //Actual distance 20.860632
     //Low value for turn might change when testing
     public static final double LowExtendCone = 16.1;
-    public static final double LowExtendCube = 6.7;
+    public static final double LowExtendCube = 7.22;
 
-    public static final double fullIn = 1.66;
+//CHANGE DEPENDING ON THE VALS TAKEN FOR SUBSTATION
+    public static final double Substation = 4;
+
+    public static final double fullIn = 3.9;
+
     public static final double neutralPosTelescoping = 5;
     //Add values for the low hybrid node
 
     public static final double potLowStop = 0.025; // 1 inch
     public static final double potHighStop = 0.6; // 27 inches 0.62 when down
     public static final double Tolerance = 0.5;
-    public static final double ArmSpeed = 0.25;
+    public static final double ArmSpeed = 0.25; // 1
+    public static final double AutoArmSpeed = 0.5;
     public static final double kG = 0.1068;
     public static final double kS = 0.0110;
+    public static final double kP = 0.02;
+    public static final double kI = 0.00;
+    public static final double kD = 0.00;
     public static final int kArmExtendPort = 4;
     // pivoting gearbox = 1:125 
     public static final double kTelescopingGearRatio = 1.0 / 12.0;
@@ -60,11 +68,15 @@ public final class Constants {
     public static final double kDistancePerRevolution = kTelescopingGearRatio * (7.0 / 8.0) * 3.14; //TODO: put in gear ratio for the climbers!!!
     public static final double kEncoderOffset = 300; // figure this out
     public static final double kClimberRightSize = 12.0;
+
+    public static double kP = 0.05;
+    public static double kI = 0.00;
+    public static double kD = 0.0;
     // public static final double kAnglePerRevolution = kPivotingGearRatio * 3.14;
     public static final int kCurrentLimit = 60;
     public static final int kStallLimit = 45;
     //Sets the speed of the pivot arm, needs to be changed depending on the gear ratio for the pivot arm
-    public static final double kPivotArmSpeed = 0.4; //0.3; 
+    public static final double kPivotArmSpeed = 0.3; //0.8; 
     //Sets the position for the arm when neutral
     public static final double kPivotArmNeutral = 0;
 
@@ -74,10 +86,14 @@ public final class Constants {
     public static final double kAnglesToTicks = 0;
     //Angles for scoring cones
     public static final double kHighAngleCone = 112; //(Actual)
+    public static final double kHighAngleConeIntermediate = 75; // To go to high cone preset, one must go to a lower angle, extend fully, then move to a higher angle. This is that lower angle.
     public static final double kMidAngleCone = 96.2; //(Actual)
     //Angle for scoring in the hybrid node common for cones and cubes
     public static final double kLowAngleCone = 48.2; //(actual)
-    public static final double kLowAngleCube = 40; //TEST VALUE
+    public static final double kLowAngleCube = 39.39 ; //TEST VALUE
+
+    //EDIT DEPENDING ON SUBSTATION VALS
+    public static final double kSubstation = 102;
 
     public static final double kNeutralPos = 33;
     
@@ -105,8 +121,12 @@ public final class Constants {
     public static final boolean kLeftReversedDefault = true;
     public static final boolean kRightReversedDefault = !kLeftReversedDefault;
     public static final double kTrackWidth = 29; // inches
-    
-    public static final double kS = 0.18; // minimum voltage to make the drivetrain move on the ground
+
+    public static final double kSpeedLimiter = 1.75; //divide speed by this number for new max speed 
+    public static final double kLowGearSpeedLimiter = 3.5;  //divide speed by this number for new max speed 
+    public static final double kTurnSpeedLimiter = 2;
+
+    public static final double kS = 0.29; // minimum voltage to make the drivetrain move on the ground
     // driver encoder calculations
     // since the encoder is build into the motor we need to account for gearing
     public static final double kWheelDiameterInches = 6.0;

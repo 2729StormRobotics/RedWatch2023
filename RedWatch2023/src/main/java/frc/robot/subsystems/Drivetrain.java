@@ -38,6 +38,7 @@ import edu.wpi.first.wpilibj.SPI;
 
 public class Drivetrain extends SubsystemBase {
   /** Creates a new TrainDrive. */
+
   public final Field2d m_field = new Field2d();
   public String trajString = "./pathplanner/generatedJSON/Forward Back.wpilib.json";
   public static double speedLimiter = 2.5; // the forward drive power gets divided by this value to reduce the speed
@@ -97,9 +98,9 @@ public class Drivetrain extends SubsystemBase {
     rightMotor2.setSmartCurrentLimit(Constants.DrivetrainConstants.STALL_LIMIT);
 
     leftMotor.setIdleMode(IdleMode.kBrake);
-    leftMotor2.setIdleMode(IdleMode.kBrake);
+    leftMotor2.setIdleMode(IdleMode.kCoast);
     rightMotor.setIdleMode(IdleMode.kBrake);
-    rightMotor2.setIdleMode(IdleMode.kBrake);
+    rightMotor2.setIdleMode(IdleMode.kCoast);
 
     m_leftMotors = new MotorControllerGroup(leftMotor, leftMotor2);
     m_rightMotors = new MotorControllerGroup(rightMotor, rightMotor2);

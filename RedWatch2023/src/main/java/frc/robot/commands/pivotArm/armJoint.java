@@ -35,6 +35,19 @@ public class armJoint extends CommandBase{
 
     @Override
     public void execute(){
+
+        if (Math.abs(m_rightStick.getAsDouble()) <= JoystickLimiter){
+            m_pinkArm.m_pivot.set(0);
+            m_pinkArm.m_pivot2.set(0);
+        }else{
+            if (m_rightStick.getAsDouble() >= -0.85){
+                m_pinkArm.turnMotor(m_rightStick.getAsDouble()*pinkArmConstants.kPivotArmSpeed);
+            }else if (m_rightStick.getAsDouble() <= 0.85){
+                m_pinkArm.turnMotor(m_rightStick.getAsDouble()*pinkArmConstants.kPivotArmSpeed );
+            }
+        }
+
+/*
         if ((m_rightStick.getAsDouble() <= -0.85)) {// &&( m_pinkArm.m_pivotEncoder.getPosition() <= 85)){
             m_pinkArm.turnMotor(-pinkArmConstants.kPivotArmSpeed);
 
@@ -47,21 +60,6 @@ public class armJoint extends CommandBase{
              m_pinkArm.m_pivot.set(0);
              m_pinkArm.m_pivot2.set(0);
 
-        }/* 
-        if (Math.abs(m_rightStick.getAsDouble()) <= JoystickLimiter){
-            m_pinkArm.m_pivot.set(0);
-            m_pinkArm.m_pivot2.set(0);
-        }else{
-            if (m_pinkArm.m_pivotEncoder.getPosition() > pinkArmConstants.pivotHighStop){
-                m_pinkArm.turnMotor(m_pinkArm.m_pivot,-1*(Math.abs(m_rightStick.getAsDouble()*pinkArmConstants.kPivotArmSpeed )));
-                m_pinkArm.turnMotor(m_pinkArm.m_pivot2,-1*(Math.abs(m_rightStick.getAsDouble()*pinkArmConstants.kPivotArmSpeed )));
-            }else if (m_pinkArm.m_pivotEncoder.getPosition() < pinkArmConstants.pivotLowStop){
-                m_pinkArm.turnMotor(m_pinkArm.m_pivot,1*(Math.abs(m_rightStick.getAsDouble()*pinkArmConstants.kPivotArmSpeed )));
-                m_pinkArm.turnMotor(m_pinkArm.m_pivot2,1*(Math.abs(m_rightStick.getAsDouble()*pinkArmConstants.kPivotArmSpeed )));
-            }else{
-                m_pinkArm.turnMotor(m_pinkArm.m_pivot,(m_rightStick.getAsDouble()*pinkArmConstants.kPivotArmSpeed ));
-                m_pinkArm.turnMotor(m_pinkArm.m_pivot2,(m_rightStick.getAsDouble()*pinkArmConstants.kPivotArmSpeed ));
-            }
         }*/
     }
     @Override 

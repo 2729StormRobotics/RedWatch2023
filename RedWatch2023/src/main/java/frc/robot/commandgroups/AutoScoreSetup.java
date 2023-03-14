@@ -7,6 +7,7 @@ package frc.robot.CommandGroups;
 import edu.wpi.first.wpilibj2.command.ParallelCommandGroup;
 import edu.wpi.first.wpilibj2.command.SequentialCommandGroup;
 import frc.robot.commands.TelescopingArmCommands.ExtendVal;
+import frc.robot.commands.pivotArm.PivotPID;
 import frc.robot.commands.pivotArm.turnToDegrees;
 import frc.robot.subsystems.Gripper;
 import frc.robot.subsystems.PivotArm;
@@ -34,7 +35,7 @@ public class AutoScoreSetup extends SequentialCommandGroup {
     m_dist = dist;
 
     addCommands(
-      new turnToDegrees(m_pivotArm, m_angle),
+      new PivotPID(m_pivotArm, m_angle),
       new ExtendVal(m_dist, m_telescopingArm)
     );
   }

@@ -28,6 +28,7 @@ public class animateCandle extends CommandBase {
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
+    /*
     if(m_animate.getPOV() == 0){
       m_Lights.setDefault();
     }else if(m_animate.getPOV() == 90){
@@ -37,27 +38,27 @@ public class animateCandle extends CommandBase {
     }else if(m_animate.getPOV() == 270){
       m_Lights.partyMode();
     }else if(m_animate.getPOV() == 315){
-      // m_Lights.epilepsy();
       m_Lights.epilepsy();
-    }
-    /*if(m_animate.getPOV() == 0){
-      m_Lights.resetLights();
-    }else if(m_animate.getPOV() == 45){
+      // m_Lights.resetLights();
+    }*/
+    if(m_animate.getPOV() == 0){
       m_Lights.setDefault();
+    }else if(m_animate.getPOV() == 45){
+      m_Lights.resetLights();
     }else if(m_animate.getPOV() == 90){
       m_Lights.askForCube();  
     }else if(m_animate.getPOV() == 135){
-      m_Lights.askForCone();
-    }else if(m_animate.getPOV() == 180){
       m_Lights.setCube();
+    }else if(m_animate.getPOV() == 180){
+      m_Lights.askForCone();
     }else if(m_animate.getPOV() == 225){
       m_Lights.setCone();
     }else if(m_animate.getPOV() == 270){
       m_Lights.partyMode();
     }else if(m_animate.getPOV() == 315){
-      // m_Lights.epilepsy();
-      m_Lights.resetLights();
-    } */
+      m_Lights.epilepsy();
+      // m_Lights.resetLights();
+    } 
   }
 
   // Called once the command ends or is interrupted.
