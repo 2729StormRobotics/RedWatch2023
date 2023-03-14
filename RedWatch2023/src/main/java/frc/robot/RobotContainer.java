@@ -145,7 +145,7 @@ public class RobotContainer {
      new JoystickButton(m_weapons, Button.kB.value).onTrue(new ParallelAutoScoreSetup(m_PinkArm, m_arm, kHighAngleCone, HighExtendCone));
     //cone mid
     // new JoystickButton(m_weapons, Button.kA.value).onTrue(new ParallelAutoScoreSetup(m_PinkArm, m_arm, kMidAngleCone, MidExtendCone));
-    new JoystickButton(m_weapons, Button.kA.value).onTrue(new ArmOut(m_arm, m_PinkArm));
+    // new JoystickButton(m_weapons, Button.kA.value).onTrue(new ArmOut(m_arm, m_PinkArm));
 
     
     //intake cone
@@ -160,6 +160,8 @@ public class RobotContainer {
     //TESTING THE NEUTRAL POSITION
     new JoystickButton(m_weapons, Button.kLeftBumper.value).onTrue(new IntakePos(m_PinkArm, m_arm, m_gripper, fullIn, kNeutralPos, neutralPosTelescoping));
 
+    //Arm in 
+    // new JoystickButton(m_weapons, Button.kA.value).ontrue(new ())
   }
   /**
    * Use this to pass the autonomous command to the main {@link Robot} class.

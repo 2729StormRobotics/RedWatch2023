@@ -33,7 +33,8 @@ public final class Constants {
 //CHANGE DEPENDING ON THE VALS TAKEN FOR SUBSTATION
     public static final double Substation = 4;
 
-    public static final double fullIn = 1.66;
+    public static final double fullIn = 3.9;
+
     public static final double neutralPosTelescoping = 5;
     //Add values for the low hybrid node
 
