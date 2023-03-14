@@ -120,9 +120,9 @@ public final class Constants {
     public static final boolean kRightReversedDefault = !kLeftReversedDefault;
     public static final double kTrackWidth = 29; // inches
 
-    public static final double kSpeedLimiter = 1.75; //divide speed by this number for new max speed 
+    public static final double kSpeedLimiter = 10; //divide speed by this number for new max speed 
     public static final double kLowGearSpeedLimiter = 3.5;  //divide speed by this number for new max speed 
-    public static final double kTurnSpeedLimiter = 2;
+    public static final double kTurnSpeedLimiter = 5;
 
     public static final double kS = 0.29; // minimum voltage to make the drivetrain move on the ground
     // driver encoder calculations
@@ -142,7 +142,7 @@ public final class Constants {
     public static final double kEncoderDistanceRatio = 1.125753635;
     public static double kRightAngleTurnArcLength = 7.25 * Math.PI;
     public static final double kHighSpeedPerPulseEncoderRatio = kEncoderDistanceRatio / 60.0;
-    public static final double kControllerDeadzone = 0.025;
+    public static final double kControllerDeadzone = 0.05;
   }
 
 

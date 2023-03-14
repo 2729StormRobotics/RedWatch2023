@@ -64,29 +64,29 @@ public class RobotContainer {
 
   // Subsystems
   private final Lights m_lights;
-  private final Gripper m_gripper;
+  // private final Gripper m_gripper;
   private final Drivetrain m_drivetrain;
-  private final PivotArm m_PinkArm;
-  private final TelescopingArm m_arm;
+  // private final PivotArm m_PinkArm;
+  // private final TelescopingArm m_arm;
 
   /** The container for the robot. Contains subsystems, OI devices, and commands. */
   public RobotContainer() {
     // Subsystems Instantiation
-    m_gripper = new Gripper();
+    // m_gripper = new Gripper();
     m_lights = new Lights();
     m_drivetrain = new Drivetrain();
-    m_PinkArm = new PivotArm();
-    m_arm = new TelescopingArm();
+    // m_PinkArm = new PivotArm();
+    // m_arm = new TelescopingArm();
 
     SmartDashboard.putData(CommandScheduler.getInstance());
     SmartDashboard.putNumber("Speed Limiter", Drivetrain.speedLimiter);
 
     // Setting default commands
-    m_arm.setDefaultCommand(
-      new ArmControl(() -> m_weapons.getLeftY(), m_arm));
+    // m_arm.setDefaultCommand(
+    //   new ArmControl(() -> m_weapons.getLeftY(), m_arm));
 
     // Control Panel
-    new ControlPanel(m_drivetrain, m_gripper, m_lights, m_PinkArm, m_arm);
+    // new ControlPanel(m_drivetrain, m_gripper, m_lights, m_PinkArm, m_arm);
 
     // Lights
     // m_lights.setDefaultCommand(new CheckObjectForColorChange(m_lights, m_gripper));
@@ -103,9 +103,9 @@ public class RobotContainer {
       () -> true, m_drivetrain));
     
     // Pink Arm
-    m_PinkArm.setDefaultCommand(
-      new armJoint(() -> m_weapons.getRightY(), m_PinkArm)
-    );
+    // m_PinkArm.setDefaultCommand(
+    //   new armJoint(() -> m_weapons.getRightY(), m_PinkArm)
+    // );
     m_lights.setDefaultCommand(
       new animateCandle(m_lights, m_driver)
     );
@@ -121,44 +121,44 @@ public class RobotContainer {
    * edu.wpi.first.wpilibj2.command.button.JoystickButton}.
    */
   private void configureButtonBindings() {    
-    new JoystickButton(m_driver, Button.kStart.value).onTrue(new IntakeCube(m_gripper));
-    new JoystickButton(m_driver, Button.kBack.value).onTrue(new IntakeCone(m_gripper));
-    new JoystickButton(m_driver, Button.kX.value).onTrue(new EjectItem(m_gripper));
-    new JoystickButton(m_driver, Button.kY.value).onTrue(new StopGripper(m_gripper));
+    // new JoystickButton(m_driver, Button.kStart.value).onTrue(new IntakeCube(m_gripper));
+    // new JoystickButton(m_driver, Button.kBack.value).onTrue(new IntakeCone(m_gripper));
+    // new JoystickButton(m_driver, Button.kX.value).onTrue(new EjectItem(m_gripper));
+    // new JoystickButton(m_driver, Button.kY.value).onTrue(new StopGripper(m_gripper));
     // new JoystickButton(m_driver, Button.kA.value).onTrue(new BalanceFromDistance(m_drivetrain, false));
     new JoystickButton(m_driver, Button.kB.value).onTrue(new ChangeGear());
 //    new JoystickButton(m_weapons, Button.kLeftStick.value).onTrue(new animateCandle(m_lights, m_weapons));   
-    new JoystickButton(m_weapons, Button.kY.value).toggleOnTrue(new ExtendVal( TelescopingConstants.HighExtendCube, m_arm));
-    new JoystickButton(m_weapons, Button.kX.value).toggleOnTrue(new ExtendVal( TelescopingConstants.MidExtendCube, m_arm));
+    // new JoystickButton(m_weapons, Button.kY.value).toggleOnTrue(new ExtendVal( TelescopingConstants.HighExtendCube, m_arm));
+    // new JoystickButton(m_weapons, Button.kX.value).toggleOnTrue(new ExtendVal( TelescopingConstants.MidExtendCube, m_arm));
     // new JoystickButton(m_weapons, Button.kA.value).toggleOnTrue(new ExtendVal( TelescopingConstants.LowExtendHybrid , m_arm));
     
     //cube high 
-    new JoystickButton(m_weapons, Button.kY.value).onTrue(new ParallelAutoScoreSetup(m_PinkArm, m_arm, kHighAngleCube, HighExtendCube));
-    //cube mid
-    new JoystickButton(m_weapons, Button.kX.value).onTrue(new ParallelAutoScoreSetup(m_PinkArm, m_arm, kMidAngleCube, MidExtendCube));
+    // new JoystickButton(m_weapons, Button.kY.value).onTrue(new ParallelAutoScoreSetup(m_PinkArm, m_arm, kHighAngleCube, HighExtendCube));
+    // //cube mid
+    // new JoystickButton(m_weapons, Button.kX.value).onTrue(new ParallelAutoScoreSetup(m_PinkArm, m_arm, kMidAngleCube, MidExtendCube));
     
-    //intaking from substation
-    new JoystickButton(m_weapons, Button.kStart.value).onTrue(new ParallelAutoScoreSetup(m_PinkArm, m_arm, kSubstation, Substation));
+    // //intaking from substation
+    // new JoystickButton(m_weapons, Button.kStart.value).onTrue(new ParallelAutoScoreSetup(m_PinkArm, m_arm, kSubstation, Substation));
 
-    //Cone high 
-    // new JoystickButton(m_weapons, Button.kB.value).onTrue(new PivotPID(m_PinkArm, 90));
-     new JoystickButton(m_weapons, Button.kB.value).onTrue(new ParallelAutoScoreSetup(m_PinkArm, m_arm, kHighAngleCone, HighExtendCone));
+    // //Cone high 
+    // // new JoystickButton(m_weapons, Button.kB.value).onTrue(new PivotPID(m_PinkArm, 90));
+    //  new JoystickButton(m_weapons, Button.kB.value).onTrue(new ParallelAutoScoreSetup(m_PinkArm, m_arm, kHighAngleCone, HighExtendCone));
     //cone mid
     // new JoystickButton(m_weapons, Button.kA.value).onTrue(new ParallelAutoScoreSetup(m_PinkArm, m_arm, kMidAngleCone, MidExtendCone));
     // new JoystickButton(m_weapons, Button.kA.value).onTrue(new ArmOut(m_arm, m_PinkArm));
 
     
     //intake cone
-   new JoystickButton(m_weapons, Button.kRightBumper.value).onTrue(new ParallelAutoScoreSetup(m_PinkArm, m_arm, kLowAngleCone, LowExtendCone));
-    // intake cube
-   new JoystickButton(m_weapons, Button.kBack.value).onTrue(new ParallelAutoScoreSetup(m_PinkArm, m_arm, kLowAngleCube, LowExtendCube));
+  //  new JoystickButton(m_weapons, Button.kRightBumper.value).onTrue(new ParallelAutoScoreSetup(m_PinkArm, m_arm, kLowAngleCone, LowExtendCone));
+  //   // intake cube
+  //  new JoystickButton(m_weapons, Button.kBack.value).onTrue(new ParallelAutoScoreSetup(m_PinkArm, m_arm, kLowAngleCube, LowExtendCube));
     
 
     //dunk
     // new JoystickButton(m_weapons, Button.kB.value).onTrue(new Dunk(m_PinkArm, m_arm, m_gripper));
 
     //TESTING THE NEUTRAL POSITION
-    new JoystickButton(m_weapons, Button.kLeftBumper.value).onTrue(new IntakePos(m_PinkArm, m_arm, m_gripper, fullIn, kNeutralPos, neutralPosTelescoping));
+    // new JoystickButton(m_weapons, Button.kLeftBumper.value).onTrue(new IntakePos(m_PinkArm, m_arm, m_gripper, fullIn, kNeutralPos, neutralPosTelescoping));
 
     //Arm in 
     // new JoystickButton(m_weapons, Button.kA.value).ontrue(new ())
