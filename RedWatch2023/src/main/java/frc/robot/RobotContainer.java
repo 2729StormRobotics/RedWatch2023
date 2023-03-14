@@ -26,6 +26,7 @@ import frc.robot.subsystems.TelescopingArm;
 import frc.robot.subsystems.PivotArm;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.CommandScheduler;
+import frc.robot.commands.ArmOut;
 import frc.robot.commands.ChangeGear;
 import frc.robot.commands.curvatureDrive;
 import frc.robot.commands.AutoBalancing.AutoBalance;
@@ -143,7 +144,9 @@ public class RobotContainer {
     // new JoystickButton(m_weapons, Button.kB.value).onTrue(new PivotPID(m_PinkArm, 90));
      new JoystickButton(m_weapons, Button.kB.value).onTrue(new ParallelAutoScoreSetup(m_PinkArm, m_arm, kHighAngleCone, HighExtendCone));
     //cone mid
-    new JoystickButton(m_weapons, Button.kA.value).onTrue(new ParallelAutoScoreSetup(m_PinkArm, m_arm, kMidAngleCone, MidExtendCone));
+    // new JoystickButton(m_weapons, Button.kA.value).onTrue(new ParallelAutoScoreSetup(m_PinkArm, m_arm, kMidAngleCone, MidExtendCone));
+    new JoystickButton(m_weapons, Button.kA.value).onTrue(new ArmOut(m_arm, m_PinkArm));
+
     
     //intake cone
    new JoystickButton(m_weapons, Button.kRightBumper.value).onTrue(new ParallelAutoScoreSetup(m_PinkArm, m_arm, kLowAngleCone, LowExtendCone));

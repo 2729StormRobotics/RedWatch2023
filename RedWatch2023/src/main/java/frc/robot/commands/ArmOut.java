@@ -27,17 +27,18 @@ public class ArmOut extends CommandBase {
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    if (m_PivotArm.getAngle() < 40) {
-      if (m_TelescopingArm.pot_val > 0) {
-        m_TelescopingArm.turnMotor(m_TelescopingArm.m_ArmExtend, Constants.TelescopingConstants.AutoArmSpeed);
+    if (m_PivotArm.getAngle() < 35) {
+      if (m_TelescopingArm.pot_val > 3.9) {
+        m_TelescopingArm.turnMotor(m_TelescopingArm.m_ArmExtend, 0.2);
       }
       else {
         m_TelescopingArm.turnMotor(m_TelescopingArm.m_ArmExtend, 0);
       }
     }
-    else if (m_PivotArm.getAngle() > 40 || m_TelescopingArm.pot_val < 0) {
-      if (m_PivotArm.getAngle() < 55) {
-        m_PivotArm.turnMotor(-0.3);
+    if (m_PivotArm.getAngle() > 35 || m_TelescopingArm.pot_val < 3.9) {
+      m_TelescopingArm.turnMotor(m_TelescopingArm.m_ArmExtend, 0);
+      if (m_PivotArm.getAngle() < 40) {
+        m_PivotArm.turnMotor(-0.5);
       }
     }
   }
@@ -52,6 +53,6 @@ public class ArmOut extends CommandBase {
   // Returns true when the command should end.
   @Override
   public boolean isFinished() {
-    return (m_PivotArm.getAngle() > 55);
+    return (m_PivotArm.getAngle() > 40);
   }
 }

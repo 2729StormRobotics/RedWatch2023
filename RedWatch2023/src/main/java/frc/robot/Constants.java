@@ -40,7 +40,7 @@ public final class Constants {
     public static final double potLowStop = 0.025; // 1 inch
     public static final double potHighStop = 0.6; // 27 inches 0.62 when down
     public static final double Tolerance = 0.5;
-    public static final double ArmSpeed = 1;
+    public static final double ArmSpeed = 0.25; // 1
     public static final double AutoArmSpeed = 0.5;
     public static final double kG = 0.1068;
     public static final double kS = 0.0110;
@@ -72,7 +72,7 @@ public final class Constants {
     public static final int kCurrentLimit = 60;
     public static final int kStallLimit = 45;
     //Sets the speed of the pivot arm, needs to be changed depending on the gear ratio for the pivot arm
-    public static final double kPivotArmSpeed = 0.8; //0.3; 
+    public static final double kPivotArmSpeed = 0.3; //0.8; 
     //Sets the position for the arm when neutral
     public static final double kPivotArmNeutral = 0;
 
