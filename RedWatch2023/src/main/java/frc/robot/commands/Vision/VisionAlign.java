@@ -14,7 +14,7 @@ public class VisionAlign extends CommandBase {
   /** Creates a new VisionAlign. */
   public final Drivetrain m_drivetrain;
   public final Vision m_vision;
-  private final double ANGULAR_P = 0.02;
+  private final double ANGULAR_P = 0.029;
   double turnPower;
   double turnError;
   PIDController m_turnController = new PIDController(ANGULAR_P, 0, 0);

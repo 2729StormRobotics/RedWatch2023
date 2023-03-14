@@ -148,7 +148,7 @@ public final class Constants {
     
     public static final double kTurnAngleP = 0.029;
     public static final double kTurnAngleI = 0.0;
-    public static final double kTurnAngleD = 0.0;
+    public static final double kTurnAngleD = 0.00;
     public static final double kTurnAngleTolerance = 2;
     public static final double kTurnSpeedTolerance = 3.0;
   }
@@ -214,7 +214,7 @@ public final class Constants {
       }
 	// PID Control (all experimentally determined)
 	public static final class AutoForwardPIDValues{
-		public static final double kP = 0.76;
+		public static final double kP = 1.25;
 		public static final double kI = 0;
 		public static final double kD = 0;	
 		public static final double kVelocityTolerance = 5.0;

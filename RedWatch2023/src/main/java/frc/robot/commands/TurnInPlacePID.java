@@ -21,13 +21,13 @@ public class TurnInPlacePID extends PIDCommand {
         // This should return the measurement
         () -> drivetrain.getYaw(),
         // This should return the setpoint (can also be a constant)
-        () -> targetAngle,
+        () -> targetAngle-4,
         // This uses the output
         output -> {
-            if (Math.abs(output) > 0.7)
-                output = Math.copySign(0.7, output); 
-            if (Math.abs(output) < Constants.DrivetrainConstants.kS) {
-                output = Math.copySign(Constants.DrivetrainConstants.kS, output);
+            if (Math.abs(output) > 1.5)
+                output = Math.copySign(1.5, output); 
+            if (Math.abs(output) < 2 * Constants.DrivetrainConstants.kS) {
+                output = Math.copySign(2 * Constants.DrivetrainConstants.kS, output);
             } 
           // Use the output here
           // turns clockwise if targetvalue is positive
