@@ -5,6 +5,8 @@
 package frc.robot.CommandGroups;
 
 import edu.wpi.first.wpilibj2.command.SequentialCommandGroup;
+import frc.robot.commands.TelescopingArmCommands.ExtendPID;
+import frc.robot.commands.TelescopingArmCommands.ExtendVal;
 import frc.robot.commands.pivotArm.turnToDegrees;
 import frc.robot.subsystems.Gripper;
 import frc.robot.subsystems.PivotArm;
@@ -27,7 +29,9 @@ public class TuckedInPos extends SequentialCommandGroup {
 
 
     addCommands(
-    new ParallelAutoScoreSetup(pivotArm, telescopingArm, 55, 3.9),
+    new ParallelAutoScoreSetup(m_pivotArm, m_telescopingArm, 55, 3.7),
+    new turnToDegrees(m_pivotArm, 35),
+    new ExtendVal(3.7, m_telescopingArm),
     new turnToDegrees(m_pivotArm, 27)
     );
   }

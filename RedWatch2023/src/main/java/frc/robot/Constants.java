@@ -142,7 +142,7 @@ public final class Constants {
     public static final double kEncoderDistanceRatio = 1.125753635;
     public static double kRightAngleTurnArcLength = 7.25 * Math.PI;
     public static final double kHighSpeedPerPulseEncoderRatio = kEncoderDistanceRatio / 60.0;
-    public static final double kControllerDeadzone = 0.025;
+    public static final double kControllerDeadzone = 0.1;
   }
 
 
