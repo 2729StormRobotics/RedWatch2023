@@ -156,7 +156,7 @@ public class RobotContainer {
     new JoystickButton(m_driver, Button.kB.value).onTrue(new ChangeGear());
     new JoystickButton(m_driver, Button.kY.value).onTrue(new BalanceFromDistance(m_drivetrain, false));
     new JoystickButton(m_driver, Button.kX.value).onTrue(new B1_A(m_drivetrain, m_Vision));
-    new JoystickButton(m_driver, Button.kA.value).whileTrue(new VisionAlign(m_drivetrain, m_Vision));
+    new JoystickButton(m_driver, Button.kA.value).onTrue(new AutoBalancePID ( m_drivetrain));
     new JoystickButton(m_driver, Button.kBack.value).onTrue(new ResetPosition ( m_drivetrain));
   //   new JoystickButton(m_weapons, Button.kLeftStick.value).onTrue(new animateCandle(m_lights, m_weapons));   
   //   // new JoystickButton(m_weapons, Button.kY.value).toggleOnTrue(new ExtendVal( TelescopingConstants.HighExtendCube, m_arm));
