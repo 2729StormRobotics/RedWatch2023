@@ -82,6 +82,7 @@ public final class Constants {
     public static final double kAnglesToTicks = 0;
     //Angles for scoring cones
     public static final double kHighAngleCone = 112; //(Actual)
+    public static final double kHighAngleConeIntermediate = 75; // To go to high cone preset, one must go to a lower angle, extend fully, then move to a higher angle. This is that lower angle.
     public static final double kMidAngleCone = 96.2; //(Actual)
     //Angle for scoring in the hybrid node common for cones and cubes
     public static final double kLowAngleCone = 48.2; //(actual)
