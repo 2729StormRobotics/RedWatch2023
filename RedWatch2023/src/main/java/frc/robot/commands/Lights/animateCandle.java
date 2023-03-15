@@ -55,8 +55,8 @@ public class animateCandle extends CommandBase {
       m_Lights.setCone();
     }else if(m_animate.getPOV() == 270){
       m_Lights.partyMode();
-    }else if(m_animate.getPOV() == 315){
-      m_Lights.epilepsy();
+    // }else if(m_animate.getPOV() == 315){
+    //   m_Lights.epilepsy();
       // m_Lights.resetLights();
     } 
   }
