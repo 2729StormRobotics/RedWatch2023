@@ -27,7 +27,7 @@ public final class Constants {
   public static final class TelescopingConstants {
     public static final double MidExtendCube = 3; // previous val 23.5 actual val 13.909128
     public static final double HighExtendCube = 18.2; //Actual distance 26.938031
-    public static final double HighExtendCone = 27.5; //actual distance 27.697191
+    public static final double HighExtendCone = 29.5; //actual distance 27.697191
     public static final double MidExtendCone = 13.7; //Actual distance 20.860632
     //Low value for turn might change when testing
     public static final double LowExtendCone = 16.1;
@@ -42,7 +42,8 @@ public final class Constants {
     //Add values for the low hybrid node
 
     public static final double potLowStop = 0.025; // 1 inch
-    public static final double potHighStop = 0.6; // 27 inches 0.62 when down
+    public static final double potHighStop = 0.56; // 30 inches 0.6 when down
+    // real value should be 0.6/ inches is 32 inches
     public static final double Tolerance = 0.5;
     public static final double ArmSpeed = 0.25; // 1
     public static final double AutoArmSpeed = 0.5;
@@ -89,7 +90,8 @@ public final class Constants {
     public static final double kHighAngleConeIntermediate = 75; // To go to high cone preset, one must go to a lower angle, extend fully, then move to a higher angle. This is that lower angle.
     public static final double kMidAngleCone = 96.2; //(Actual)
     //Angle for scoring in the hybrid node common for cones and cubes
-    public static final double kLowAngleCone = 48.2; //(actual)
+    public static final double kLowAngleCone = 48.2; //(actual) 
+    //CANT BE MORE THAN 50!!!!!!
     public static final double kLowAngleCube = 42.5 ; //TEST VALUE
 
     //EDIT DEPENDING ON SUBSTATION VALS
@@ -228,18 +230,7 @@ public final class Constants {
 		public static final double kAngleTolerace = 4.0;
 		public static final double kTurnSpeedTolerance = 1.0;
 	}
- 
-	public static final class IntakeConstants {
-    public static final int kIntakeMotorPort = 1;
-    public static final int kIntakeRaiseChannel = 2;
-    public static final int kIntakeLowerChannel = 3;
-    public static final double kIntakeMotorSpeed = 10;
-    public static final double kEjectMotorSpeed = -10;
-    public static final Value kIntakeRaiseValue = Value.kForward;
-    public static final Value kIntakeLowerValue = Value.kReverse;
-    }
-
-
+  
 	public static class GripperConstants {
     // Most likely only be using one motor, but written code for 2 in case.
     public static final int kGripperRightMotor = 9;

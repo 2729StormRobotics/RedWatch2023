@@ -125,7 +125,7 @@ public class RobotContainer {
    */
   private void configureButtonBindings() {    
     //Testing Button (try cmds on me! NO OTHER BUTTONS PLS!) 
-      new JoystickButton(m_driver, Button.kA.value).onTrue(new ArmOut(m_arm, m_PinkArm));
+      // new JoystickButton(m_driver, Button.kA.value).onTrue(new ArmOut(m_arm, m_PinkArm));
 
     //!!!!!s
     //PLEASE DO NOT CHANGE THESE WIHTOUT ASKING, AKSHAY WILL BE MAD!!!!!
