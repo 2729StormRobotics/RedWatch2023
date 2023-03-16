@@ -134,14 +134,15 @@ public class RobotContainer {
     /*
      * DRIVER
      */
-      //Start: Intake Cube    
-        new JoystickButton(m_driver, Button.kStart.value).onTrue(new IntakeCube(m_gripper));
-      //Back: Intake Cone    
-        new JoystickButton(m_driver, Button.kBack.value).onTrue(new IntakeCone(m_gripper));
-      //X: Eject
-        new JoystickButton(m_driver, Button.kX.value).onTrue(new EjectItem(m_gripper));
-      //Y: Stop Gripper
-        new JoystickButton(m_driver, Button.kY.value).onTrue(new StopGripper(m_gripper));
+      
+    //  //Start: Intake Cube    
+    //     new JoystickButton(m_driver, Button.kStart.value).onTrue(new IntakeCube(m_gripper));
+    //   //Back: Intake Cone    
+    //     new JoystickButton(m_driver, Button.kBack.value).onTrue(new IntakeCone(m_gripper));
+    //   //X: Eject
+    //     new JoystickButton(m_driver, Button.kX.value).onTrue(new EjectItem(m_gripper));
+    //   //Y: Stop Gripper
+    //     new JoystickButton(m_driver, Button.kY.value).onTrue(new StopGripper(m_gripper));
       //B: Change Gear
         new JoystickButton(m_driver, Button.kB.value).onTrue(new ChangeGear());
 
