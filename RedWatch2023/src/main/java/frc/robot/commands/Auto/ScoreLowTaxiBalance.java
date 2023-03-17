@@ -45,7 +45,7 @@ public class ScoreLowTaxiBalance extends SequentialCommandGroup {
       new EjectItem(m_gripper),
       new WaitCommand(2),
       new StopGripper(m_gripper),
-      new AutoForwardPID(-3.1, m_drivetrain),
+      new AutoForwardPID(-4.2, m_drivetrain),
       new AutoForwardPID(0.7, m_drivetrain),
       new AutoBalancePID(m_drivetrain)
 

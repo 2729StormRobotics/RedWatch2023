@@ -135,14 +135,14 @@ public class RobotContainer {
      * DRIVER
      */
       
-    //  //Start: Intake Cube    
-    //     new JoystickButton(m_driver, Button.kStart.value).onTrue(new IntakeCube(m_gripper));
-    //   //Back: Intake Cone    
-    //     new JoystickButton(m_driver, Button.kBack.value).onTrue(new IntakeCone(m_gripper));
-    //   //X: Eject
-    //     new JoystickButton(m_driver, Button.kX.value).onTrue(new EjectItem(m_gripper));
-    //   //Y: Stop Gripper
-    //     new JoystickButton(m_driver, Button.kY.value).onTrue(new StopGripper(m_gripper));
+     //Start: Intake Cube    
+        new JoystickButton(m_driver, Button.kRightBumper.value).onTrue(new IntakeCube(m_gripper));
+      //Back: Intake Cone    
+        new JoystickButton(m_driver, Button.kLeftBumper.value).onTrue(new IntakeCone(m_gripper));
+      //X: Eject
+        new JoystickButton(m_driver, Button.kX.value).onTrue(new EjectItem(m_gripper));
+      //Y: Stop Gripper
+        new JoystickButton(m_driver, Button.kY.value).onTrue(new StopGripper(m_gripper));
       //B: Change Gear
         new JoystickButton(m_driver, Button.kB.value).onTrue(new ChangeGear());
 
@@ -163,7 +163,7 @@ public class RobotContainer {
         // new JoystickButton(m_weapons, Button.kBack.value).onTrue(new TuckedInPos(m_PinkArm, m_arm));
       //RB: Intake Cone Setup
         new JoystickButton(m_weapons, Button.kRightBumper.value).onTrue(new SetupScore(m_PinkArm, m_arm, kLowAngleCone, LowExtendCone));
-      //LB: Intake Cone Setup
+      //LB: Intake Cube Setup
         new JoystickButton(m_weapons, Button.kLeftBumper.value).onTrue(new SetupScore(m_PinkArm, m_arm, kLowAngleCube, LowExtendCube));
       }
   /**

@@ -45,7 +45,7 @@ public final class Constants {
     public static final double potHighStop = 0.8; // 30 inches 0.6 when down
     // real value should be 0.6/ inches is 32 inches
     public static final double Tolerance = 0.5;
-    public static final double ArmSpeed = .7; // 1
+    public static final double ArmSpeed = 1; // 1
     public static final double AutoArmSpeed = 0.5;
     public static final double kG = 0.1068;
     public static final double kS = 0.0110;
@@ -87,7 +87,7 @@ public final class Constants {
     public static final double kAnglesToTicks = 0;
     //Angles for scoring cones
     public static final double kHighAngleCone = 112; //(Actual)
-    public static final double kHighAngleConeIntermediate = 75; // To go to high cone preset, one must go to a lower angle, extend fully, then move to a higher angle. This is that lower angle.
+    public static final double kHighAngleConeIntermediate = 75; // To go to high cone preset, one must go to a lower angle, end fully, then move to a higher angle. This is that lower angle.
     public static final double kMidAngleCone = 96.2; //(Actual)
     //Angle for scoring in the hybrid node common for cones and cubes
     public static final double kLowAngleCone = 48.2; //(actual) 
@@ -238,7 +238,7 @@ public final class Constants {
     // Variable assigned values can change depending on what is needed for the robot.
     public static final double kGripperIntakeMotorSpeedCone = 0.75;  
     public static final double kGripperIntakeMotorSpeedCube = 0.3;    
-    public static final double kGripperEjectMotorSpeed = -0.4;
+    public static final double kGripperEjectMotorSpeed = -0.5;
     public static final int kBeambreak = 1;
     }
 
