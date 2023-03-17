@@ -34,7 +34,7 @@ public class PivotArm extends SubsystemBase {
   public GenericEntry kIValue;
   public GenericEntry kDValue;
   
-  public static final double angleThreshold = 1;
+  public static final double angleThreshold = 2.5;
 
   public final CANSparkMax m_pivot;
   public final CANSparkMax m_pivot2;

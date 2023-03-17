@@ -41,6 +41,7 @@ import frc.robot.CommandGroups.SetupScore;
 import frc.robot.CommandGroups.TuckedInPos;
 import frc.robot.commands.ArmOut;
 import frc.robot.commands.ChangeGear;
+import frc.robot.commands.Meltdown;
 import frc.robot.commands.curvatureDrive;
 import frc.robot.commands.Gripper.EjectItem;
 import frc.robot.commands.Gripper.StopGripper;
@@ -66,7 +67,7 @@ public class RobotContainer {
   private final XboxController m_weapons = new XboxController(Constants.DrivetrainConstants.kWeaponsControllerPort);
 
   private SlewRateLimiter m_forwardLimiter = new SlewRateLimiter(2); // controls acceleration of forward speed
-  private SlewRateLimiter m_rotationLimiter = new SlewRateLimiter(1.5); // controls acceleration of rotational speed
+  private SlewRateLimiter m_rotationLimiter = new SlewRateLimiter(0.75); // controls acceleration of rotational speed
 
   // Subsystems
   private final Lights m_lights;
@@ -137,19 +138,22 @@ public class RobotContainer {
     /*
      * DRIVER
      */
-      // double DriverLeftTrigger = m_driver.getLeftTriggerAxis();
-      double DriverRightTrigger = m_driver.getRightTriggerAxis();
-      
-     //Start: Intake Cube    
+      //new JoystickButton(m_driver, Button.kX.value).onTrue(new EjectItem(m_gripper, Constants.GripperConstants.kGripperEjectConeSpeed));
+
+     //Right Bumper: Intake Cube    
         new JoystickButton(m_driver, Button.kRightBumper.value).onTrue(new IntakeCube(m_gripper));
-      //Back: Intake Cone    
+      //Left Bumper: Intake Cone    
         new JoystickButton(m_driver, Button.kLeftBumper.value).onTrue(new IntakeCone(m_gripper));
-      //X: Eject Cone
-        new JoystickButton(m_driver, Button.kX.value).onTrue(new EjectItem(m_gripper, Constants.GripperConstants.kGripperEjectConeSpeed));
+      //Right Trigger: Eject Cube
+        new Trigger(() -> (m_driver.getRightTriggerAxis() > 0.5)).onTrue(new EjectItem(m_gripper, Constants.GripperConstants.kGripperEjectCubeSpeed));
+      //Left Trigger: Eject Cone
+        new Trigger(() -> (m_driver.getLeftTriggerAxis() > 0.5)).onTrue(new EjectItem(m_gripper, Constants.GripperConstants.kGripperEjectConeSpeed));
       //Y: Stop Gripper
         new JoystickButton(m_driver, Button.kY.value).onTrue(new StopGripper(m_gripper));
       //B: Change Gear
         new JoystickButton(m_driver, Button.kB.value).onTrue(new ChangeGear());
+      //BACK: MELTDOWN
+        new JoystickButton(m_driver, Button.kBack.value).onTrue(new Meltdown(m_drivetrain, m_gripper, m_PinkArm, m_arm));
       
 
     /**

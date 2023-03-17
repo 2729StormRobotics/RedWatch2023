@@ -37,8 +37,8 @@ public class ArmOut extends CommandBase {
     }
     if (m_PivotArm.getAngle() > 35 || m_TelescopingArm.pot_val < 3.9) {
       m_TelescopingArm.turnMotor(m_TelescopingArm.m_ArmExtend, 0);
-      if (m_PivotArm.getAngle() < 40) {
-        m_PivotArm.turnMotor(-0.5);
+      if (m_PivotArm.getAngle() < 45) {
+        m_PivotArm.turnMotor(-0.4);
       }
     }
   }
@@ -53,6 +53,6 @@ public class ArmOut extends CommandBase {
   // Returns true when the command should end.
   @Override
   public boolean isFinished() {
-    return (m_PivotArm.getAngle() > 40);
+    return (m_PivotArm.getAngle() > 45);
   }
 }

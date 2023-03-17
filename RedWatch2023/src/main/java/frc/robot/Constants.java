@@ -28,7 +28,7 @@ public final class Constants {
     public static final double MidExtendCube = 3; // previous val 23.5 actual val 13.909128
     public static final double HighExtendCube = 18.2; //Actual distance 26.938031
     public static final double HighExtendCone = 29.5; //actual distance 27.697191
-    public static final double MidExtendCone = 13.7; //Actual distance 20.860632
+    public static final double MidExtendCone = 19; //Actual distance 20.860632
     //Low value for turn might change when testing
     public static final double LowExtendCone = 16.1;
     public static final double LowExtendCube = 7.22;
@@ -88,7 +88,7 @@ public final class Constants {
     //Angles for scoring cones
     public static final double kHighAngleCone = 112; //(Actual)
     public static final double kHighAngleConeIntermediate = 75; // To go to high cone preset, one must go to a lower angle, end fully, then move to a higher angle. This is that lower angle.
-    public static final double kMidAngleCone = 96.2; //(Actual)
+    public static final double kMidAngleCone = 105; //(Actual)
     //Angle for scoring in the hybrid node common for cones and cubes
     public static final double kLowAngleCone = 48.2; //(actual) 
     //CANT BE MORE THAN 50!!!!!!
@@ -115,7 +115,7 @@ public final class Constants {
     public static final int LEFT_MOTOR_ID = 1;
     public static final int RIGHT_MOTOR2_ID = 7;
     public static final int RIGHT_MOTOR_ID = 6;
-    public static final int STALL_LIMIT = 45;
+    public static final int STALL_LIMIT = 80;
     public static final int kDriverControllerPort = 1;
     public static final int kWeaponsControllerPort = 2;
     public static final String kShuffleboardTab = "Control Panel";
@@ -236,9 +236,9 @@ public final class Constants {
     public static final int kGripperRightMotor = 9;
     public static final int kGripperLeftMotor = 5;
     // Variable assigned values can change depending on what is needed for the robot.
-    public static final double kGripperIntakeMotorSpeedCone = 0.75;  
+    public static final double kGripperIntakeMotorSpeedCone = 0.65;  
     public static final double kGripperIntakeMotorSpeedCube = 0.3;    
-    public static final double kGripperEjectConeSpeed = -0.5;
+    public static final double kGripperEjectConeSpeed = -0.85;
     public static final double kGripperEjectCubeSpeed = -0.35;
     public static final int STALL_LIMIT = 20;
     public static final int kBeambreak = 1;
