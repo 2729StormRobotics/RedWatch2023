@@ -5,6 +5,7 @@
 package frc.robot.CommandGroups;
 
 import edu.wpi.first.wpilibj2.command.SequentialCommandGroup;
+import frc.robot.Constants;
 import frc.robot.Constants.TelescopingConstants;
 import frc.robot.Constants.pinkArmConstants;
 import frc.robot.commands.Gripper.EjectItem;
@@ -33,7 +34,7 @@ public class Dunk extends SequentialCommandGroup {
     addCommands(
       new ExtendVal(m_telescopingArm.getDistance() - 2, m_telescopingArm),
       new turnToDegrees(m_pivotArm, m_pivotArm.getAngle() - pinkArmConstants.kDunkDistance),
-      new EjectItem(m_gripper),
+      new EjectItem(m_gripper, Constants.GripperConstants.kGripperEjectConeSpeed),
       new ExtendVal(m_telescopingArm.getDistance() - TelescopingConstants.kDunkRetractDistance, m_telescopingArm),
       new StopGripper(m_gripper)
     );

@@ -238,7 +238,9 @@ public final class Constants {
     // Variable assigned values can change depending on what is needed for the robot.
     public static final double kGripperIntakeMotorSpeedCone = 0.75;  
     public static final double kGripperIntakeMotorSpeedCube = 0.3;    
-    public static final double kGripperEjectMotorSpeed = -0.5;
+    public static final double kGripperEjectConeSpeed = -0.5;
+    public static final double kGripperEjectCubeSpeed = -0.35;
+    public static final int STALL_LIMIT = 20;
     public static final int kBeambreak = 1;
     }
 

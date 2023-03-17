@@ -13,12 +13,14 @@ public class EjectItem extends CommandBase {
 
   // Prepares a variable for the gripper
   private final Gripper m_chompychompy;
+  private final double m_speed;
+
 
   /** Creates a new EjectItem. */
-  public EjectItem(Gripper gripper) {
+  public EjectItem(Gripper gripper, double speed) {
     // Appoints the gripper parameter (a subsystem) to the gripper variable
     m_chompychompy = gripper;
-
+    m_speed = speed; 
     // Use addRequirements() here to declare subsystem dependencies.
     addRequirements(gripper);
   }
@@ -27,7 +29,7 @@ public class EjectItem extends CommandBase {
   @Override
   public void initialize() {
     // Runs the gripper motors at eject speed
-    m_chompychompy.ejectGripper();
+    m_chompychompy.ejectGripper(m_speed);
   }
 
   // Called every time the scheduler runs while the command is scheduled.

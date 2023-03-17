@@ -5,6 +5,7 @@
 package frc.robot.CommandGroups.Auto;
 
 import edu.wpi.first.wpilibj2.command.SequentialCommandGroup;
+import frc.robot.Constants;
 import frc.robot.CommandGroups.AutoScoreSetup;
 import frc.robot.CommandGroups.BalanceFromDistance;
 import frc.robot.CommandGroups.Dunk;
@@ -46,7 +47,7 @@ public class B3_A extends SequentialCommandGroup {
       // Score
       new AutoScoreSetup(m_PinkArm, m_arm, m_gripper, pinkArmConstants.kMidAngleCone, TelescopingConstants.MidExtendCone),
       new Dunk(m_PinkArm, m_arm, m_gripper),
-      new EjectItem(m_gripper),
+      new EjectItem(m_gripper, Constants.GripperConstants.kGripperEjectConeSpeed),
       new ExtendVal(5, m_arm),
       // new AutoForwardPID(-50 , m_Drivetrain),
       new AutoForwardPID(-175 , m_Drivetrain),

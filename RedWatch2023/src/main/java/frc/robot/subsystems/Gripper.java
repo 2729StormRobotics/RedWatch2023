@@ -5,6 +5,7 @@
 package frc.robot.subsystems;
 
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
+import frc.robot.Constants;
 import frc.robot.PicoColorSensor;
 import static frc.robot.Constants.GripperConstants.*;
 
@@ -47,6 +48,9 @@ public class Gripper extends SubsystemBase {
 
     m_gripperLeftMotor.setIdleMode(IdleMode.kBrake);
     m_gripperRightMotor.setIdleMode(IdleMode.kBrake);
+    // set current limits
+    m_gripperRightMotor.setSmartCurrentLimit(Constants.GripperConstants.STALL_LIMIT);
+    m_gripperLeftMotor.setSmartCurrentLimit(Constants.GripperConstants.STALL_LIMIT);
 
     m_leftEncoder = m_gripperLeftMotor.getEncoder();
     m_rightEncoder = m_gripperRightMotor.getEncoder();
@@ -116,9 +120,9 @@ public class Gripper extends SubsystemBase {
 
 
   // Runs gripper motors to eject an object
-  public void ejectGripper() {
+  public void ejectGripper(double speed) {
     m_gripper_direction = "eject";
-    runGripper(kGripperEjectMotorSpeed);
+    runGripper(speed);
   }
 
   // Sets up settings for gripper motors

@@ -42,7 +42,7 @@ public class ScoreLowTaxiBalance extends SequentialCommandGroup {
     // addCommands(new FooCommand(), new BarCommand());
     addCommands(
       new SetupScore(m_PivotArm, m_TelescopingArm, Constants.pinkArmConstants.kLowAngleCube, Constants.TelescopingConstants.LowExtendCube),
-      new EjectItem(m_gripper),
+      new EjectItem(m_gripper, Constants.GripperConstants.kGripperEjectConeSpeed),
       new WaitCommand(2),
       new StopGripper(m_gripper),
       new AutoForwardPID(-4.2, m_drivetrain),
