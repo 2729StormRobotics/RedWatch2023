@@ -127,7 +127,7 @@ public class RobotContainer {
       new armJoint(() -> m_weapons.getRightY(), m_PinkArm)
     );
     m_lights.setDefaultCommand(
-      new animateCandle(m_lights, m_driver)
+      new animateCandle(m_lights, m_weapons)
     );
     // Configure the button bindings
     configureButtonBindings();
