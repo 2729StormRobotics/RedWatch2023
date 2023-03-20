@@ -10,7 +10,8 @@ import static frc.robot.Constants.TelescopingConstants.LowExtendCone;
 import static frc.robot.Constants.TelescopingConstants.LowExtendCube;
 import static frc.robot.Constants.TelescopingConstants.MidExtendCone;
 import static frc.robot.Constants.TelescopingConstants.MidExtendCube;
-import static frc.robot.Constants.TelescopingConstants.Substation;
+import static frc.robot.Constants.TelescopingConstants.SubstationCube;
+import static frc.robot.Constants.TelescopingConstants.SubstationCone;
 import static frc.robot.Constants.TelescopingConstants.fullIn;
 import static frc.robot.Constants.TelescopingConstants.neutralPosTelescoping;
 import static frc.robot.Constants.pinkArmConstants.kHighAngleCone;
@@ -20,7 +21,8 @@ import static frc.robot.Constants.pinkArmConstants.kLowAngleCube;
 import static frc.robot.Constants.pinkArmConstants.kMidAngleCone;
 import static frc.robot.Constants.pinkArmConstants.kMidAngleCube;
 import static frc.robot.Constants.pinkArmConstants.kNeutralPos;
-import static frc.robot.Constants.pinkArmConstants.kSubstation;
+import static frc.robot.Constants.pinkArmConstants.kSubstationCone;
+import static frc.robot.Constants.pinkArmConstants.kSubstationCube;
 
 import java.util.function.ToDoubleBiFunction;
 
@@ -43,10 +45,16 @@ import frc.robot.commands.ArmOut;
 import frc.robot.commands.ChangeGear;
 import frc.robot.commands.Meltdown;
 import frc.robot.commands.curvatureDrive;
+import frc.robot.commands.Auto.ScoreLowTaxi;
+import frc.robot.commands.Auto.ScoreLowTaxiBalance;
+import frc.robot.commands.AutoBalancing.AutoBalancePID;
 import frc.robot.commands.Gripper.EjectItem;
 import frc.robot.commands.Gripper.StopGripper;
 import frc.robot.commands.Lights.animateCandle;
 import frc.robot.commands.TelescopingArmCommands.ArmControl;
+import frc.robot.commands.Vision.AprilTagMode;
+import frc.robot.commands.Vision.ReflectiveTapeMode;
+import frc.robot.commands.Vision.VisionAlign;
 import frc.robot.commands.pivotArm.armJoint;
 import frc.robot.subsystems.ControlPanel;
 import frc.robot.subsystems.Drivetrain;
@@ -54,6 +62,7 @@ import frc.robot.subsystems.Gripper;
 import frc.robot.subsystems.Lights;
 import frc.robot.subsystems.PivotArm;
 import frc.robot.subsystems.TelescopingArm;
+import frc.robot.subsystems.Vision;
 
 /**
  * This class is where the bulk of the robot should be declared. Since Command-based is a
@@ -67,7 +76,7 @@ public class RobotContainer {
   private final XboxController m_weapons = new XboxController(Constants.DrivetrainConstants.kWeaponsControllerPort);
 
   private SlewRateLimiter m_forwardLimiter = new SlewRateLimiter(2); // controls acceleration of forward speed
-  private SlewRateLimiter m_rotationLimiter = new SlewRateLimiter(0.75); // controls acceleration of rotational speed
+  private SlewRateLimiter m_rotationLimiter = new SlewRateLimiter(1.1); // controls acceleration of rotational speed
 
   // Subsystems
   private final Lights m_lights;
@@ -75,6 +84,7 @@ public class RobotContainer {
   private final Drivetrain m_drivetrain;
   private final PivotArm m_PinkArm;
   private final TelescopingArm m_arm;
+  private final Vision m_Vision;
 
   /** The container for the robot. Contains subsystems, OI devices, and commands. */
   public RobotContainer() {
@@ -84,6 +94,7 @@ public class RobotContainer {
     m_drivetrain = new Drivetrain();
     m_PinkArm = new PivotArm();
     m_arm = new TelescopingArm();
+    m_Vision = new Vision();
 
     SmartDashboard.putData(CommandScheduler.getInstance());
     SmartDashboard.putNumber("Speed Limiter", Drivetrain.speedLimiter);
@@ -91,6 +102,8 @@ public class RobotContainer {
     // Setting default commands
     m_arm.setDefaultCommand(
       new ArmControl(() -> m_weapons.getLeftY(), m_arm));
+
+    m_Vision.setDefaultCommand(new AprilTagMode(m_Vision));
 
     // Control Panel
     new ControlPanel(m_drivetrain, m_gripper, m_lights, m_PinkArm, m_arm);
@@ -129,7 +142,8 @@ public class RobotContainer {
    */
   private void configureButtonBindings() {    
     //Testing Button (try cmds on me! NO OTHER BUTTONS PLS!) 
-      // new JoystickButton(m_driver, Button.kA.value).onTrue(new ArmOut(m_arm, m_PinkArm));
+      new JoystickButton(m_driver, Button.kA.value).whileTrue(new AutoBalancePID(m_drivetrain));
+      // new JoystickButton(m_driver, Button.kA.value).onTrue(new ScoreLowTaxiBalance(m_drivetrain, m_gripper, m_PinkArm, m_arm));
 
     //!!!!!s
     //PLEASE DO NOT CHANGE THESE WIHTOUT ASKING, AKSHAY WILL BE MAD!!!!!
@@ -167,8 +181,10 @@ public class RobotContainer {
         new JoystickButton(m_weapons, Button.kY.value).onTrue(new SetupScore(m_PinkArm, m_arm, kHighAngleCube, HighExtendCube));
       //X: Mid Cube Setup
         new JoystickButton(m_weapons, Button.kX.value).onTrue(new SetupScore(m_PinkArm, m_arm, kMidAngleCube, MidExtendCube));
-      //Start: Substation Intake Setup
-        new JoystickButton(m_weapons, Button.kStart.value).onTrue(new SetupScore(m_PinkArm, m_arm, kSubstation, Substation));
+      //Start: Substation Cube Intake Setup
+      new JoystickButton(m_weapons, Button.kStart.value).onTrue(new SetupScore(m_PinkArm, m_arm, kSubstationCube, SubstationCube));
+      //Back: Substation Cone Intake Setup
+      new JoystickButton(m_weapons, Button.kBack.value).onTrue(new SetupScore(m_PinkArm, m_arm, kSubstationCone, SubstationCone));
       //Back: Tucked in Pos      
         // new JoystickButton(m_weapons, Button.kBack.value).onTrue(new TuckedInPos(m_PinkArm, m_arm));
       //RB: Intake Cone Setup
@@ -183,6 +199,8 @@ public class RobotContainer {
    */
   public Command getAutonomousCommand() {
     // An ExampleCommand will run in autonomous
-    return null;
+     return new ScoreLowTaxi(m_drivetrain, m_gripper, m_PinkArm, m_arm);
+    // return new ScoreLowTaxiBalance(m_drivetrain, m_gripper, m_PinkArm, m_arm);
+
   }
 }

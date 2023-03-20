@@ -17,6 +17,7 @@ public class PivotPID extends PIDCommand {
   private final PivotArm m_pivotArm;
   public double m_angle;
   /** Creates a new PivotPID. */
+  
   public PivotPID(PivotArm pivotArm, double angle) {
 
     super(

@@ -22,7 +22,8 @@ public class Vision extends SubsystemBase {
   private double y;
   private double area;
   public Vision() {
-
+    table.getEntry("pipeline").setNumber(Constants.VisionConstants.kAprilTagPipeline);
+    table.getEntry("ledMode").setNumber(Constants.VisionConstants.kLightOffValue);
   }
 
   public void setPipeline(double pipeline) {

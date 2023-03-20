@@ -11,8 +11,11 @@ import edu.wpi.first.wpilibj2.command.WaitCommand;
 import frc.robot.Constants;
 import frc.robot.CommandGroups.SetupScore;
 import frc.robot.commands.AutoForwardPID;
+import frc.robot.commands.TurnInPlace;
+import frc.robot.commands.TurnInPlacePID;
 import frc.robot.commands.Gripper.EjectItem;
 import frc.robot.commands.Gripper.StopGripper;
+import frc.robot.commands.pivotArm.PivotPID;
 import frc.robot.subsystems.Drivetrain;
 import frc.robot.subsystems.Gripper;
 import frc.robot.subsystems.PivotArm;
@@ -40,11 +43,10 @@ public class ScoreLowTaxi extends SequentialCommandGroup {
     // Add your commands in the addCommands() call, e.g.
     // addCommands(new FooCommand(), new BarCommand());
     addCommands(
-      new SetupScore(m_PivotArm, m_TelescopingArm, Constants.pinkArmConstants.kLowAngleCube, Constants.TelescopingConstants.LowExtendCube),
-      new EjectItem(m_gripper, Constants.GripperConstants.kGripperEjectConeSpeed),
-      new WaitCommand(2),
-      new StopGripper(m_gripper),
-      new AutoForwardPID(-3.1, m_drivetrain)
+     // new SetupScore(m_PivotArm, m_TelescopingArm, Constants.pinkArmConstants.kLowAngleCube+10 , Constants.TelescopingConstants.LowExtendCube),
+      new PivotPID(pivotArm, Constants.pinkArmConstants.kLowAngleCube+15),
+      new WaitCommand(0.5),
+      new AutoForwardPID(-4.2, m_drivetrain)
     );
   }
 }

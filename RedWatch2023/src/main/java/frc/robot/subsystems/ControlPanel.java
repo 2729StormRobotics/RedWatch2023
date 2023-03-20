@@ -97,7 +97,7 @@ public class ControlPanel extends SubsystemBase {
     m_gripperStatus.addNumber("Gripper Velocity", () -> m_gripper.getVelocity());
 
     m_pivotArmStatus.addNumber("Pivot Encoder", () -> m_pivotArm.getAngle());
-    
+    m_pivotArmStatus.addBoolean("Is Extended Two Direction", () -> m_pivotArm.isExtendedTwoDirection());
 
     m_telescopingArmStatus.addNumber("Telescoping Encoder", () -> m_telescopingArm.getArmDistance());
     m_telescopingArmStatus.addNumber("Pot value", () -> m_telescopingArm.pot_val);

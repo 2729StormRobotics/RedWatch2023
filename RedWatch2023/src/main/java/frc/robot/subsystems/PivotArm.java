@@ -74,6 +74,10 @@ public class PivotArm extends SubsystemBase {
 
 
     }
+
+    public boolean isExtendedTwoDirection() {
+      return (getAngle() > 45);
+    }
   
     public void changeMode(String mode) {
   

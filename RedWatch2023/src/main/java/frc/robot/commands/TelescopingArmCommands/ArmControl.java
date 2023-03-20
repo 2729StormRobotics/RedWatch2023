@@ -35,7 +35,7 @@ public class ArmControl extends CommandBase{
       }else{
         if (m_Arm.pot.get() > TelescopingConstants.potHighStop){
           m_Arm.turnMotor(m_Arm.m_ArmExtend,1*(Math.abs(stickVal.getAsDouble()*TelescopingConstants.ArmSpeed )));
-        }else if (m_Arm.pot.get() < TelescopingConstants.potLowStop){
+        }else if (m_Arm.pot_val < TelescopingConstants.potLowStop){
           m_Arm.turnMotor(m_Arm.m_ArmExtend,-1*(Math.abs(stickVal.getAsDouble()*TelescopingConstants.ArmSpeed )));
         }else{
           m_Arm.turnMotor(m_Arm.m_ArmExtend,(stickVal.getAsDouble()*TelescopingConstants.ArmSpeed ));

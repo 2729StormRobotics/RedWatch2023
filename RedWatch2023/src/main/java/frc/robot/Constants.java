@@ -30,18 +30,19 @@ public final class Constants {
     public static final double HighExtendCone = 29.5; //actual distance 27.697191
     public static final double MidExtendCone = 19; //Actual distance 20.860632
     //Low value for turn might change when testing
-    public static final double LowExtendCone = 16.1;
+    public static final double LowExtendCone = 13;
     public static final double LowExtendCube = 7.22;
 
 //CHANGE DEPENDING ON THE VALS TAKEN FOR SUBSTATION
-    public static final double Substation = 4;
+    public static final double SubstationCube = 4;
+    public static final double SubstationCone = 8.3;
 
     public static final double fullIn = 3.9;
 
     public static final double neutralPosTelescoping = 5;
     //Add values for the low hybrid node
 
-    public static final double potLowStop = 0.025; // 1 inch
+    public static final double potLowStop = 3.6; // 1 inch 0.025
     public static final double potHighStop = 0.8; // 30 inches 0.6 when down
     // real value should be 0.6/ inches is 32 inches
     public static final double Tolerance = 0.5;
@@ -90,12 +91,13 @@ public final class Constants {
     public static final double kHighAngleConeIntermediate = 75; // To go to high cone preset, one must go to a lower angle, end fully, then move to a higher angle. This is that lower angle.
     public static final double kMidAngleCone = 105; //(Actual)
     //Angle for scoring in the hybrid node common for cones and cubes
-    public static final double kLowAngleCone = 48.2; //(actual) 
+    public static final double kLowAngleCone = 45; //(actual) 
     //CANT BE MORE THAN 50!!!!!!
-    public static final double kLowAngleCube = 42.5 ; //TEST VALUE
+    public static final double kLowAngleCube = 42 ; //TEST VALUE
 
     //EDIT DEPENDING ON SUBSTATION VALS
-    public static final double kSubstation = 102;
+    public static final double kSubstationCube = 104;
+    public static final double kSubstationCone = 111;
 
     public static final double kNeutralPos = 33;
     
@@ -125,7 +127,7 @@ public final class Constants {
     public static final double kTrackWidth = 29; // inches
 
     public static final double kSpeedLimiter = 1; //divide speed by this number for new max speed 
-    public static final double kLowGearSpeedLimiter = 3.5;  //divide speed by this number for new max speed 
+    public static final double kLowGearSpeedLimiter = 4.5;  //divide speed by this number for new max speed 
     public static final double kTurnSpeedLimiter = 2;
 
     public static final double kS = 0.29; // minimum voltage to make the drivetrain move on the ground
@@ -158,11 +160,11 @@ public final class Constants {
 
 
 	public static final class BalanceConstants{
-		public static final double kBalancedBeamAngle = 0;
-		public static final double kBalancedThreshold = 2;
-		public static double kP = .029;
+		public static final double kBalancedBeamAngle = 0; 
+		public static final double kBalancedThreshold = 2.5;
+		public static double kP = .029; //.029
 		public static double kI = 0.000;
-		public static double kD = 0.01;
+		public static double kD = 0.015;//0.015
 		}
     public static class AutoPathConstants {
       public static final double kMaxAngularSpeedRadiansPerSecond = Math.PI;
@@ -220,7 +222,7 @@ public final class Constants {
 		public static final double kI = 0;
 		public static final double kD = 0;	
 		public static final double kVelocityTolerance = 5.0;
-		public static final double kPositionTolerace = 0;
+		public static final double kPositionTolerace = 0.05;
 	}
 	
 	public static final class TurnDistanceGyroPID{

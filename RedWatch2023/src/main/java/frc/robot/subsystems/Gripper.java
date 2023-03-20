@@ -95,7 +95,7 @@ public class Gripper extends SubsystemBase {
 
   // Runs gripper motors based on speed
   public void runGripper(double speed) {
-    m_gripperLeftMotor.set(-speed);
+    m_gripperLeftMotor.set(-speed-.1);
     m_gripperRightMotor.set(speed);
   }
 

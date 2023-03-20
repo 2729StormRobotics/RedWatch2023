@@ -39,7 +39,7 @@ public class Lights extends SubsystemBase {
 
   // Sets lights to default animation
   public void setDefault(){
-    m_candle.animate(new LarsonAnimation(225, 0, 0, 0, 0.05, Ledcount, BounceMode.Front, 20));
+    m_candle.animate(new LarsonAnimation(225, 0, 0, 0, 0.05, Ledcount, BounceMode.Front, 50));
     R = 225;
     G = 0;
     B = 0;

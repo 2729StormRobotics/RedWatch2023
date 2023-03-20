@@ -30,7 +30,7 @@ public class ForwardUntilTilted extends CommandBase {
   // Called when the command is initially scheduled.
   @Override
   public void initialize() {
-    this.currentAngle = m_Drivetrain.getYaw();
+    this.currentAngle = m_Drivetrain.getPitch();
     
   }
 
@@ -38,7 +38,7 @@ public class ForwardUntilTilted extends CommandBase {
   @Override
   public void execute() {
     // drive forward, update the gyro angle
-    this.currentAngle = m_Drivetrain.getYaw();
+    this.currentAngle = m_Drivetrain.getPitch();
     m_Drivetrain.tankDrive(-drivePower, -drivePower, false);
 
   }

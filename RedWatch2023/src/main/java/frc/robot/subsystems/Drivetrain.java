@@ -42,7 +42,8 @@ public class Drivetrain extends SubsystemBase {
   public final Field2d m_field = new Field2d();
   public String trajString = "./pathplanner/generatedJSON/Forward Back.wpilib.json";
   public static double speedLimiter = 1; // the forward drive power gets divided by this value to reduce the speed
-  public static double rotationLimiter = 2.5; // the rotational drive power gets divided by this value to reduce the speed
+  public static double rotationLimiter = 1.67; // the rotational drive power gets divided by this value to reduce the speed
+  public static double pitchdrift = 0;
   // declar motors
   public final com.revrobotics.CANSparkMax leftMotor;
   public final com.revrobotics.CANSparkMax rightMotor;
@@ -125,6 +126,7 @@ public class Drivetrain extends SubsystemBase {
     m_kinematics = new DifferentialDriveKinematics(Units.inchesToMeters(Constants.DrivetrainConstants.kTrackWidth));
     m_odometry = new DifferentialDriveOdometry(
       ahrs.getRotation2d(), getLeftDistance(), getRightDistance());
+    
     
   }
 
@@ -250,6 +252,8 @@ public class Drivetrain extends SubsystemBase {
     SmartDashboard.putNumber("Average Speed", getAverageSpeed()); // How fast the robot is
     SmartDashboard.putNumber("Left Position", getLeftDistance()); // How far the robot is
     SmartDashboard.putNumber("Right Position", getRightDistance());
+    SmartDashboard.putNumber("Left Speed", getLeftSpeed()); // How far the robot is
+    SmartDashboard.putNumber("Right Speed", getRightSpeed());
     SmartDashboard.putNumber("Pitch", ahrs.getPitch()); // Pitch of robot
     SmartDashboard.putNumber("Yaw", ahrs.getYaw());
     SmartDashboard.putNumber("Roll", ahrs.getRoll());
