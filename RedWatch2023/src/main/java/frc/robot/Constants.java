@@ -120,9 +120,9 @@ public final class Constants {
     public static final boolean kRightReversedDefault = !kLeftReversedDefault;
     public static final double kTrackWidth = 29; // inches
 
-    public static final double kSpeedLimiter = 7.5; //divide speed by this number for new max speed 
+    public static final double kSpeedLimiter = 2.5; //divide speed by this number for new max speed 
     public static final double kLowGearSpeedLimiter = 3.5;  //divide speed by this number for new max speed 
-    public static final double kTurnSpeedLimiter = 5;
+    public static final double kTurnSpeedLimiter = 3.5;
 
     public static final double kS = 0.29; // minimum voltage to make the drivetrain move on the ground
     // driver encoder calculations

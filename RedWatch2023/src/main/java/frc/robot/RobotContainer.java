@@ -27,6 +27,8 @@ import frc.robot.subsystems.PivotArm;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.CommandScheduler;
 import frc.robot.commands.ArmOut;
+import frc.robot.commands.AutoForward;
+import frc.robot.commands.AutoForwardPID;
 import frc.robot.commands.ChangeGear;
 import frc.robot.commands.curvatureDrive;
 import frc.robot.commands.AutoBalancing.AutoBalance;
@@ -80,7 +82,6 @@ public class RobotContainer {
 
     SmartDashboard.putData(CommandScheduler.getInstance());
     SmartDashboard.putNumber("Speed Limiter", Drivetrain.speedLimiter);
-
     // Setting default commands
     // m_arm.setDefaultCommand(
     //   new ArmControl(() -> m_weapons.getLeftY(), m_arm));
@@ -125,7 +126,7 @@ public class RobotContainer {
     // new JoystickButton(m_driver, Button.kBack.value).onTrue(new IntakeCone(m_gripper));
     // new JoystickButton(m_driver, Button.kX.value).onTrue(new EjectItem(m_gripper));
     // new JoystickButton(m_driver, Button.kY.value).onTrue(new StopGripper(m_gripper));
-    // new JoystickButton(m_driver, Button.kA.value).onTrue(new BalanceFromDistance(m_drivetrain, false));
+    new JoystickButton(m_driver, Button.kA.value).onTrue(new AutoForwardPID(150, m_drivetrain));
     new JoystickButton(m_driver, Button.kB.value).onTrue(new ChangeGear());
 //    new JoystickButton(m_weapons, Button.kLeftStick.value).onTrue(new animateCandle(m_lights, m_weapons));   
     // new JoystickButton(m_weapons, Button.kY.value).toggleOnTrue(new ExtendVal( TelescopingConstants.HighExtendCube, m_arm));

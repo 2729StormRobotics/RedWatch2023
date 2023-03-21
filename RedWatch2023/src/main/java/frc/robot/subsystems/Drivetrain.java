@@ -67,9 +67,9 @@ public class Drivetrain extends SubsystemBase {
     rightMotor2.setSmartCurrentLimit(Constants.DrivetrainConstants.STALL_LIMIT);
 
     leftMotor.setIdleMode(IdleMode.kBrake);
-    leftMotor2.setIdleMode(IdleMode.kCoast);
+    leftMotor2.setIdleMode(IdleMode.kBrake);
     rightMotor.setIdleMode(IdleMode.kBrake);
-    rightMotor2.setIdleMode(IdleMode.kCoast);
+    rightMotor2.setIdleMode(IdleMode.kBrake);
 
     // group the left and right motors together as two groups
     leftMotor2.follow(leftMotor);
@@ -168,16 +168,18 @@ public class Drivetrain extends SubsystemBase {
   // positive stickY values moves forward
   // positive stickX values goes counterclockwise
   public void curvatureDrive(double stickY, double stickX, boolean stickButton) {
+    SmartDashboard.putNumber("stickX", stickX);
+    SmartDashboard.putNumber("stickY", stickY);
     m_drive.curvatureDrive(-stickY, -stickX, stickButton);
   }
 
   // Tankdrive command
   public void tankDrive(double leftPower, double rightPower, boolean squareInputs) {
     if (m_reverseDrive) {
-      m_drive.tankDrive(-leftPower/2, -rightPower/2, squareInputs);
+      m_drive.tankDrive(-leftPower/2, (-rightPower/2)*1.115, squareInputs);
     }
     else {
-      m_drive.tankDrive(-leftPower/2, -rightPower/2, squareInputs); 
+      m_drive.tankDrive(-leftPower/2, (-rightPower/2)*1.115, squareInputs); 
     }
   }
 
@@ -196,6 +198,11 @@ public class Drivetrain extends SubsystemBase {
   
   @Override
   public void periodic() {
+    
+    SmartDashboard.putNumber("right speed", getRightSpeed());
+    SmartDashboard.putNumber("left speed", getLeftSpeed());
+    SmartDashboard.putNumber("left Distance", getLeftDistance());
+    SmartDashboard.putNumber("right distance",getRightDistance() );
     // This method will be called once per scheduler run
     double newKP = SmartDashboard.getNumber("P value", 0.0);
     if (newKP != Constants.BalanceConstants.kP){
