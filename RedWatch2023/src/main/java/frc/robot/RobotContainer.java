@@ -78,6 +78,7 @@ public class RobotContainer {
 
   private SlewRateLimiter m_forwardLimiter = new SlewRateLimiter(2); // controls acceleration of forward speed
   private SlewRateLimiter m_rotationLimiter = new SlewRateLimiter(1.1); // controls acceleration of rotational speed
+  private SlewRateLimiter m_pivotLimiter = new SlewRateLimiter(2.4);
 
   // Subsystems
   private final Lights m_lights;
@@ -125,7 +126,7 @@ public class RobotContainer {
     
     // Pink Arm
     m_PinkArm.setDefaultCommand(
-      new armJoint(() -> m_weapons.getRightY(), m_PinkArm)
+      new armJoint(() -> m_pivotLimiter.calculate(m_weapons.getRightY()), m_PinkArm)
     );
     m_lights.setDefaultCommand(
       new animateCandle(m_lights, m_weapons)
