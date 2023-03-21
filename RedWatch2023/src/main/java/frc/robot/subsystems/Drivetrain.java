@@ -99,9 +99,9 @@ public class Drivetrain extends SubsystemBase {
     rightMotor2.setSmartCurrentLimit(Constants.DrivetrainConstants.STALL_LIMIT);
 
     leftMotor.setIdleMode(IdleMode.kBrake);
-    leftMotor2.setIdleMode(IdleMode.kCoast);
+    leftMotor2.setIdleMode(IdleMode.kBrake);
     rightMotor.setIdleMode(IdleMode.kBrake);
-    rightMotor2.setIdleMode(IdleMode.kCoast);
+    rightMotor2.setIdleMode(IdleMode.kBrake);
 
     m_leftMotors = new MotorControllerGroup(leftMotor, leftMotor2);
     m_rightMotors = new MotorControllerGroup(rightMotor, rightMotor2);

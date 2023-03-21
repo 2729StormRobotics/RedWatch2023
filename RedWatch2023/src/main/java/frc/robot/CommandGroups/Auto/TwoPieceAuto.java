@@ -33,6 +33,8 @@ public class TwoPieceAuto extends SequentialCommandGroup {
     // Add your commands in the addCommands() call, e.g.
     // addCommands(new FooCommand(), new BarCommand());
     addCommands(
+      // new AutoForwardPID(-.5, drivetrain),
+      new SetupScore(pivotArm, telescopingArm, pinkArmConstants.kLowAngleCube, TelescopingConstants.LowExtendCube),
       new DriveWhileIntake(drivetrain, gripper, 5.19),
       new WaitCommand(0.5),
       new AutoForwardPID(-4.69, drivetrain),

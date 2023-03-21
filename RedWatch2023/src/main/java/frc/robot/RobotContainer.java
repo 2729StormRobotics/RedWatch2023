@@ -41,6 +41,7 @@ import frc.robot.CommandGroups.IntakePos;
 import frc.robot.CommandGroups.SetupConeHigh;
 import frc.robot.CommandGroups.SetupScore;
 import frc.robot.CommandGroups.TuckedInPos;
+import frc.robot.CommandGroups.Auto.TwoPieceAuto;
 import frc.robot.commands.ArmOut;
 import frc.robot.commands.ChangeGear;
 import frc.robot.commands.Meltdown;
@@ -199,7 +200,7 @@ public class RobotContainer {
    */
   public Command getAutonomousCommand() {
     // An ExampleCommand will run in autonomous
-     return new ScoreLowTaxi(m_drivetrain, m_gripper, m_PinkArm, m_arm);
+     return new TwoPieceAuto(m_drivetrain, m_gripper, m_arm, m_PinkArm);
     // return new ScoreLowTaxiBalance(m_drivetrain, m_gripper, m_PinkArm, m_arm);
 
   }

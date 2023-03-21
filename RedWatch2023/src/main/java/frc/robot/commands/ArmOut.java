@@ -28,14 +28,14 @@ public class ArmOut extends CommandBase {
   @Override
   public void execute() {
     if (m_PivotArm.getAngle() < 35) {
-      if (m_TelescopingArm.pot_val > 4.4) {
+      if (m_TelescopingArm.pot_val > 3.8) {
         m_TelescopingArm.turnMotor(m_TelescopingArm.m_ArmExtend, 0.2);
       }
       else {
         m_TelescopingArm.turnMotor(m_TelescopingArm.m_ArmExtend, 0);
       }
     }
-    if (m_PivotArm.getAngle() > 35 || m_TelescopingArm.pot_val < 4.4) {
+    if (m_PivotArm.getAngle() > 35 || m_TelescopingArm.pot_val < 3.8) {
       m_TelescopingArm.turnMotor(m_TelescopingArm.m_ArmExtend, 0);
       if (m_PivotArm.getAngle() < 45) {
         m_PivotArm.turnMotor(-0.4);
