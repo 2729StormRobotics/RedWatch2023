@@ -6,7 +6,7 @@ import frc.robot.Constants.pinkArmConstants;
 import frc.robot.subsystems.PivotArm;
 
 public class armJoint extends CommandBase{
-    private double JoystickLimiter = 0.05;
+    private double JoystickLimiter = 0.15;
     private final PivotArm m_pinkArm;
     private final DoubleSupplier m_rightStick;
 
@@ -40,11 +40,7 @@ public class armJoint extends CommandBase{
             m_pinkArm.m_pivot.set(0);
             m_pinkArm.m_pivot2.set(0);
         }else{
-            if (m_rightStick.getAsDouble() >= -0.85){
-                m_pinkArm.turnMotor(m_rightStick.getAsDouble()*pinkArmConstants.kPivotArmSpeed);
-            }else if (m_rightStick.getAsDouble() <= 0.85){
-                m_pinkArm.turnMotor(m_rightStick.getAsDouble()*pinkArmConstants.kPivotArmSpeed );
-            }
+            m_pinkArm.turnMotor(m_rightStick.getAsDouble()*pinkArmConstants.kPivotArmSpeed);
         }
 
 /*
