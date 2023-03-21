@@ -143,7 +143,7 @@ public class RobotContainer {
    */
   private void configureButtonBindings() {    
     //Testing Button (try cmds on me! NO OTHER BUTTONS PLS!) 
-      new JoystickButton(m_driver, Button.kA.value).whileTrue(new AutoBalancePID(m_drivetrain));
+      new JoystickButton(m_driver, Button.kA.value).onTrue(new TwoPieceAuto(m_drivetrain, m_gripper, m_arm, m_PinkArm, m_Vision));
       // new JoystickButton(m_driver, Button.kA.value).onTrue(new ScoreLowTaxiBalance(m_drivetrain, m_gripper, m_PinkArm, m_arm));
 
     //!!!!!s
@@ -200,7 +200,8 @@ public class RobotContainer {
    */
   public Command getAutonomousCommand() {
     // An ExampleCommand will run in autonomous
-     return new TwoPieceAuto(m_drivetrain, m_gripper, m_arm, m_PinkArm);
+    return null;
+    //  return new TwoPieceAuto(m_drivetrain, m_gripper, m_arm, m_PinkArm);
     // return new ScoreLowTaxiBalance(m_drivetrain, m_gripper, m_PinkArm, m_arm);
 
   }

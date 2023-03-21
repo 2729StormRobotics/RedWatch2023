@@ -213,10 +213,10 @@ public class Drivetrain extends SubsystemBase {
   // Tankdrive command
   public void tankDrive(double leftPower, double rightPower, boolean squareInputs) {
     if (m_reverseDrive) {
-      m_drive.tankDrive(-leftPower/2, -rightPower/2, squareInputs);
+      m_drive.tankDrive(-leftPower/2, (-rightPower/2)*1.05, squareInputs);
     }
     else {
-      m_drive.tankDrive(-leftPower/2, -rightPower/2, squareInputs); 
+      m_drive.tankDrive(-leftPower/2, (-rightPower/2)*1.05, squareInputs); 
     }
   }
 

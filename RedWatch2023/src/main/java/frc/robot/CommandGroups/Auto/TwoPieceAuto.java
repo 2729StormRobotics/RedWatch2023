@@ -5,6 +5,7 @@
 package frc.robot.CommandGroups.Auto;
 
 import edu.wpi.first.wpilibj.Watchdog;
+import edu.wpi.first.wpilibj.drive.DifferentialDrive;
 import edu.wpi.first.wpilibj2.command.SequentialCommandGroup;
 import edu.wpi.first.wpilibj2.command.WaitCommand;
 import frc.robot.CommandGroups.AutoScoreSetup;
@@ -12,15 +13,20 @@ import frc.robot.CommandGroups.DriveWhileIntake;
 import frc.robot.CommandGroups.SetupScore;
 import frc.robot.Constants.GripperConstants;
 import frc.robot.commands.AutoForwardPID;
+import frc.robot.commands.TankDrive;
 import frc.robot.commands.TurnInPlacePID;
 import frc.robot.commands.Gripper.EjectItem;
 import frc.robot.commands.Gripper.StopGripper;
 import frc.robot.commands.TelescopingArmCommands.ExtendVal;
+import frc.robot.commands.Vision.AprilTagMode;
+import frc.robot.commands.Vision.VisionAlign;
 import frc.robot.commands.pivotArm.PivotPID;
 import frc.robot.subsystems.Drivetrain;
 import frc.robot.subsystems.Gripper;
 import frc.robot.subsystems.PivotArm;
 import frc.robot.subsystems.TelescopingArm;
+import frc.robot.subsystems.Vision;
+
 import static frc.robot.Constants.pinkArmConstants;
 import static frc.robot.Constants.TelescopingConstants;
 
@@ -29,24 +35,29 @@ import static frc.robot.Constants.TelescopingConstants;
 // https://docs.wpilib.org/en/stable/docs/software/commandbased/convenience-features.html
 public class TwoPieceAuto extends SequentialCommandGroup {
   /** Creates a new TwoPieceAuto. */
-  public TwoPieceAuto(Drivetrain drivetrain, Gripper gripper, TelescopingArm telescopingArm, PivotArm pivotArm) {
+  public TwoPieceAuto(Drivetrain drivetrain, Gripper gripper, TelescopingArm telescopingArm, PivotArm pivotArm, Vision vision) {
     // Add your commands in the addCommands() call, e.g.
     // addCommands(new FooCommand(), new BarCommand());
     addCommands(
-      // new AutoForwardPID(-.5, drivetrain),
+      // new TankDrive(drivetrain, -0.5),
+      // new WaitCommand(0.5),
+      // new TankDrive(drivetrain, 0),
       new SetupScore(pivotArm, telescopingArm, pinkArmConstants.kLowAngleCube, TelescopingConstants.LowExtendCube),
-      new DriveWhileIntake(drivetrain, gripper, 5.19),
+      new DriveWhileIntake(drivetrain, gripper, 4.26),
       new WaitCommand(0.5),
-      new AutoForwardPID(-4.69, drivetrain),
+      new StopGripper(gripper),
+      new AutoForwardPID(-3.76, drivetrain),
       new TurnInPlacePID(180, drivetrain),
+      new AprilTagMode(vision),
+      new VisionAlign(drivetrain, vision),
       new SetupScore(pivotArm, telescopingArm, pinkArmConstants.kHighAngleCube, TelescopingConstants.HighExtendCube),
       new AutoForwardPID(0.5, drivetrain),
       new EjectItem(gripper, GripperConstants.kGripperEjectCubeSpeed),
       new WaitCommand(1.5),
-      new StopGripper(gripper),
-      new ExtendVal(6, telescopingArm),
-      new PivotPID(pivotArm, 40),
-      new AutoForwardPID(-5.19, drivetrain)
+      new StopGripper(gripper)
+      // new ExtendVal(6, telescopingArm),
+      // new PivotPID(pivotArm, 40),
+      // new AutoForwardPID(-5.19, drivetrain)
     );
   }
 }

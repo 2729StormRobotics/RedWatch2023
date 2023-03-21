@@ -31,8 +31,8 @@ public class VisionAlign extends CommandBase {
   // Called when the command is initially scheduled.
   @Override
   public void initialize() {
-    m_vision.setPipeline(Constants.VisionConstants.kReflectiveTapePipeline);
-    m_vision.setLight(Constants.VisionConstants.kLightOnValue);
+    // m_vision.setPipeline(Constants.VisionConstants.kReflectiveTapePipeline);
+    // m_vision.setLight(Constants.VisionConstants.kLightOnValue);
     turnError = m_vision.getX();
     m_drivetrain.tankDrive(0, 0, false);
   }
@@ -40,8 +40,8 @@ public class VisionAlign extends CommandBase {
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    m_vision.setPipeline(Constants.VisionConstants.kReflectiveTapePipeline);
-    m_vision.setLight(Constants.VisionConstants.kLightOnValue);
+    // m_vision.setPipeline(Constants.VisionConstants.kReflectiveTapePipeline);
+    // m_vision.setLight(Constants.VisionConstants.kLightOnValue);
     turnError = m_vision.getX();
     turnPower = turnError * ANGULAR_P;
     if (Math.abs(turnPower) < Constants.DrivetrainConstants.kS) {
