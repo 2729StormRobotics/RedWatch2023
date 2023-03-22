@@ -34,15 +34,14 @@ public class RunIntake extends CommandBase {
   // Called once the command ends or is interrupted.
   @Override
   public void end(boolean interrupted) {
-    m_gripper.stopGripper();
   }
 
   // Returns true when the command should end.
   @Override
   public boolean isFinished() {
-    if (m_gripper.getVelocity() > 1200)
+    // if (m_gripper.getVelocity() > 1200)
       
-    return true;
+    // return true;
   
-  return false;  }
+  return true;  }
 }

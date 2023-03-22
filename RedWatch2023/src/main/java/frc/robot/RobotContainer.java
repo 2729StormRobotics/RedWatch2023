@@ -41,15 +41,18 @@ import frc.robot.CommandGroups.IntakePos;
 import frc.robot.CommandGroups.SetupConeHigh;
 import frc.robot.CommandGroups.SetupScore;
 import frc.robot.CommandGroups.TuckedInPos;
+import frc.robot.CommandGroups.Auto.BackwardTime;
 import frc.robot.CommandGroups.Auto.TwoPieceAuto;
 import frc.robot.commands.ArmOut;
 import frc.robot.commands.ChangeGear;
 import frc.robot.commands.Meltdown;
+import frc.robot.commands.TurnInPlacePID;
 import frc.robot.commands.curvatureDrive;
 import frc.robot.commands.Auto.ScoreLowTaxi;
 import frc.robot.commands.Auto.ScoreLowTaxiBalance;
 import frc.robot.commands.AutoBalancing.AutoBalancePID;
 import frc.robot.commands.Gripper.EjectItem;
+import frc.robot.commands.Gripper.RunIntake;
 import frc.robot.commands.Gripper.StopGripper;
 import frc.robot.commands.Lights.animateCandle;
 import frc.robot.commands.TelescopingArmCommands.ArmControl;
@@ -137,18 +140,23 @@ public class RobotContainer {
   }
 
   /**
-   * Use this method to define your button->command mappings. Buttons can be created by
+   * Use this method to define your button->command mappings. Buttons can be\ created by
    * instantiating a {@link GenericHID} or one of its subclasses ({@link
    * edu.wpi.first.wpilibj.Joystick} or {@link XboxController}), and then passing it to a {@link
    * edu.wpi.first.wpilibj2.command.button.JoystickButton}.
    */
   private void configureButtonBindings() {    
     //Testing Button (try cmds on me! NO OTHER BUTTONS PLS!) 
-      new JoystickButton(m_driver, Button.kA.value).onTrue(new TwoPieceAuto(m_drivetrain, m_gripper, m_arm, m_PinkArm, m_Vision));
-      // new JoystickButton(m_driver, Button.kA.value).onTrue(new ScoreLowTaxiBalance(m_drivetrain, m_gripper, m_PinkArm, m_arm));
+    new JoystickButton(m_driver, Button.kA.value).onTrue(new TwoPieceAuto(m_drivetrain, m_gripper, m_arm, m_PinkArm, m_Vision));
+    // new JoystickButton(m_driver, Button.kA.value).onTrue(new BackwardTime(m_drivetrain, 0.5));
+    // new JoystickButton(m_driver, Button.kA.value).onTrue(new ScoreLowTaxiBalance(m_drivetrain, m_gripper, m_PinkArm, m_arm));
+      //  new JoystickButton(m_driver, Button.kA.value).whileTrue(new TurnInPlacePID(170, m_drivetrain));
+      //  new JoystickButton(m_driver, Button.kA.value).whileTrue(new AutoBalancePID(m_drivetrain));
+          // new JoystickButton(m_driver, Button.kA.value).onTrue(new VisionAlign(m_drivetrain, m_Vision));
 
-    //!!!!!s
-    //PLEASE DO NOT CHANGE THESE WIHTOUT ASKING, AKSHAY WILL BE MAD!!!!!
+
+    //!!!!!sd
+    //PLEASE DO NOT CHANGE THESEWIHTOUT ASKING, AKSHAY WILL BE MAD!!!!!
     //!!!!!
 
     /*

@@ -104,7 +104,7 @@ public final class Constants {
     //Angles for scoring the cubes
     //Ofset to add 30 degrees
     public static final double kMidAngleCube = 80.5; // (Actual)
-    public static final double kHighAngleCube = 97; // (Actual)
+    public static final double kHighAngleCube = 105; // (Actual)
     public static final double kDunkDistance = 3; // degrees to turn to dunk it
   }
   public static final class IOPorts{
@@ -130,7 +130,8 @@ public final class Constants {
     public static final double kLowGearSpeedLimiter = 4.5;  //divide speed by this number for new max speed 
     public static final double kTurnSpeedLimiter = 2;
 
-    public static final double kS = 0.29; // minimum voltage to make the drivetrain move on the ground
+    public static final double kS = 0.29; // minimum voltage to make the drivetrain move forward on the ground
+    public static final double kSturn = 0.36;  // minimum voltage to make the drivetrain turn in place on the ground
     // driver encoder calculations
     // since the encoder is build into the motor we need to account for gearing
     public static final double kWheelDiameterInches = 6.0;
@@ -150,21 +151,21 @@ public final class Constants {
     public static final double kHighSpeedPerPulseEncoderRatio = kEncoderDistanceRatio / 60.0;  
     public static final double kControllerDeadzone = 0.1;
     
-    public static final double kTurnAngleP = 0.029;
+    public static final double kTurnAngleP = 0.0055; //0.029
     public static final double kTurnAngleI = 0.0;
     public static final double kTurnAngleD = 0.0;
-    public static final double kTurnAngleTolerance = 2;
+    public static final double kTurnAngleTolerance = 0.5;
     public static final double kTurnSpeedTolerance = 3.0;
   }
 
 
 
 	public static final class BalanceConstants{
-		public static final double kBalancedBeamAngle = 0; 
-		public static final double kBalancedThreshold = 2.5;
-		public static double kP = .029; //.029
+		public static final double kBalancedBeamAngle = 1.3; //TODO: check before paths
+		public static final double kBalancedThreshold = .5;
+		public static double kP = .022;
 		public static double kI = 0.000;
-		public static double kD = 0.015;//0.015
+		public static double kD = 0.0;
 		}
     public static class AutoPathConstants {
       public static final double kMaxAngularSpeedRadiansPerSecond = Math.PI;

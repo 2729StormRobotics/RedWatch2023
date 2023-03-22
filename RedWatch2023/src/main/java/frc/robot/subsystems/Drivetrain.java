@@ -192,7 +192,11 @@ public class Drivetrain extends SubsystemBase {
     return ahrs.getAngle();
   }
   public double getYaw() {
+    // if (ahrs.getYaw() < 0) {
+    //   return 180 + (180 + ahrs.getYaw()); 
+    // }
     return ahrs.getYaw();
+    // return ahrs.getYaw() + 180;
   }
 
   // squares the MAGNITUDE of the value
@@ -254,8 +258,8 @@ public class Drivetrain extends SubsystemBase {
     SmartDashboard.putNumber("Right Position", getRightDistance());
     SmartDashboard.putNumber("Left Speed", getLeftSpeed()); // How far the robot is
     SmartDashboard.putNumber("Right Speed", getRightSpeed());
-    SmartDashboard.putNumber("Pitch", ahrs.getPitch()); // Pitch of robot
-    SmartDashboard.putNumber("Yaw", ahrs.getYaw());
+    SmartDashboard.putNumber("Pitch", getPitch()); // Pitch of robot
+    SmartDashboard.putNumber("Yaw", getYaw());
     SmartDashboard.putNumber("Roll", ahrs.getRoll());
     // SmartDashboard.putNumber("something", ahrs.get
     m_odometry.update(
