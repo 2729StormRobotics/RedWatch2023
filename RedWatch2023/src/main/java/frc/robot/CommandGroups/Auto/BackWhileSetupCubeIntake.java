@@ -11,18 +11,18 @@ import frc.robot.Constants.pinkArmConstants;
 import frc.robot.commands.AutoForwardPID;
 import frc.robot.subsystems.Drivetrain;
 import frc.robot.subsystems.PivotArm;
-import frc.robot.subsystems.TelescopingArm;
+import frc.robot.subsystems.TelescopingArm; 
 
 // NOTE:  Consider using this command inline, rather than writing a subclass.  For more
 // information, see:
 // https://docs.wpilib.org/en/stable/docs/software/commandbased/convenience-features.html
-public class BackWhileSetupHighCube extends ParallelCommandGroup {
+public class BackWhileSetupCubeIntake extends ParallelCommandGroup {
   /** Creates a new BackWhileSetupHighCube. */
-  public BackWhileSetupHighCube(Drivetrain drivetrain, PivotArm pivotArm, TelescopingArm telescopingArm) {
+  public BackWhileSetupCubeIntake(Drivetrain drivetrain, PivotArm pivotArm, TelescopingArm telescopingArm) {
     // Add your commands in the addCommands() call, e.g.
     // addCommands(new FooCommand(), new BarCommand());
-    addCommands(new AutoForwardPID(-3.76, drivetrain),
-    new SetupScore(pivotArm, telescopingArm, pinkArmConstants.kHighAngleCone, TelescopingConstants.HighExtendCone)
+    addCommands(new AutoForwardPID(-4.4, drivetrain),
+    new SetupScore(pivotArm, telescopingArm, pinkArmConstants.kHighAngleCube, TelescopingConstants.HighExtendCube)
 
     );
   }

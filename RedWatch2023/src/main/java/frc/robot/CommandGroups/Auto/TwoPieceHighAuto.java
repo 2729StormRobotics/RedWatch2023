@@ -19,6 +19,7 @@ import frc.robot.commands.Gripper.EjectItem;
 import frc.robot.commands.Gripper.StopGripper;
 import frc.robot.commands.TelescopingArmCommands.ExtendVal;
 import frc.robot.commands.Vision.AprilTagMode;
+import frc.robot.commands.Vision.ReflectiveTapeMode;
 import frc.robot.commands.Vision.VisionAlign;
 import frc.robot.commands.pivotArm.PivotPID;
 import frc.robot.subsystems.Drivetrain;
@@ -47,7 +48,7 @@ public class TwoPieceHighAuto extends SequentialCommandGroup {
       new AutoForwardPID(-0.5, drivetrain),
       new TurnInPlacePID(170, drivetrain),
       new TurnInPlacePID(10, drivetrain),
-      new SetupScore(pivotArm, telescopingArm, pinkArmConstants.kLowAngleCube, TelescopingConstants.LowExtendCube),  
+      new SetupScore(pivotArm, telescopingArm, pinkArmConstants.kLowAngleCone, TelescopingConstants.LowExtendCone),  
       new DriveWhileIntake(drivetrain, gripper, 3.76), //might have to be higher
       new WaitCommand(0.5),
       new StopGripper(gripper),

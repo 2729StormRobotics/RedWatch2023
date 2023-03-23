@@ -4,11 +4,7 @@
 
 package frc.robot.CommandGroups;
 
-import edu.wpi.first.wpilibj2.command.ParallelCommandGroup;
 import edu.wpi.first.wpilibj2.command.SequentialCommandGroup;
-import frc.robot.commands.TelescopingArmCommands.ExtendVal;
-import frc.robot.commands.pivotArm.turnToDegrees;
-import frc.robot.subsystems.Gripper;
 import frc.robot.subsystems.PivotArm;
 import frc.robot.subsystems.TelescopingArm;
 
@@ -16,30 +12,13 @@ import frc.robot.subsystems.TelescopingArm;
 // information, see:
 // https://docs.wpilib.org/en/stable/docs/software/commandbased/convenience-features.html
 public class IntakePos extends SequentialCommandGroup {
-
-  public final PivotArm m_pivotArm;
-  public final TelescopingArm m_telescopingArm;
-  public final Gripper m_gripper;
-  public final double m_angle;
-  public final double m_dist1;
-  public final double m_dist2;
-
-  
-  /** Creates a new AutoScoreSetup. */
-  public IntakePos(PivotArm pivotArm, TelescopingArm telescopingArm, Gripper gripper, double dist1, double angle, double dist2) {
+  /** Creates a new IntakePos. */
+  public IntakePos(PivotArm pivotArm, TelescopingArm telescopingArm, double angle, double distance) {
     // Add your commands in the addCommands() call, e.g.
     // addCommands(new FooCommand(), new BarCommand());
-    m_pivotArm = pivotArm;
-    m_telescopingArm = telescopingArm;
-    m_gripper = gripper;
-    m_angle = angle;
-    m_dist1 = dist1;
-    m_dist2 = dist2;
-
     addCommands(
-    new ExtendVal(m_dist1, m_telescopingArm),
-    new turnToDegrees(m_pivotArm, m_angle),
-    new ExtendVal(m_dist2, m_telescopingArm)
+      (pivotArm.getAngle() > 55 ? new SetupScore(pivotArm, telescopingArm, 55, distance) : null),
+      new SetupScore(pivotArm, telescopingArm, angle, distance)
     );
   }
 }

@@ -18,10 +18,7 @@ public class BackwardTime extends ParallelRaceGroup {
     // Add your commands in the addCommands() call, e.g.
     // addCommands(new FooCommand(), new BarCommand());
     addCommands(
-      if(backward) 
-        new curvatureDrive(() -> 0.6, () -> 0, () -> false, drivetrain), //not sure if this works
-      else
-        new curvatureDrive(() -> -0.6, () -> 0, () -> false, drivetrain),
+      backward ? new curvatureDrive(() -> 0.6, () -> 0, () -> false, drivetrain): new curvatureDrive(() -> -0.6, () -> 0, () -> false, drivetrain),
       new WaitCommand(time)
     );
   }

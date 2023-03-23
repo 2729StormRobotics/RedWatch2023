@@ -198,9 +198,9 @@ public class RobotContainer {
       //Back: Tucked in Pos      
         // new JoystickButton(m_weapons, Button.kBack.value).onTrue(new TuckedInPos(m_PinkArm, m_arm));
       //RB: Intake Cone Setup
-        new JoystickButton(m_weapons, Button.kRightBumper.value).onTrue(new SetupScore(m_PinkArm, m_arm, kLowAngleCone, LowExtendCone));
+        new JoystickButton(m_weapons, Button.kRightBumper.value).onTrue(new IntakePos(m_PinkArm, m_arm, kLowAngleCone, LowExtendCone));
       //LB: Intake Cube Setup
-        new JoystickButton(m_weapons, Button.kLeftBumper.value).onTrue(new SetupScore(m_PinkArm, m_arm, kLowAngleCube, LowExtendCube));
+        new JoystickButton(m_weapons, Button.kLeftBumper.value).onTrue(new IntakePos(m_PinkArm, m_arm, kLowAngleCube, LowExtendCube));
       }
   /**
    * Use this to pass the autonomous command to the main {@link Robot} class.
