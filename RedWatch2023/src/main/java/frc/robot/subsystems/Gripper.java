@@ -93,12 +93,6 @@ public class Gripper extends SubsystemBase {
     // return m_detectedColor.blue > m_detectedColor.green && m_detectedColor.blue - m_detectedColor.green >= 200 && m_proximity < 120 && m_proximity > 30;
   }
 
-  // Runs gripper motors based on speed
-  public void runGripper(double speed) {
-    m_gripperLeftMotor.set(-speed-.1);
-    m_gripperRightMotor.set(speed);
-  }
-
   // Stops gripper motors
   public void stopGripper() {
     m_gripper_direction = "none";
@@ -109,20 +103,23 @@ public class Gripper extends SubsystemBase {
   // Runs gripper motors to intake an object
   public void intakeCone() {
     m_gripper_direction = "intake";
-    runGripper(kGripperIntakeMotorSpeedCone);
+    m_gripperLeftMotor.set(kGripperIntakeMotorSpeedCone);
   }
 
  // Runs gripper motors to intake an object
  public void intakeCube() {
   m_gripper_direction = "intake";
-  runGripper(kGripperIntakeMotorSpeedCube);
+    m_gripperLeftMotor.set(-kGripperIntakeMotorSpeedCube);
+    m_gripperRightMotor.set(kGripperIntakeMotorSpeedCube);
+
 }
 
 
   // Runs gripper motors to eject an object
   public void ejectGripper(double speed) {
     m_gripper_direction = "eject";
-    runGripper(speed);
+    m_gripperLeftMotor.set(-speed);
+    m_gripperRightMotor.set(speed);
   }
 
   // Sets up settings for gripper motors
