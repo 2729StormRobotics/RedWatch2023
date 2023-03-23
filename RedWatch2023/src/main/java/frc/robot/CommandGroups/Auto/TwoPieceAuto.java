@@ -39,27 +39,19 @@ public class TwoPieceAuto extends SequentialCommandGroup {
     // Add your commands in the addCommands() call, e.g.
     // addCommands(new FooCommand(), new BarCommand());
     addCommands(
-      // new TankDrive(drivetrain, -0.5),
-      // new WaitCommand(0.5),
-      // new TankDrive(drivetrain, 0),
-      new BackwardTime(drivetrain, 0.5), // 20 INCHES FROM THE NODE!!!!!!
+      new BackwardTime(drivetrain, 0.5), // 22.5 INCHES FROM THE NODE!!!!!!
       new SetupScore(pivotArm, telescopingArm, pinkArmConstants.kLowAngleCube, TelescopingConstants.LowExtendCube),
       new DriveWhileIntake(drivetrain, gripper, 4.26),
       new WaitCommand(0.5),
       new StopGripper(gripper),
       new BackWhileSetupHighCube(drivetrain, pivotArm, telescopingArm),
-      // new AutoForwardPID(-3.76, drivetrain),
       new TurnInPlacePID(-170, drivetrain),
       new AprilTagMode(vision),
       new VisionAlign(drivetrain, vision),
-      // new SetupScore(pivotArm, telescopingArm, pinkArmConstants.kHighAngleCube, TelescopingConstants.HighExtendCube),
       new AutoForwardPID(0.5, drivetrain),
       new EjectItem(gripper, GripperConstants.kGripperEjectCubeSpeed),
       new WaitCommand(1.5),
       new StopGripper(gripper)
-      // new ExtendVal(6, telescopingArm),
-      // new PivotPID(pivotArm, 40),
-      // new AutoForwardPID(-5.19, drivetrain)
     );
   }
 }
