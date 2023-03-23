@@ -109,7 +109,7 @@ public class Gripper extends SubsystemBase {
   // Runs gripper motors to intake an object
   public void intakeCone() {
     m_gripper_direction = "intake";
-    runGripper(kGripperIntakeMotorSpeedCone);
+    m_gripperLeftMotor.set(kGripperIntakeMotorSpeedCone);
   }
 
  // Runs gripper motors to intake an object
