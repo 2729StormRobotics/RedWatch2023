@@ -39,7 +39,7 @@ public class TwoPieceAuto extends SequentialCommandGroup {
     // Add your commands in the addCommands() call, e.g.
     // addCommands(new FooCommand(), new BarCommand());
     addCommands(
-      new BackwardTime(drivetrain, 0.5), // 22.5 INCHES FROM THE NODE!!!!!!
+      new BackwardTime(drivetrain, 0.5, true), // 22.5 INCHES FROM THE NODE!!!!!!
       new SetupScore(pivotArm, telescopingArm, pinkArmConstants.kLowAngleCube, TelescopingConstants.LowExtendCube),
       new DriveWhileIntake(drivetrain, gripper, 4.26),
       new WaitCommand(0.5),
