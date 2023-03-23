@@ -40,20 +40,20 @@ public class TwoPieceHighAuto extends SequentialCommandGroup {
     // addCommands(new FooCommand(), new BarCommand());
     addCommands(
       new PivotPID(pivotArm, pinkArmConstants.kHighAngleCube),
-      new ExtendVal(TelescopingConstants.HighExtendCube, m_telescopingArm),
+      new ExtendVal(TelescopingConstants.HighExtendCube, telescopingArm),
       new EjectItem(gripper, GripperConstants.kGripperEjectCubeSpeed),
       new WaitCommand(0.25),
       new StopGripper(gripper),
       new AutoForwardPID(-0.5, drivetrain),
       new TurnInPlacePID(170, drivetrain),
       new TurnInPlacePID(10, drivetrain),
+      new SetupScore(pivotArm, telescopingArm, pinkArmConstants.kLowAngleCube, TelescopingConstants.LowExtendCube),  
       new DriveWhileIntake(drivetrain, gripper, 3.76), //might have to be higher
       new WaitCommand(0.5),
       new StopGripper(gripper),
       new BackWhileSetupHighCone(drivetrain, pivotArm, telescopingArm),
       new TurnInPlacePID(145, drivetrain),
       new AutoForwardPID(0.37, drivetrain),
-      new TurnInPlacePID(-170, drivetrain),
       new ReflectiveTapeMode(vision),
       new VisionAlign(drivetrain, vision),
       new BackwardTime(drivetrain, 0.2, false)
