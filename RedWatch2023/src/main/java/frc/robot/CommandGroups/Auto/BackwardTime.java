@@ -14,11 +14,14 @@ import frc.robot.subsystems.Drivetrain;
 // https://docs.wpilib.org/en/stable/docs/software/commandbased/convenience-features.html
 public class BackwardTime extends ParallelRaceGroup {
   /** Creates a new BackwardTime. */
-  public BackwardTime(Drivetrain drivetrain, double time) {
+  public BackwardTime(Drivetrain drivetrain, double time, boolean backward) {
     // Add your commands in the addCommands() call, e.g.
     // addCommands(new FooCommand(), new BarCommand());
     addCommands(
-      new curvatureDrive(() -> 0.6, () -> 0, () -> false, drivetrain),
+      if(backward) 
+        new curvatureDrive(() -> 0.6, () -> 0, () -> false, drivetrain), //not sure if this works
+      else
+        new curvatureDrive(() -> -0.6, () -> 0, () -> false, drivetrain),
       new WaitCommand(time)
     );
   }
