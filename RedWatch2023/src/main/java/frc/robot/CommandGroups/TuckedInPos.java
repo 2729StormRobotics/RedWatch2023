@@ -29,8 +29,8 @@ public class TuckedInPos extends SequentialCommandGroup {
 
 
     addCommands(
-    new ParallelAutoScoreSetup(m_pivotArm, m_telescopingArm, 55, 3.7),
-    new turnToDegrees(m_pivotArm, 35)
+    new ParallelAutoScoreSetup(m_pivotArm, m_telescopingArm, 61, 7.8),
+    new turnToDegrees(m_pivotArm, 38)
     // new ExtendVal(3.7, m_telescopingArm),
     // new turnToDegrees(m_pivotArm, 27)
     );
