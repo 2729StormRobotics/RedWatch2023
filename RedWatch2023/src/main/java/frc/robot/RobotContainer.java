@@ -60,6 +60,8 @@ import frc.robot.commands.TelescopingArmCommands.ArmControl;
 import frc.robot.commands.Vision.AprilTagMode;
 import frc.robot.commands.Vision.ReflectiveTapeMode;
 import frc.robot.commands.Vision.VisionAlign;
+import frc.robot.commands.Vision.VisionAlignHighCone;
+import frc.robot.commands.Vision.VisionAlignMidCone;
 import frc.robot.commands.pivotArm.armJoint;
 import frc.robot.subsystems.ControlPanel;
 import frc.robot.subsystems.Drivetrain;
@@ -70,9 +72,12 @@ import frc.robot.subsystems.TelescopingArm;
 import frc.robot.subsystems.Vision;
 
 /**
- * This class is where the bulk of the robot should be declared. Since Command-based is a
- * "declarative" paradigm, very little robot logic should actually be handled in the {@link Robot}
- * periodic methods (other than the scheduler calls). Instead, the structure of the robot (including
+ * This class is where the bulk of the robot should be declared. Since
+ * Command-based is a
+ * "declarative" paradigm, very little robot logic should actually be handled in
+ * the {@link Robot}
+ * periodic methods (other than the scheduler calls). Instead, the structure of
+ * the robot (including
  * subsystems, commands, and button mappings) should be declared here.
  */
 public class RobotContainer {
@@ -92,7 +97,9 @@ public class RobotContainer {
   private final TelescopingArm m_arm;
   private final Vision m_Vision;
 
-  /** The container for the robot. Contains subsystems, OI devices, and commands. */
+  /**
+   * The container for the robot. Contains subsystems, OI devices, and commands.
+   */
   public RobotContainer() {
     // Subsystems Instantiation
     m_gripper = new Gripper();
@@ -107,7 +114,7 @@ public class RobotContainer {
 
     // Setting default commands
     m_arm.setDefaultCommand(
-      new ArmControl(() -> m_weapons.getLeftY(), m_arm));
+        new ArmControl(() -> m_weapons.getLeftY(), m_arm));
 
     m_Vision.setDefaultCommand(new AprilTagMode(m_Vision));
 
@@ -115,100 +122,126 @@ public class RobotContainer {
     new ControlPanel(m_drivetrain, m_gripper, m_lights, m_PinkArm, m_arm);
 
     // Lights
-    // m_lights.setDefaultCommand(new CheckObjectForColorChange(m_lights, m_gripper));
+    // m_lights.setDefaultCommand(new CheckObjectForColorChange(m_lights,
+    // m_gripper));
 
     // Gripper
     // m_gripper.setDefaultCommand(new PulseIntake(m_gripper));
 
-    // sets the drivetrain default command to curvatureDrive, with the slewratelimiters
+    // sets the drivetrain default command to curvatureDrive, with the
+    // slewratelimiters
     // Left Joystick: forwards/backward, Right Joystick: turn in place left/right
     m_drivetrain.setDefaultCommand(
-    new curvatureDrive(
-      () -> 
-        Math.copySign(Constants.DrivetrainConstants.kS, m_driver.getLeftY())
-      + m_forwardLimiter.calculate(m_driver.getLeftY() / Drivetrain.speedLimiter),
-      () -> Math.copySign(Constants.DrivetrainConstants.kS, m_driver.getRightX()) 
-      + m_rotationLimiter.calculate(m_driver.getRightX() / Drivetrain.rotationLimiter),
-      () -> true, m_drivetrain));
-    
+        new curvatureDrive(
+            () -> Math.copySign(Constants.DrivetrainConstants.kS, m_driver.getLeftY())
+                + m_forwardLimiter.calculate(m_driver.getLeftY() / Drivetrain.speedLimiter),
+            () -> Math.copySign(Constants.DrivetrainConstants.kS, m_driver.getRightX())
+                + m_rotationLimiter.calculate(m_driver.getRightX() / Drivetrain.rotationLimiter),
+            () -> true, m_drivetrain));
+
     // Pink Arm
     m_PinkArm.setDefaultCommand(
-      new armJoint(() -> m_pivotLimiter.calculate(m_weapons.getRightY()), m_PinkArm)
-    );
+        new armJoint(() -> m_pivotLimiter.calculate(m_weapons.getRightY()), m_PinkArm));
     m_lights.setDefaultCommand(
-      new animateCandle(m_lights, m_weapons)
-    );
+        new animateCandle(m_lights, m_weapons));
+
+    // Vision
+    m_Vision.setDefaultCommand(new AprilTagMode(m_Vision));
     // Configure the button bindings
     configureButtonBindings();
-    
+
   }
 
   /**
-   * Use this method to define your button->command mappings. Buttons can be\ created by
+   * Use this method to define your button->command mappings. Buttons can be\
+   * created by
    * instantiating a {@link GenericHID} or one of its subclasses ({@link
-   * edu.wpi.first.wpilibj.Joystick} or {@link XboxController}), and then passing it to a {@link
+   * edu.wpi.first.wpilibj.Joystick} or {@link XboxController}), and then passing
+   * it to a {@link
    * edu.wpi.first.wpilibj2.command.button.JoystickButton}.
    */
-  private void configureButtonBindings() {    
-    //Testing Button (try cmds on me! NO OTHER BUTTONS PLS!) 
-    new JoystickButton(m_driver, Button.kA.value).onTrue(new TwoPieceAuto(m_drivetrain, m_gripper, m_arm, m_PinkArm, m_Vision));
-    // new JoystickButton(m_driver, Button.kA.value).onTrue(new BackwardTime(m_drivetrain, 0.5));
-    // new JoystickButton(m_driver, Button.kA.value).onTrue(new ScoreLowTaxiBalance(m_drivetrain, m_gripper, m_PinkArm, m_arm));
-      //  new JoystickButton(m_driver, Button.kA.value).whileTrue(new TurnInPlacePID(170, m_drivetrain));
-      //  new JoystickButton(m_driver, Button.kA.value).whileTrue(new AutoBalancePID(m_drivetrain));
-          // new JoystickButton(m_driver, Button.kA.value).onTrue(new VisionAlign(m_drivetrain, m_Vision));
+  private void configureButtonBindings() {
+    // Testing Button (try cmds on me! NO OTHER BUTTONS PLS!)
+    new JoystickButton(m_driver, Button.kStart.value)
+        .onTrue(new AutoBalancePID(m_drivetrain));
+    // new JoystickButton(m_driver, Button.kA.value).onTrue(new
+    // BackwardTime(m_drivetrain, 0.5));
+    // new JoystickButton(m_driver, Button.kA.value).onTrue(new
+    // ScoreLowTaxiBalance(m_drivetrain, m_gripper, m_PinkArm, m_arm));
+    // new JoystickButton(m_driver, Button.kA.value).whileTrue(new
+    // TurnInPlacePID(170, m_drivetrain));
+    // new JoystickButton(m_driver, Button.kA.value).whileTrue(new
+    // AutoBalancePID(m_drivetrain));
+    // new JoystickButton(m_driver, Button.kA.value).onTrue(new
+    // VisionAlign(m_drivetrain, m_Vision));
 
-
-    //!!!!!sd
-    //PLEASE DO NOT CHANGE THESEWIHTOUT ASKING, AKSHAY WILL BE MAD!!!!!
-    //!!!!!
+    // !!!!!sd
+    // PLEASE DO NOT CHANGE THESEWIHTOUT ASKING, AKSHAY WILL BE MAD!!!!!
+    // !!!!!
 
     /*
      * DRIVER
      */
-      //new JoystickButton(m_driver, Button.kX.value).onTrue(new EjectItem(m_gripper, Constants.GripperConstants.kGripperEjectConeSpeed));
+    // new JoystickButton(m_driver, Button.kX.value).onTrue(new EjectItem(m_gripper,
+    // Constants.GripperConstants.kGripperEjectConeSpeed));
 
-     //Right Bumper: Intake Cube    
-        // new JoystickButton(m_driver, Button.kRightBumper.value).onTrue(new IntakeCube(m_gripper));
-        new JoystickButton(m_driver, Button.kRightBumper.value).onTrue(new RunIntake(m_gripper, false));
-      //Left Bumper: Intake Cone    
-        // new JoystickButton(m_driver, Button.kLeftBumper.value).onTrue(new IntakeCone(m_gripper));
-        new JoystickButton(m_driver, Button.kLeftBumper.value).onTrue(new RunIntake(m_gripper, true));
+    // Right Bumper: Intake Cube
+    // new JoystickButton(m_driver, Button.kRightBumper.value).onTrue(new
+    // IntakeCube(m_gripper));
+    new JoystickButton(m_driver, Button.kRightBumper.value).onTrue(new RunIntake(m_gripper, false));
+    // Left Bumper: Intake Cone
+    // new JoystickButton(m_driver, Button.kLeftBumper.value).onTrue(new
+    // IntakeCone(m_gripper));
+    new JoystickButton(m_driver, Button.kLeftBumper.value).onTrue(new RunIntake(m_gripper, true));
 
-      //Right Trigger: Eject Cube
-        new Trigger(() -> (m_driver.getRightTriggerAxis() > 0.5)).onTrue(new EjectItem(m_gripper, Constants.GripperConstants.kGripperEjectCubeSpeed));
-      //Left Trigger: Eject Cone
-        new Trigger(() -> (m_driver.getLeftTriggerAxis() > 0.5)).onTrue(new EjectItem(m_gripper, Constants.GripperConstants.kGripperEjectConeSpeed));
-      //Y: Stop Gripper
-        new JoystickButton(m_driver, Button.kY.value).onTrue(new StopGripper(m_gripper));
-      //B: Change Gear
-        new JoystickButton(m_driver, Button.kB.value).onTrue(new ChangeGear());
-      //BACK: MELTDOWN
-        new JoystickButton(m_driver, Button.kBack.value).onTrue(new Meltdown(m_drivetrain, m_gripper, m_PinkArm, m_arm));
-      
+    // Right Trigger: Eject Cube
+    new Trigger(() -> (m_driver.getRightTriggerAxis() > 0.5))
+        .onTrue(new EjectItem(m_gripper, Constants.GripperConstants.kGripperEjectCubeSpeed));
+    // Left Trigger: Eject Cone
+    new Trigger(() -> (m_driver.getLeftTriggerAxis() > 0.5))
+        .onTrue(new EjectItem(m_gripper, Constants.GripperConstants.kGripperEjectConeSpeed));
+    // Y: Stop Gripper
+    new JoystickButton(m_driver, Button.kY.value).onTrue(new StopGripper(m_gripper));
+    // B: Change Gear
+    new JoystickButton(m_driver, Button.kB.value).onTrue(new ChangeGear());
+    // X: Vision Align High
+    new JoystickButton(m_driver, Button.kX.value).whileTrue(new VisionAlignHighCone(m_drivetrain, m_Vision));
+    // A: Vision Align Mid
+    new JoystickButton(m_driver, Button.kA.value).whileTrue(new VisionAlignMidCone(m_drivetrain, m_Vision));
+    // BACK: MELTDOWN
+    new JoystickButton(m_driver, Button.kBack.value).onTrue(new Meltdown(m_drivetrain, m_gripper, m_PinkArm, m_arm));
 
     /**
      * WEAPONS
      */
-      //A: Mid Cone Setup
-        new JoystickButton(m_weapons, Button.kA.value).onTrue(new SetupScore(m_PinkArm, m_arm, kMidAngleCone, MidExtendCone));
-      //B: High Cone Setup 
-        new JoystickButton(m_weapons, Button.kB.value).onTrue(new SetupConeHigh(m_arm, m_PinkArm)); //testme
-      //Y: High Cube Setup
-        new JoystickButton(m_weapons, Button.kY.value).onTrue(new SetupScore(m_PinkArm, m_arm, kHighAngleCube, HighExtendCube));
-      //X: Mid Cube Setup
-        new JoystickButton(m_weapons, Button.kX.value).onTrue(new SetupScore(m_PinkArm, m_arm, kMidAngleCube, MidExtendCube));
-      //Start: Substation Cube Intake Setup
-      new JoystickButton(m_weapons, Button.kStart.value).onTrue(new SetupScore(m_PinkArm, m_arm, kSubstationCube, SubstationCube));
-      //Back: Substation Cone Intake Setup
-      new JoystickButton(m_weapons, Button.kBack.value).onTrue(new SetupScore(m_PinkArm, m_arm, kSubstationCone, SubstationCone));
-      //Back: Tucked in Pos      
-        // new JoystickButton(m_weapons, Button.kBack.value).onTrue(new TuckedInPos(m_PinkArm, m_arm));
-      //RB: Intake Cone Setup
-        new JoystickButton(m_weapons, Button.kRightBumper.value).onTrue(new IntakePos(m_PinkArm, m_arm, kLowAngleCone, LowExtendCone));
-      //LB: Intake Cube Setup
-        new JoystickButton(m_weapons, Button.kLeftBumper.value).onTrue(new IntakePos(m_PinkArm, m_arm, kLowAngleCube, LowExtendCube));
-      }
+    // A: Mid Cone Setup
+    new JoystickButton(m_weapons, Button.kA.value)
+        .onTrue(new SetupScore(m_PinkArm, m_arm, kMidAngleCone, MidExtendCone));
+    // B: High Cone Setup
+    new JoystickButton(m_weapons, Button.kB.value).onTrue(new SetupConeHigh(m_arm, m_PinkArm)); // testme
+    // Y: High Cube Setup
+    new JoystickButton(m_weapons, Button.kY.value)
+        .onTrue(new SetupScore(m_PinkArm, m_arm, kHighAngleCube, HighExtendCube));
+    // X: Mid Cube Setup
+    new JoystickButton(m_weapons, Button.kX.value)
+        .onTrue(new SetupScore(m_PinkArm, m_arm, kMidAngleCube, MidExtendCube));
+    // Start: Substation Cube Intake Setup
+    new JoystickButton(m_weapons, Button.kStart.value)
+        .onTrue(new SetupScore(m_PinkArm, m_arm, kSubstationCube, SubstationCube));
+    // Back: Substation Cone Intake Setup
+    new JoystickButton(m_weapons, Button.kBack.value)
+        .onTrue(new SetupScore(m_PinkArm, m_arm, kSubstationCone, SubstationCone));
+    // Back: Tucked in Pos
+    // new JoystickButton(m_weapons, Button.kBack.value).onTrue(new
+    // TuckedInPos(m_PinkArm, m_arm));
+    // RB: Intake Cone Setup
+    new JoystickButton(m_weapons, Button.kRightBumper.value)
+        .onTrue(new IntakePos(m_PinkArm, m_arm, kLowAngleCone, LowExtendCone));
+    // LB: Intake Cube Setup
+    new JoystickButton(m_weapons, Button.kLeftBumper.value)
+        .onTrue(new IntakePos(m_PinkArm, m_arm, kLowAngleCube, LowExtendCube));
+  }
+
   /**
    * Use this to pass the autonomous command to the main {@link Robot} class.
    *
@@ -217,7 +250,7 @@ public class RobotContainer {
   public Command getAutonomousCommand() {
     // An ExampleCommand will run in autonomous
     return null;
-    //  return new TwoPieceAuto(m_drivetrain, m_gripper, m_arm, m_PinkArm);
+    // return new TwoPieceAuto(m_drivetrain, m_gripper, m_arm, m_PinkArm);
     // return new ScoreLowTaxiBalance(m_drivetrain, m_gripper, m_PinkArm, m_arm);
 
   }

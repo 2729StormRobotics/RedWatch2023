@@ -8,10 +8,10 @@ import edu.wpi.first.wpilibj2.command.CommandBase;
 import frc.robot.Constants;
 import frc.robot.subsystems.Vision;
 
-public class ReflectiveTapeMode extends CommandBase {
+public class ReflectiveTapeModeHigh extends CommandBase {
   public final Vision m_vision;
   /** Creates a new ReflectiveTapeMode. */
-  public ReflectiveTapeMode(Vision vision) {
+  public ReflectiveTapeModeHigh(Vision vision) {
     m_vision = vision;
     // Use addRequirements() here to declare subsystem dependencies.
     addRequirements(m_vision);
@@ -20,7 +20,7 @@ public class ReflectiveTapeMode extends CommandBase {
   // Called when the command is initially scheduled.
   @Override
   public void initialize() {
-    m_vision.setPipeline(Constants.VisionConstants.kReflectiveTapePipeline);
+    m_vision.setPipeline(Constants.VisionConstants.kReflectiveTapePipelineHigh);
     m_vision.setLight(Constants.VisionConstants.kLightOnValue);
   }
 
@@ -31,7 +31,7 @@ public class ReflectiveTapeMode extends CommandBase {
   // Called once the command ends or is interrupted.
   @Override
   public void end(boolean interrupted) {
-    m_vision.setPipeline(Constants.VisionConstants.kReflectiveTapePipeline);
+    m_vision.setPipeline(Constants.VisionConstants.kReflectiveTapePipelineHigh);
     m_vision.setLight(Constants.VisionConstants.kLightOnValue);
   }
 

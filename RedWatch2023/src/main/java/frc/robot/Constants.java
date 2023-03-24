@@ -265,6 +265,7 @@ public final class Constants {
       public static final int kHighTapePipeline = 2;
       public static final int kLowTapePipeline = 0;
       public static final int kReflectiveTapePipeline = 0;
+      public static final int kReflectiveTapePipelineHigh = 2;
       public static final int kLightOffValue = 1;
       public static final int kLightOnValue = 3;
       public static final double kLimeLightAngle = -13;
