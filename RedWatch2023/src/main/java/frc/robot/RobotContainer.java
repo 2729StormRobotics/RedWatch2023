@@ -54,6 +54,7 @@ import frc.robot.commands.AutoBalancing.AutoBalancePID;
 import frc.robot.commands.Gripper.EjectItem;
 import frc.robot.commands.Gripper.RunIntake;
 import frc.robot.commands.Gripper.StopGripper;
+import frc.robot.commands.Gripper.StopPulse;
 import frc.robot.commands.Gripper.PulseIntake.PulseIntake;
 import frc.robot.commands.Lights.animateCandle;
 import frc.robot.commands.TelescopingArmCommands.ArmControl;
@@ -122,8 +123,6 @@ public class RobotContainer {
     new ControlPanel(m_drivetrain, m_gripper, m_lights, m_PinkArm, m_arm);
 
     // Lights
-    // m_lights.setDefaultCommand(new CheckObjectForColorChange(m_lights,
-    // m_gripper));
 
     // Gripper
     // m_gripper.setDefaultCommand(new PulseIntake(m_gripper));
@@ -208,8 +207,8 @@ public class RobotContainer {
     new JoystickButton(m_driver, Button.kX.value).whileTrue(new VisionAlignHighCone(m_drivetrain, m_Vision));
     // A: Vision Align Mid
     new JoystickButton(m_driver, Button.kA.value).whileTrue(new VisionAlignMidCone(m_drivetrain, m_Vision));
-    // BACK: MELTDOWN
-    new JoystickButton(m_driver, Button.kBack.value).onTrue(new Meltdown(m_drivetrain, m_gripper, m_PinkArm, m_arm));
+    // BACK: Stop Gripper Pulsing
+    new JoystickButton(m_driver, Button.kBack.value).onTrue(new StopPulse(m_gripper));
 
     /**
      * WEAPONS
