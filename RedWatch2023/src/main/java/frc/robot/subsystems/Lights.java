@@ -17,7 +17,7 @@ public class Lights extends SubsystemBase {
   /** Creates a new Lights. */
 
   public final CANdle m_candle;
-  private final int Ledcount = 86;
+  private final int Ledcount = 106;
   
   public int R;
   public int G;
@@ -68,7 +68,7 @@ public class Lights extends SubsystemBase {
   // Sets lights to yellow animation
   public void askForCone(){
     resetLights();
-    m_candle.animate(new ColorFlowAnimation(255, 255, 0, 0, 0.85, Ledcount, Direction.Forward));
+    m_candle.animate(new ColorFlowAnimation(255, 85, 0, 0, 0.85, Ledcount, Direction.Forward));
     R = 255;
     G = 255;
     B = 0;
@@ -97,13 +97,20 @@ public class Lights extends SubsystemBase {
   
   // Sets lights to given RGB value
   public void setGiven(int RED, int GREEN, int BLUE) {
+    m_candle.animate(null);
     m_candle.setLEDs(RED, GREEN, BLUE);
     R = RED;
     G = GREEN;
     B = BLUE;
     current_animation = "None";
   }
+  public void setWhite(){
+    m_candle.animate(null);
+    m_candle.setLEDs(0, 0, 0);
+    m_candle.setLEDs(254, 254, 254);
+    current_animation = "None";
 
+  }
   // Animates lights to Rainbow
   public void partyMode(){
     m_candle.animate(new RainbowAnimation(1, 1, Ledcount));
