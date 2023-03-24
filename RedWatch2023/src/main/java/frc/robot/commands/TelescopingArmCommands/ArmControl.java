@@ -5,7 +5,7 @@ import edu.wpi.first.wpilibj2.command.CommandBase;
 import frc.robot.subsystems.TelescopingArm;
 import frc.robot.Constants.TelescopingConstants;
 public class ArmControl extends CommandBase{
-    private double JoystickLimiter = 0.15;
+    private double JoystickLimiter = 0.17;
     private final TelescopingArm m_Arm;
     // private final DoubleSupplier m_ArmSpeed;
     private DoubleSupplier stickVal;

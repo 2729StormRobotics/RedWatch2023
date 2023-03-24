@@ -54,6 +54,7 @@ import frc.robot.commands.AutoBalancing.AutoBalancePID;
 import frc.robot.commands.Gripper.EjectItem;
 import frc.robot.commands.Gripper.RunIntake;
 import frc.robot.commands.Gripper.StopGripper;
+import frc.robot.commands.Gripper.PulseIntake.PulseIntake;
 import frc.robot.commands.Lights.animateCandle;
 import frc.robot.commands.TelescopingArmCommands.ArmControl;
 import frc.robot.commands.Vision.AprilTagMode;
@@ -116,6 +117,9 @@ public class RobotContainer {
     // Lights
     // m_lights.setDefaultCommand(new CheckObjectForColorChange(m_lights, m_gripper));
 
+    // Gripper
+    // m_gripper.setDefaultCommand(new PulseIntake(m_gripper));
+
     // sets the drivetrain default command to curvatureDrive, with the slewratelimiters
     // Left Joystick: forwards/backward, Right Joystick: turn in place left/right
     m_drivetrain.setDefaultCommand(
@@ -165,9 +169,12 @@ public class RobotContainer {
       //new JoystickButton(m_driver, Button.kX.value).onTrue(new EjectItem(m_gripper, Constants.GripperConstants.kGripperEjectConeSpeed));
 
      //Right Bumper: Intake Cube    
-        new JoystickButton(m_driver, Button.kRightBumper.value).onTrue(new IntakeCube(m_gripper));
+        // new JoystickButton(m_driver, Button.kRightBumper.value).onTrue(new IntakeCube(m_gripper));
+        new JoystickButton(m_driver, Button.kRightBumper.value).onTrue(new RunIntake(m_gripper, false));
       //Left Bumper: Intake Cone    
-        new JoystickButton(m_driver, Button.kLeftBumper.value).onTrue(new IntakeCone(m_gripper));
+        // new JoystickButton(m_driver, Button.kLeftBumper.value).onTrue(new IntakeCone(m_gripper));
+        new JoystickButton(m_driver, Button.kLeftBumper.value).onTrue(new RunIntake(m_gripper, true));
+
       //Right Trigger: Eject Cube
         new Trigger(() -> (m_driver.getRightTriggerAxis() > 0.5)).onTrue(new EjectItem(m_gripper, Constants.GripperConstants.kGripperEjectCubeSpeed));
       //Left Trigger: Eject Cone

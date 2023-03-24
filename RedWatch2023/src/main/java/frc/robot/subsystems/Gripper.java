@@ -95,8 +95,8 @@ public class Gripper extends SubsystemBase {
 
   // Runs gripper motors based on speed
   public void runGripper(double speed) {
-    m_gripperLeftMotor.set(-speed-.1);
-    m_gripperRightMotor.set(speed);
+    m_gripperLeftMotor.set(-speed);
+    m_gripperRightMotor.set(-speed);
   }
 
   // Stops gripper motors
@@ -115,7 +115,8 @@ public class Gripper extends SubsystemBase {
  // Runs gripper motors to intake an object
  public void intakeCube() {
   m_gripper_direction = "intake";
-  runGripper(kGripperIntakeMotorSpeedCube);
+  m_gripperLeftMotor.set(-kGripperIntakeMotorSpeedCube);
+  m_gripperRightMotor.set(-kGripperIntakeMotorSpeedCube-0.2);
 }
 
 
@@ -137,5 +138,7 @@ public class Gripper extends SubsystemBase {
     // This method will be called once per scheduler run
     // m_detectedColor = m_colorSensor.getRawColor0();
     // m_proximity = m_colorSensor.getProximity0();
+    // m_gripperLeftMotor.setVoltage(0.1);
+    // m_gripperRightMotor.setVoltage(0.1);
   }
 }

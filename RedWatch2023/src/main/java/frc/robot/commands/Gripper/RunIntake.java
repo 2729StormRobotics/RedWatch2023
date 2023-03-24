@@ -5,6 +5,7 @@
 package frc.robot.commands.Gripper;
 
 import edu.wpi.first.wpilibj2.command.CommandBase;
+import frc.robot.commands.Gripper.PulseIntake.PulseIntake;
 import frc.robot.subsystems.Gripper;
 
 public class RunIntake extends CommandBase {
@@ -21,10 +22,14 @@ public class RunIntake extends CommandBase {
   // Called when the command is initially scheduled.
   @Override
   public void initialize() {
-    if(m_isCone)
+    if(m_isCone) {
       m_gripper.intakeCone();
-    else  
+      m_gripper.setDefaultCommand(new PulseIntake(m_gripper, 0.2));
+    }
+    else {
       m_gripper.intakeCube();
+      m_gripper.setDefaultCommand(new PulseIntake(m_gripper, -0.2));
+    }
   }
 
   // Called every time the scheduler runs while the command is scheduled.
@@ -43,5 +48,5 @@ public class RunIntake extends CommandBase {
       
     // return true;
   
-  return true;  }
+  return false;  }
 }
