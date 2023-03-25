@@ -99,10 +99,7 @@ public class Lights extends SubsystemBase {
   public void setGiven(int RED, int GREEN, int BLUE) {
     m_candle.animate(null);
     m_candle.setLEDs(RED, GREEN, BLUE);
-    R = RED;
-    G = GREEN;
-    B = BLUE;
-    current_animation = "None";
+    
   }
   public void setWhite(){
     m_candle.animate(null);

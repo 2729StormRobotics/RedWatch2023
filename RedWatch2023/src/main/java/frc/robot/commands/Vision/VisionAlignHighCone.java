@@ -5,6 +5,7 @@
 package frc.robot.commands.Vision;
 
 import edu.wpi.first.wpilibj2.command.SequentialCommandGroup;
+import edu.wpi.first.wpilibj2.command.WaitCommand;
 import frc.robot.subsystems.Drivetrain;
 import frc.robot.subsystems.Vision;
 
@@ -17,6 +18,7 @@ public class VisionAlignHighCone extends SequentialCommandGroup {
     // Add your commands in the addCommands() call, e.g.
     // addCommands(new FooCommand(), new BarCommand());
     addCommands(new ReflectiveTapeModeHigh(vision),
+    new WaitCommand(0.25),
     new VisionAlign(drivetrain, vision));
   }
 }

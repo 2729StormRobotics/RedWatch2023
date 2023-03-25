@@ -33,7 +33,7 @@ public class ArmControl extends CommandBase{
       if (Math.abs(stickVal.getAsDouble()) <= JoystickLimiter){
         m_Arm.m_ArmExtend.set(0);
       }else{
-        if (m_Arm.pot.get() > TelescopingConstants.potHighStop){
+        if (m_Arm.pot_val > TelescopingConstants.potHighStop){
           m_Arm.turnMotor(m_Arm.m_ArmExtend,1*(Math.abs(stickVal.getAsDouble()*TelescopingConstants.ArmSpeed )));
         }else if (m_Arm.pot_val < TelescopingConstants.potLowStop){
           m_Arm.turnMotor(m_Arm.m_ArmExtend,-1*(Math.abs(stickVal.getAsDouble()*TelescopingConstants.ArmSpeed )));

@@ -30,7 +30,7 @@ public final class Constants {
     public static final double HighExtendCone = 27.72; //actual distance 27.697191
     public static final double MidExtendCone = 10.80; //Actual distance 20.860632
     //Low value for turn might change when testing
-    public static final double LowExtendCone = 15.9;
+    public static final double LowExtendCone = 13;
     public static final double LowExtendCube = 16.1;
 
 //CHANGE DEPENDING ON THE VALS TAKEN FOR SUBSTATION
@@ -42,8 +42,8 @@ public final class Constants {
     public static final double neutralPosTelescoping = 5;
     //Add values for the low hybrid node
 
-    public static final double potLowStop = 3.6; // 1 inch 0.025
-    public static final double potHighStop = 0.8; // 30 inches 0.6 when down
+    public static final double potLowStop = 4.6; // 1 inch 0.025
+    public static final double potHighStop = 21.5; // 30 inches 0.6 when down
     // real value should be 0.6/ inches is 32 inches
     public static final double Tolerance = 0.5;
     public static final double ArmSpeed = 1; // 1
@@ -87,11 +87,11 @@ public final class Constants {
 
     public static final double kAnglesToTicks = 0;
     //Angles for scoring cones
-    public static final double kHighAngleCone = 115; //(Actual)
+    public static final double kHighAngleCone = 118; //(Actual)
     public static final double kHighAngleConeIntermediate = 75; // To go to high cone preset, one must go to a lower angle, end fully, then move to a higher angle. This is that lower angle.
     public static final double kMidAngleCone = 102; //(Actual)
     //Angle for scoring in the hybrid node common for cones and cubes
-    public static final double kLowAngleCone = 58.5; //(actual) 
+    public static final double kLowAngleCone = 56.8; //(actual) 
     //CANT BE MORE THAN 50!!!!!!
     public static final double kLowAngleCube = 54.2 ; //TEST VALUE
 
@@ -161,9 +161,9 @@ public final class Constants {
 
 
 	public static final class BalanceConstants{
-		public static final double kBalancedBeamAngle = 1.3; //TODO: check before paths
+		public static final double kBalancedBeamAngle = 1.23; // 1.02 at comp 1.3 at d100 1.23 prac feild
 		public static final double kBalancedThreshold = .5;
-		public static double kP = .022;
+		public static double kP = .022; //0.022
 		public static double kI = 0.000;
 		public static double kD = 0.0;
 		}

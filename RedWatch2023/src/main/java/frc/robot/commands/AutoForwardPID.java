@@ -61,7 +61,7 @@
    @Override
    public void initialize() {
      m_drivetrain.resetAllEncoders();
-     Drivetrain.pitchdrift = m_drivetrain.getPitch();
+    //  Drivetrain.pitchdrift = m_drivetrain.getPitch();
    }
  
    // Returns true when the command should end.

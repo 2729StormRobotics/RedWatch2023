@@ -30,8 +30,8 @@ public class PivotPID extends PIDCommand {
         // This uses the output
         output -> {
           // Use the output here
-          if (Math.abs(output) > 0.8) {
-            output = Math.copySign(0.8, output);
+          if (Math.abs(output) > 0.7) {
+            output = Math.copySign(0.7, output);
           } 
           if (angle - pivotArm.getAngle() > 0) {
             if (Math.abs(output) < 0.2) {

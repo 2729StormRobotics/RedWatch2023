@@ -48,9 +48,11 @@ import frc.robot.commands.ChangeGear;
 import frc.robot.commands.Meltdown;
 import frc.robot.commands.TurnInPlacePID;
 import frc.robot.commands.curvatureDrive;
+import frc.robot.commands.Auto.HighCubeTaxi;
 import frc.robot.commands.Auto.ScoreLowTaxi;
 import frc.robot.commands.Auto.ScoreLowTaxiBalance;
 import frc.robot.commands.AutoBalancing.AutoBalancePID;
+import frc.robot.commands.AutoBalancing.AutoBalancePIDRewrite;
 import frc.robot.commands.Gripper.EjectItem;
 import frc.robot.commands.Gripper.RunIntake;
 import frc.robot.commands.Gripper.StopGripper;
@@ -123,7 +125,7 @@ public class RobotContainer {
     new ControlPanel(m_drivetrain, m_gripper, m_lights, m_PinkArm, m_arm);
 
     // Lights
-
+    
     // Gripper
     // m_gripper.setDefaultCommand(new PulseIntake(m_gripper));
 
@@ -143,6 +145,7 @@ public class RobotContainer {
         new armJoint(() -> m_pivotLimiter.calculate(m_weapons.getRightY()), m_PinkArm));
     m_lights.setDefaultCommand(
         new animateCandle(m_lights, m_weapons));
+    // m_lights.setGiven(255, 255, 255);
 
     // Vision
     m_Vision.setDefaultCommand(new AprilTagMode(m_Vision));
@@ -161,8 +164,10 @@ public class RobotContainer {
    */
   private void configureButtonBindings() {
     // Testing Button (try cmds on me! NO OTHER BUTTONS PLS!)
-    new JoystickButton(m_driver, Button.kStart.value)
-        .onTrue(new AutoBalancePID(m_drivetrain));
+    // new JoystickButton(m_driver, Button.kStart.value)
+    //     .onTrue(new AutoBalancePID(m_drivetrain));
+        // new JoystickButton(m_driver, Button.kStart.value).onTrue(new TuckedInPos(m_PinkArm, m_arm));
+
     // new JoystickButton(m_driver, Button.kA.value).onTrue(new
     // BackwardTime(m_drivetrain, 0.5));
     // new JoystickButton(m_driver, Button.kA.value).onTrue(new
@@ -231,8 +236,7 @@ public class RobotContainer {
     new JoystickButton(m_weapons, Button.kBack.value)
         .onTrue(new SetupScore(m_PinkArm, m_arm, kSubstationCone, SubstationCone));
     // Back: Tucked in Pos
-    // new JoystickButton(m_weapons, Button.kBack.value).onTrue(new
-    // TuckedInPos(m_PinkArm, m_arm));
+    // new JoystickButton(m_weapons, Button.kBack.value).onTrue(new TuckedInPos(m_PinkArm, m_arm));
     // RB: Intake Cone Setup
     new JoystickButton(m_weapons, Button.kRightBumper.value)
         .onTrue(new IntakePos(m_PinkArm, m_arm, kLowAngleCone, LowExtendCone));
@@ -248,9 +252,11 @@ public class RobotContainer {
    */
   public Command getAutonomousCommand() {
     // An ExampleCommand will run in autonomous
-    return null;
+    // return null;
     // return new TwoPieceAuto(m_drivetrain, m_gripper, m_arm, m_PinkArm);
-    // return new ScoreLowTaxiBalance(m_drivetrain, m_gripper, m_PinkArm, m_arm);
-
+    // return new ScoreLowTaxiBalance(m_drivetrain, m_gripper, m_PinkArm, m_arm, m_lights);
+    // return new ScoreLowTaxi(m_drivetrain, m_gripper, m_PinkArm, m_arm);
+    // return new AutoBalancePIDRewrite(m_drivetrain);
+    return new HighCubeTaxi(m_drivetrain, m_gripper, m_PinkArm, m_arm);
   }
 }
