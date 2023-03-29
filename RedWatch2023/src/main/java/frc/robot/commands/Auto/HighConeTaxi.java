@@ -8,9 +8,11 @@ import edu.wpi.first.wpilibj2.command.SequentialCommandGroup;
 import edu.wpi.first.wpilibj2.command.WaitCommand;
 import frc.robot.Constants;
 import frc.robot.CommandGroups.IntakeCube;
+import frc.robot.CommandGroups.SetupConeHigh;
 import frc.robot.CommandGroups.SetupScore;
 import frc.robot.Constants.TelescopingConstants;
 import frc.robot.commands.AutoForwardPID;
+import frc.robot.commands.Gripper.EjectConeInstantCmd;
 import frc.robot.commands.Gripper.EjectCubeInstantCmd;
 import frc.robot.commands.Gripper.EjectItem;
 import frc.robot.commands.Gripper.RunIntake;
@@ -26,21 +28,23 @@ import frc.robot.subsystems.TelescopingArm;
 // NOTE:  Consider using this command inline, rather than writing a subclass.  For more
 // information, see:
 // https://docs.wpilib.org/en/stable/docs/software/commandbased/convenience-features.html
-public class HighCubeTaxi extends SequentialCommandGroup {
+public class HighConeTaxi extends SequentialCommandGroup {
   /** Creates a new HighCubeTaxi. */
-  public HighCubeTaxi(Drivetrain drivetrain, Gripper gripper, PivotArm pivotArm, TelescopingArm telescopingArm) {
+  public HighConeTaxi(Drivetrain drivetrain, Gripper gripper, PivotArm pivotArm, TelescopingArm telescopingArm) {
     // Add your commands in the addCommands() call, e.g.
     // addCommands(new FooCommand(), new BarCommand());
     addCommands(
-      new StartPulsing(gripper, false),
+      new StartPulsing(gripper, true),
       new WaitCommand(0.1),
-      new PivotPID(pivotArm, Constants.pinkArmConstants.kHighAngleCube),
-      new SetupScore(pivotArm, telescopingArm, Constants.pinkArmConstants.kHighAngleCube, Constants.TelescopingConstants.HighExtendCube),
-      new EjectCubeInstantCmd(gripper),
+      new PivotPID(pivotArm, 60),
+      new SetupConeHigh(telescopingArm, pivotArm),
+      new AutoForwardPID(.5, drivetrain),
+      new EjectConeInstantCmd(gripper),
       new WaitCommand(0.5),
       new StopGripper(gripper),
-      new AutoForwardPID(-4.2, drivetrain),
-      new SetupScore(pivotArm, telescopingArm, Constants.pinkArmConstants.kLowAngleCube, Constants.TelescopingConstants.LowExtendCube)
+      new ExtendVal(Constants.TelescopingConstants.potLowStop, telescopingArm),
+      new SetupScore(pivotArm, telescopingArm, Constants.pinkArmConstants.kLowAngleCube, Constants.TelescopingConstants.LowExtendCube),
+      new AutoForwardPID(-4.2, drivetrain) //-4.2
       
 
     );

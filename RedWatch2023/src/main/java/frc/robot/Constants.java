@@ -25,7 +25,7 @@ import edu.wpi.first.wpilibj.DoubleSolenoid.Value;
 public final class Constants {
  
   public static final class TelescopingConstants {
-    public static final double MidExtendCube = 3; // previous val 23.5 actual val 13.909128
+    public static final double MidExtendCube = 4.6; // previous val 23.5 actual val 13.909128
     public static final double HighExtendCube = 18.2; //Actual distance 26.938031
     public static final double HighExtendCone = 27.72; //actual distance 27.697191
     public static final double MidExtendCone = 10.80; //Actual distance 20.860632
@@ -43,7 +43,7 @@ public final class Constants {
     //Add values for the low hybrid node
 
     public static final double potLowStop = 4.6; // 1 inch 0.025
-    public static final double potHighStop = 21.5; // 30 inches 0.6 when down
+    public static final double potHighStop = 22.5; //21.5
     // real value should be 0.6/ inches is 32 inches
     public static final double Tolerance = 0.5;
     public static final double ArmSpeed = 1; // 1
@@ -87,7 +87,7 @@ public final class Constants {
 
     public static final double kAnglesToTicks = 0;
     //Angles for scoring cones
-    public static final double kHighAngleCone = 118; //(Actual)
+    public static final double kHighAngleCone = 120; //(Actual)
     public static final double kHighAngleConeIntermediate = 75; // To go to high cone preset, one must go to a lower angle, end fully, then move to a higher angle. This is that lower angle.
     public static final double kMidAngleCone = 102; //(Actual)
     //Angle for scoring in the hybrid node common for cones and cubes
@@ -103,7 +103,7 @@ public final class Constants {
     
     //Angles for scoring the cubes
     //Ofset to add 30 degrees
-    public static final double kMidAngleCube = 80.5; // (Actual)
+    public static final double kMidAngleCube = 90; // (Actual)
     public static final double kHighAngleCube = 115; // (Actual)
     public static final double kDunkDistance = 3; // degrees to turn to dunk it
   }

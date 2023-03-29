@@ -14,7 +14,7 @@ public class AutoBalancePIDRewrite extends CommandBase {
   public AutoBalancePIDRewrite(Drivetrain drivetrain) {
     m_drivetrain = drivetrain;
     // Use addRequirements() here to declare subsystem dependencies.
-    addRequirements(m_drivetrain);
+    addRequirements(drivetrain);
   }
 
   // Called when the command is initially scheduled.

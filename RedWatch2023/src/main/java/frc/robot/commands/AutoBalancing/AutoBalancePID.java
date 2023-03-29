@@ -45,7 +45,7 @@ public class AutoBalancePID extends PIDCommand {
         m_drivetrain = drivetrain;
     // Use addRequirements() here to declare subsystem dependencies.
     // Configure additional PID options by calling `getController` here.
-    addRequirements(m_drivetrain);
+    addRequirements(drivetrain);
   }
 
  // Called when the command is initially scheduled.

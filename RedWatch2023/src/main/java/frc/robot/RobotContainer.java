@@ -48,7 +48,9 @@ import frc.robot.commands.ChangeGear;
 import frc.robot.commands.Meltdown;
 import frc.robot.commands.TurnInPlacePID;
 import frc.robot.commands.curvatureDrive;
+import frc.robot.commands.Auto.HighConeTaxi;
 import frc.robot.commands.Auto.HighCubeTaxi;
+import frc.robot.commands.Auto.LowDock;
 import frc.robot.commands.Auto.ScoreLowTaxi;
 import frc.robot.commands.Auto.ScoreLowTaxiBalance;
 import frc.robot.commands.AutoBalancing.AutoBalancePID;
@@ -257,6 +259,9 @@ public class RobotContainer {
     // return new ScoreLowTaxiBalance(m_drivetrain, m_gripper, m_PinkArm, m_arm, m_lights);
     // return new ScoreLowTaxi(m_drivetrain, m_gripper, m_PinkArm, m_arm);
     // return new AutoBalancePIDRewrite(m_drivetrain);
-    return new HighCubeTaxi(m_drivetrain, m_gripper, m_PinkArm, m_arm);
-  }
+    // return new LowDock(m_drivetrain, m_PinkArm);
+    // return new HighCubeTaxi(m_drivetrain, m_gripper, m_PinkArm, m_arm);
+    return new HighConeTaxi(m_drivetrain, m_gripper, m_PinkArm, m_arm);
+  
+}
 }
