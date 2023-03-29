@@ -28,7 +28,7 @@ public final class Constants {
     public static final double MidExtendCube = 4.6; // previous val 23.5 actual val 13.909128
     public static final double HighExtendCube = 18.2; //Actual distance 26.938031
     public static final double HighExtendCone = 27.72; //actual distance 27.697191
-    public static final double MidExtendCone = 10.80; //Actual distance 20.860632
+    public static final double MidExtendCone = 14; //Actual distance 20.860632
     //Low value for turn might change when testing
     public static final double LowExtendCone = 13;
     public static final double LowExtendCube = 16.1;
@@ -43,7 +43,7 @@ public final class Constants {
     //Add values for the low hybrid node
 
     public static final double potLowStop = 4.6; // 1 inch 0.025
-    public static final double potHighStop = 22.5; //21.5
+    public static final double potHighStop = 28; //21.5
     // real value should be 0.6/ inches is 32 inches
     public static final double Tolerance = 0.5;
     public static final double ArmSpeed = 1; // 1

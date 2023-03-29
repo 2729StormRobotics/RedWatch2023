@@ -15,8 +15,11 @@ import frc.robot.Constants.GripperConstants;
 import frc.robot.commands.AutoForwardPID;
 import frc.robot.commands.TankDrive;
 import frc.robot.commands.TurnInPlacePID;
+import frc.robot.commands.Gripper.EjectConeInstantCmd;
+import frc.robot.commands.Gripper.EjectCubeInstantCmd;
 import frc.robot.commands.Gripper.EjectItem;
 import frc.robot.commands.Gripper.StopGripper;
+import frc.robot.commands.Gripper.PulseIntake.StartPulsing;
 import frc.robot.commands.TelescopingArmCommands.ExtendVal;
 import frc.robot.commands.Vision.AprilTagMode;
 import frc.robot.commands.Vision.ReflectiveTapeMode;
@@ -40,24 +43,26 @@ public class TwoPieceHighAuto extends SequentialCommandGroup {
     // Add your commands in the addCommands() call, e.g.
     // addCommands(new FooCommand(), new BarCommand());
     addCommands(
-      new PivotPID(pivotArm, pinkArmConstants.kHighAngleCube),
-      new ExtendVal(TelescopingConstants.HighExtendCube, telescopingArm),
-      new EjectItem(gripper, GripperConstants.kGripperEjectCubeSpeed),
-      new WaitCommand(0.25),
-      new StopGripper(gripper),
-      new AutoForwardPID(-0.5, drivetrain),
-      new TurnInPlacePID(170, drivetrain),
-      new TurnInPlacePID(10, drivetrain),
-      new SetupScore(pivotArm, telescopingArm, pinkArmConstants.kLowAngleCone, TelescopingConstants.LowExtendCone),  
-      new DriveWhileIntake(drivetrain, gripper, 3.76), //might have to be higher
+      new StartPulsing(gripper, true),
+      new WaitCommand(0.1),
+      new PivotPID(pivotArm, pinkArmConstants.kMidAngleCone),
+      new ExtendVal(TelescopingConstants.MidExtendCone, telescopingArm),
+      new EjectConeInstantCmd(gripper),
       new WaitCommand(0.5),
       new StopGripper(gripper),
-      new BackWhileSetupHighCone(drivetrain, pivotArm, telescopingArm),
+      new AutoForwardPID(-0.5, drivetrain),
+      new TurnInPlacePID(160, drivetrain), // test this, get angle it turns and subtract from 180
+      new TurnInPlacePID(20, drivetrain),
+      new SetupScore(pivotArm, telescopingArm, pinkArmConstants.kLowAngleCube, TelescopingConstants.LowExtendCube),  
+      new DriveWhileIntake(drivetrain, gripper, 3.56), //might have to be higher
+      new WaitCommand(0.5),
+      new StopGripper(gripper),
+      new BackWhileSetupHighCube(drivetrain, pivotArm, telescopingArm),
       new TurnInPlacePID(145, drivetrain),
       new AutoForwardPID(0.37, drivetrain),
       new ReflectiveTapeMode(vision),
       new VisionAlign(drivetrain, vision),
-      new BackwardTime(drivetrain, 0.2, false)
+      new EjectCubeInstantCmd(gripper)
       //add dunk
     );
   }

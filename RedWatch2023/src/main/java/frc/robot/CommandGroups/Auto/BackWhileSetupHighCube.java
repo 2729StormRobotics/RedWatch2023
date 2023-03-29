@@ -21,7 +21,7 @@ public class BackWhileSetupHighCube extends ParallelCommandGroup {
   public BackWhileSetupHighCube(Drivetrain drivetrain, PivotArm pivotArm, TelescopingArm telescopingArm) {
     // Add your commands in the addCommands() call, e.g.
     // addCommands(new FooCommand(), new BarCommand());
-    addCommands(new AutoForwardPID(-3.76, drivetrain),
+    addCommands(new AutoForwardPID(-3.56, drivetrain),
     new SetupScore(pivotArm, telescopingArm, pinkArmConstants.kHighAngleCube, TelescopingConstants.HighExtendCube)
 
     );

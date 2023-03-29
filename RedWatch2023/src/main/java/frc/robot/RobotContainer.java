@@ -43,9 +43,11 @@ import frc.robot.CommandGroups.SetupScore;
 import frc.robot.CommandGroups.TuckedInPos;
 import frc.robot.CommandGroups.Auto.BackwardTime;
 import frc.robot.CommandGroups.Auto.TwoPieceAuto;
+import frc.robot.CommandGroups.Auto.TwoPieceHighAuto;
 import frc.robot.commands.ArmOut;
 import frc.robot.commands.ChangeGear;
 import frc.robot.commands.Meltdown;
+import frc.robot.commands.TankDrive;
 import frc.robot.commands.TurnInPlacePID;
 import frc.robot.commands.curvatureDrive;
 import frc.robot.commands.Auto.HighConeTaxi;
@@ -167,7 +169,7 @@ public class RobotContainer {
   private void configureButtonBindings() {
     // Testing Button (try cmds on me! NO OTHER BUTTONS PLS!)
     // new JoystickButton(m_driver, Button.kStart.value)
-    //     .onTrue(new AutoBalancePID(m_drivetrain));
+        // .whileTrue(new TankDrive(m_drivetrain, 0.5));
         // new JoystickButton(m_driver, Button.kStart.value).onTrue(new TuckedInPos(m_PinkArm, m_arm));
 
     // new JoystickButton(m_driver, Button.kA.value).onTrue(new
@@ -224,7 +226,7 @@ public class RobotContainer {
     new JoystickButton(m_weapons, Button.kA.value)
         .onTrue(new SetupScore(m_PinkArm, m_arm, kMidAngleCone, MidExtendCone));
     // B: High Cone Setup
-    new JoystickButton(m_weapons, Button.kB.value).onTrue(new SetupConeHigh(m_arm, m_PinkArm)); // testme
+    new JoystickButton(m_weapons, Button.kB.value).onTrue(new SetupScore(m_PinkArm, m_arm, kHighAngleCone, HighExtendCone)); // testme
     // Y: High Cube Setup
     new JoystickButton(m_weapons, Button.kY.value)
         .onTrue(new SetupScore(m_PinkArm, m_arm, kHighAngleCube, HighExtendCube));
@@ -261,7 +263,8 @@ public class RobotContainer {
     // return new AutoBalancePIDRewrite(m_drivetrain);
     // return new LowDock(m_drivetrain, m_PinkArm);
     // return new HighCubeTaxi(m_drivetrain, m_gripper, m_PinkArm, m_arm);
-    return new HighConeTaxi(m_drivetrain, m_gripper, m_PinkArm, m_arm);
+    // return new HighConeTaxi(m_drivetrain, m_gripper, m_PinkArm, m_arm);
+    return new TwoPieceHighAuto(m_drivetrain, m_gripper, m_arm, m_PinkArm, m_Vision);
   
 }
 }
