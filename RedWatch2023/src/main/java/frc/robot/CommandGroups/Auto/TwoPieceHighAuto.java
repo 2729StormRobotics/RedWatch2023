@@ -25,6 +25,7 @@ import frc.robot.commands.Vision.AprilTagMode;
 import frc.robot.commands.Vision.ReflectiveTapeMode;
 import frc.robot.commands.Vision.VisionAlign;
 import frc.robot.commands.pivotArm.PivotPID;
+import frc.robot.commands.pivotArm.turnToDegrees;
 import frc.robot.subsystems.Drivetrain;
 import frc.robot.subsystems.Gripper;
 import frc.robot.subsystems.PivotArm;
@@ -50,19 +51,31 @@ public class TwoPieceHighAuto extends SequentialCommandGroup {
       new EjectConeInstantCmd(gripper),
       new WaitCommand(0.5),
       new StopGripper(gripper),
-      new AutoForwardPID(-0.5, drivetrain),
-      new TurnInPlacePID(160, drivetrain), // test this, get angle it turns and subtract from 180
-      new TurnInPlacePID(20, drivetrain),
+      // new AutoForwardPID(-0.5, drivetrain),
       new SetupScore(pivotArm, telescopingArm, pinkArmConstants.kLowAngleCube, TelescopingConstants.LowExtendCube),  
-      new DriveWhileIntake(drivetrain, gripper, 3.56), //might have to be higher
-      new WaitCommand(0.5),
+      new AutoForwardPID(-2.44, drivetrain), //might have to be higher
+      new AutoForwardPID(-1.12, drivetrain),
+      new TurnInPlacePID(144, drivetrain),
+      new DriveWhileIntake(drivetrain, gripper, 0.7),
       new StopGripper(gripper),
-      new BackWhileSetupHighCube(drivetrain, pivotArm, telescopingArm),
-      new TurnInPlacePID(145, drivetrain),
-      new AutoForwardPID(0.37, drivetrain),
-      new ReflectiveTapeMode(vision),
+      new StartPulsing(gripper, false),
+      new SetupScore(pivotArm, telescopingArm, pinkArmConstants.kHighAngleCube, TelescopingConstants.HighExtendCube), 
+      new AutoForwardPID(-0.7, drivetrain), 
+      new TurnInPlacePID(-144, drivetrain),
+      new AutoForwardPID(3, drivetrain),
+      new TurnInPlacePID(20, drivetrain),
+      new AprilTagMode(vision),
       new VisionAlign(drivetrain, vision),
-      new EjectCubeInstantCmd(gripper)
+      new AutoForwardPID(1, drivetrain),
+      new EjectCubeInstantCmd(gripper),
+      new WaitCommand(0.5),
+      new StopGripper(gripper)
+      // new BackWhileSetupHighCube(drivetrain, pivotArm, telescopingArm),
+      // new TurnInPlacePID(145, drivetrain),
+      // new AutoForwardPID(0.37, drivetrain),
+      // new ReflectiveTapeMode(vision),
+      // new VisionAlign(drivetrain, vision),
+      // new EjectCubeInstantCmd(gripper)
       //add dunk
     );
   }

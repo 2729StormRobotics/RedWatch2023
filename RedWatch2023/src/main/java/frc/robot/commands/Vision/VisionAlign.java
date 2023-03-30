@@ -47,7 +47,7 @@ public class VisionAlign extends CommandBase {
     // if (Math.abs(turnPower) < Constants.DrivetrainConstants.kSturn) {
     //   turnPower = Math.copySign(Constants.DrivetrainConstants.kSturn, turnPower);
     // }
-    turnPower += Math.copySign(Constants.DrivetrainConstants.kSturn, turnPower);
+    turnPower += Math.copySign(0.29, turnPower);
 
     m_drivetrain.tankDrive(-turnPower, turnPower, isFinished());;
     
@@ -62,7 +62,7 @@ public class VisionAlign extends CommandBase {
   // Returns true when the command should end.
   @Override
   public boolean isFinished() {
-    return (Math.abs(m_vision.getX()) < 0.25);
+    return (Math.abs(m_vision.getX()) < 0.1);
     // return false;
   }
 }

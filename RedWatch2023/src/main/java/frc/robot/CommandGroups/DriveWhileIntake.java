@@ -6,8 +6,10 @@ package frc.robot.CommandGroups;
 
 import edu.wpi.first.wpilibj2.command.ParallelRaceGroup;
 import edu.wpi.first.wpilibj2.command.SequentialCommandGroup;
+import edu.wpi.first.wpilibj2.command.WaitCommand;
 import frc.robot.commands.AutoForwardPID;
 import frc.robot.commands.Gripper.RunIntake;
+import frc.robot.commands.Gripper.StopGripper;
 import frc.robot.subsystems.Drivetrain;
 import frc.robot.subsystems.Gripper;
 
@@ -20,8 +22,8 @@ public class DriveWhileIntake extends ParallelRaceGroup {
     // Add your commands in the addCommands() call, e.g.
     // addCommands(new FooCommand(), new BarCommand());
     addCommands(
-      new RunIntake(gripper, false),
-      new AutoForwardPID(dist, drivetrain)
+      new AutoForwardPID(dist, drivetrain),
+      new RunIntake(gripper, false)
     );
   }
 }

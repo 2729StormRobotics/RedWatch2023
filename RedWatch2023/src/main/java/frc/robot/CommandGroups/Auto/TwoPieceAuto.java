@@ -44,7 +44,7 @@ public class TwoPieceAuto extends SequentialCommandGroup {
       new DriveWhileIntake(drivetrain, gripper, 4.26),
       new WaitCommand(0.5),
       new StopGripper(gripper),
-      new BackWhileSetupHighCube(drivetrain, pivotArm, telescopingArm),
+      new BackWhileSetupHighCube(drivetrain, pivotArm, telescopingArm, -3.56),
       new TurnInPlacePID(-170, drivetrain),
       new AprilTagMode(vision),
       new VisionAlign(drivetrain, vision),

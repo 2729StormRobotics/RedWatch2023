@@ -18,7 +18,7 @@ import frc.robot.subsystems.TelescopingArm;
 // https://docs.wpilib.org/en/stable/docs/software/commandbased/convenience-features.html
 public class BackWhileSetupHighCube extends ParallelCommandGroup {
   /** Creates a new BackWhileSetupHighCube. */
-  public BackWhileSetupHighCube(Drivetrain drivetrain, PivotArm pivotArm, TelescopingArm telescopingArm) {
+  public BackWhileSetupHighCube(Drivetrain drivetrain, PivotArm pivotArm, TelescopingArm telescopingArm, double distance) {
     // Add your commands in the addCommands() call, e.g.
     // addCommands(new FooCommand(), new BarCommand());
     addCommands(new AutoForwardPID(-3.56, drivetrain),
