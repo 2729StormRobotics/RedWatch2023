@@ -12,6 +12,8 @@ import frc.robot.CommandGroups.SetupConeHigh;
 import frc.robot.CommandGroups.SetupScore;
 import frc.robot.Constants.TelescopingConstants;
 import frc.robot.commands.AutoForwardPID;
+import frc.robot.commands.TurnInPlace;
+import frc.robot.commands.TurnInPlacePID;
 import frc.robot.commands.Gripper.EjectConeInstantCmd;
 import frc.robot.commands.Gripper.EjectCubeInstantCmd;
 import frc.robot.commands.Gripper.EjectItem;
@@ -43,8 +45,10 @@ public class HighConeTaxi extends SequentialCommandGroup {
       new WaitCommand(0.5),
       new StopGripper(gripper),
       new ExtendVal(Constants.TelescopingConstants.potLowStop, telescopingArm),
-      new SetupScore(pivotArm, telescopingArm, Constants.pinkArmConstants.kLowAngleCube, Constants.TelescopingConstants.LowExtendCube),
-      new AutoForwardPID(-4.2, drivetrain) //-4.2
+      new SetupScore(pivotArm, telescopingArm, Constants.pinkArmConstants.kLowAngleCone, Constants.TelescopingConstants.LowExtendCone),
+      new AutoForwardPID(-2.44, drivetrain), //might have to be higher
+      new AutoForwardPID(-1.12, drivetrain),
+      new TurnInPlacePID(160, drivetrain)
       
 
     );

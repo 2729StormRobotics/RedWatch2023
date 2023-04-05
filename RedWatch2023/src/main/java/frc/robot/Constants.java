@@ -42,8 +42,8 @@ public final class Constants {
     public static final double neutralPosTelescoping = 5;
     //Add values for the low hybrid node
 
-    public static final double potLowStop = 4.6; // 1 inch 0.025
-    public static final double potHighStop = 28; //21.5
+    public static final double potLowStop = 4.88; // 1 inch 0.025
+    public static final double potHighStop = 22.8; //21.5
     // real value should be 0.6/ inches is 32 inches
     public static final double Tolerance = 0.5;
     public static final double ArmSpeed = 1; // 1

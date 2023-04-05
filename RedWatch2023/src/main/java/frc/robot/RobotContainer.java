@@ -170,8 +170,8 @@ public class RobotContainer {
     // Testing Button (try cmds on me! NO OTHER BUTTONS PLS!)
 
 
-    // new JoystickButton(m_driver, Button.kStart.value).onTrue(new
-    // Meltdown(m_drivetrain, m_gripper, m_PinkArm, m_arm));
+    new JoystickButton(m_driver, Button.kStart.value).onTrue(new
+    Meltdown(m_drivetrain, m_gripper, m_PinkArm, m_arm));
 
     // !!!!!
     // PLEASE DO NOT CHANGE THESEWIHTOUT ASKING, AKSHAY WILL BE MAD!!!!!
@@ -208,7 +208,7 @@ public class RobotContainer {
     new JoystickButton(m_weapons, Button.kA.value)
         .onTrue(new SetupScore(m_PinkArm, m_arm, kMidAngleCone, MidExtendCone));
     // B: High Cone Setup
-    new JoystickButton(m_weapons, Button.kB.value).onTrue(new SetupScore(m_PinkArm, m_arm, kHighAngleCone, HighExtendCone)); // testme
+    new JoystickButton(m_weapons, Button.kB.value).onTrue(new SetupConeHigh(m_arm, m_PinkArm)); // testme
     // Y: High Cube Setup
     new JoystickButton(m_weapons, Button.kY.value)
         .onTrue(new SetupScore(m_PinkArm, m_arm, kHighAngleCube, HighExtendCube));
@@ -241,9 +241,9 @@ public class RobotContainer {
     // return new LowDock(m_drivetrain, m_PinkArm);
 
     // return new HighCubeTaxi(m_drivetrain, m_gripper, m_PinkArm, m_arm);
-    // return new HighConeTaxi(m_drivetrain, m_gripper, m_PinkArm, m_arm);
+    return new HighConeTaxi(m_drivetrain, m_gripper, m_PinkArm, m_arm);
 
-    return new TwoPieceHighAuto(m_drivetrain, m_gripper, m_arm, m_PinkArm, m_Vision);
+    // return new TwoPieceHighAuto(m_drivetrain, m_gripper, m_arm, m_PinkArm, m_Vision);
   
 }
 }
