@@ -168,40 +168,22 @@ public class RobotContainer {
    */
   private void configureButtonBindings() {
     // Testing Button (try cmds on me! NO OTHER BUTTONS PLS!)
-    // new JoystickButton(m_driver, Button.kStart.value)
-        // .whileTrue(new TankDrive(m_drivetrain, 0.5));
-        // new JoystickButton(m_driver, Button.kStart.value).onTrue(new TuckedInPos(m_PinkArm, m_arm));
 
-    // new JoystickButton(m_driver, Button.kA.value).onTrue(new
-    // BackwardTime(m_drivetrain, 0.5));
-    // new JoystickButton(m_driver, Button.kA.value).onTrue(new
-    // ScoreLowTaxiBalance(m_drivetrain, m_gripper, m_PinkArm, m_arm));
-    // new JoystickButton(m_driver, Button.kA.value).whileTrue(new
-    // TurnInPlacePID(170, m_drivetrain));
-    // new JoystickButton(m_driver, Button.kA.value).whileTrue(new
-    // AutoBalancePID(m_drivetrain));
-    // new JoystickButton(m_driver, Button.kA.value).onTrue(new
-    // VisionAlign(m_drivetrain, m_Vision));
 
-    // !!!!!sd
+    // new JoystickButton(m_driver, Button.kStart.value).onTrue(new
+    // Meltdown(m_drivetrain, m_gripper, m_PinkArm, m_arm));
+
+    // !!!!!
     // PLEASE DO NOT CHANGE THESEWIHTOUT ASKING, AKSHAY WILL BE MAD!!!!!
     // !!!!!
 
     /*
      * DRIVER
      */
-    // new JoystickButton(m_driver, Button.kX.value).onTrue(new EjectItem(m_gripper,
-    // Constants.GripperConstants.kGripperEjectConeSpeed));
-
     // Right Bumper: Intake Cube
-    // new JoystickButton(m_driver, Button.kRightBumper.value).onTrue(new
-    // IntakeCube(m_gripper));
     new JoystickButton(m_driver, Button.kRightBumper.value).onTrue(new RunIntake(m_gripper, false));
     // Left Bumper: Intake Cone
-    // new JoystickButton(m_driver, Button.kLeftBumper.value).onTrue(new
-    // IntakeCone(m_gripper));
     new JoystickButton(m_driver, Button.kLeftBumper.value).onTrue(new RunIntake(m_gripper, true));
-
     // Right Trigger: Eject Cube
     new Trigger(() -> (m_driver.getRightTriggerAxis() > 0.5))
         .onTrue(new EjectItem(m_gripper, Constants.GripperConstants.kGripperEjectCubeSpeed));
@@ -236,11 +218,6 @@ public class RobotContainer {
     // Start: Substation Cube Intake Setup
     new JoystickButton(m_weapons, Button.kStart.value)
         .onTrue(new SetupScore(m_PinkArm, m_arm, kSubstationCube, SubstationCube));
-    // Back: Substation Cone Intake Setup
-    new JoystickButton(m_weapons, Button.kBack.value)
-        .onTrue(new SetupScore(m_PinkArm, m_arm, kSubstationCone, SubstationCone));
-    // Back: Tucked in Pos
-    // new JoystickButton(m_weapons, Button.kBack.value).onTrue(new TuckedInPos(m_PinkArm, m_arm));
     // RB: Intake Cone Setup
     new JoystickButton(m_weapons, Button.kRightBumper.value)
         .onTrue(new IntakePos(m_PinkArm, m_arm, kLowAngleCone, LowExtendCone));
@@ -257,13 +234,15 @@ public class RobotContainer {
   public Command getAutonomousCommand() {
     // An ExampleCommand will run in autonomous
     // return null;
+
+    //one low one high
     // return new TwoPieceAuto(m_drivetrain, m_gripper, m_arm, m_PinkArm);
-    // return new ScoreLowTaxiBalance(m_drivetrain, m_gripper, m_PinkArm, m_arm, m_lights);
-    // return new ScoreLowTaxi(m_drivetrain, m_gripper, m_PinkArm, m_arm);
-    // return new AutoBalancePIDRewrite(m_drivetrain);
+    
     // return new LowDock(m_drivetrain, m_PinkArm);
+
     // return new HighCubeTaxi(m_drivetrain, m_gripper, m_PinkArm, m_arm);
     // return new HighConeTaxi(m_drivetrain, m_gripper, m_PinkArm, m_arm);
+
     return new TwoPieceHighAuto(m_drivetrain, m_gripper, m_arm, m_PinkArm, m_Vision);
   
 }
