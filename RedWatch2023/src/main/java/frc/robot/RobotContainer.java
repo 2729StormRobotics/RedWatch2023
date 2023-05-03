@@ -30,6 +30,7 @@ import frc.robot.CommandGroups.IntakeCube;
 import frc.robot.CommandGroups.ParallelAutoScoreSetup;
 import frc.robot.CommandGroups.Auto.B1_A;
 import frc.robot.CommandGroups.Auto.B1_Testing;
+import frc.robot.Constants.AutoPathConstants;
 import frc.robot.Constants.TelescopingConstants;
 import frc.robot.commands.pivotArm.PivotPID;
 import frc.robot.commands.pivotArm.armJoint;
@@ -193,25 +194,24 @@ public class RobotContainer {
    */
   public Command getAutonomousCommand(Trajectory traj) {
     // Create a voltage constraint to ensure we don't accelerate too fast
-
-    // var autoVoltageConstraint =
-    //     new DifferentialDriveVoltageConstraint(
-    //         new SimpleMotorFeedforward(
-    //             Constants.AutoPathConstants.ksVolts,
-    //             Constants.AutoPathConstants.kvVoltSecondsPerMeter,
-    //             Constants.AutoPathConstants.kaVoltSecondsSquaredPerMeter),
-    //         Constants.AutoPathConstants.kDriveKinematics,
-    //         3  );
+    var autoVoltageConstraint =
+        new DifferentialDriveVoltageConstraint(
+            new SimpleMotorFeedforward(
+                AutoPathConstants.ksVolts,
+                AutoPathConstants.kvVoltSecondsPerMeter,
+                AutoPathConstants.kaVoltSecondsSquaredPerMeter),
+            AutoPathConstants.kDriveKinematics,
+            10);
 
     // Create config for trajectory
     TrajectoryConfig config =
         new TrajectoryConfig(
-                Constants.AutoPathConstants.kMaxSpeedMetersPerSecond,
-                Constants.AutoPathConstants.kMaxAccelerationMetersPerSecondSquared)
+            AutoPathConstants.kMaxSpeedMetersPerSecond,
+            AutoPathConstants.kMaxAccelerationMetersPerSecondSquared)
             // Add kinematics to ensure max speed is actually obeyed
-            .setKinematics(Constants.AutoPathConstants.kDriveKinematics);
+            .setKinematics(AutoPathConstants.kDriveKinematics)
             // Apply the voltage constraint
-            // .addConstraint(autoVoltageConstraint);
+            .addConstraint(autoVoltageConstraint);
 
     // An example trajectory to follow.  All units in meters.
     Trajectory exampleTrajectory =
@@ -224,30 +224,30 @@ public class RobotContainer {
             new Pose2d(3, 0, new Rotation2d(0)),
             // Pass config
             config);
-    m_drivetrain.m_field.getObject("traj").setTrajectory(traj);
+
     RamseteCommand ramseteCommand =
         new RamseteCommand(
-            traj,
+            exampleTrajectory,
             m_drivetrain::getPose,
-            new RamseteController(Constants.AutoPathConstants.kRamseteB, Constants.AutoPathConstants.kRamseteZeta),
+            new RamseteController(AutoPathConstants.kRamseteB, AutoPathConstants.kRamseteZeta),
             new SimpleMotorFeedforward(
-                Constants.AutoPathConstants.ksVolts,
-                Constants.AutoPathConstants.kvVoltSecondsPerMeter,
-                Constants.AutoPathConstants.kaVoltSecondsSquaredPerMeter),
-            Constants.AutoPathConstants.kDriveKinematics,
+                AutoPathConstants.ksVolts,
+                AutoPathConstants.kvVoltSecondsPerMeter,
+                AutoPathConstants.kaVoltSecondsSquaredPerMeter),
+            AutoPathConstants.kDriveKinematics,
             m_drivetrain::getWheelSpeeds,
-            new PIDController(Constants.AutoPathConstants.kPDriveVel, 0, 0),
-            new PIDController(Constants.AutoPathConstants.kPDriveVel, 0, 0),
+            new PIDController(AutoPathConstants.kPDriveVel, 0, 0),
+            new PIDController(AutoPathConstants.kPDriveVel, 0, 0),
             // RamseteCommand passes volts to the callback
             m_drivetrain::tankDriveVolts,
             m_drivetrain);
 
     // Reset odometry to the starting pose of the trajectory.
-    m_drivetrain.resetOdometry(traj.getInitialPose());
+    m_drivetrain.resetOdometry(exampleTrajectory.getInitialPose());
 
     // Run path following command, then stop at the end.
-    // return new B1_Testing(m_drivetrain);
     return ramseteCommand.andThen(() -> m_drivetrain.tankDriveVolts(0, 0));
   }
 }
+
 
