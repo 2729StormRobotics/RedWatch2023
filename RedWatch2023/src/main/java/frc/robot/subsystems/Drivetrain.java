@@ -244,6 +244,14 @@ public class Drivetrain extends SubsystemBase {
     m_rightMotors.setVoltage(rightVolts);
     m_drive.feed();
   }
+
+  public void setMaxOutput(double setMaxOutput) {
+    m_drive.setMaxOutput(setMaxOutput);
+  }
+
+  public double getTurnRate() {
+    return ahrs.getRate();
+  }
   
   @Override
   public void periodic() {
