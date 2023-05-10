@@ -175,10 +175,11 @@ public final class Constants {
         new TrapezoidProfile.Constraints(
           kMaxAngularSpeedRadiansPerSecond, kMaxAngularSpeedRadiansPerSecondSquared);
 
-      public static final double ksVolts = 0.056518;//-0.056518 
-      public static final double kvVoltSecondsPerMeter = 1.6077;//1.6077
-      public static final double kaVoltSecondsSquaredPerMeter = 1.0305;//1.0305
-      public static final double kPDriveVel = 0.00000043113;
+      public static final double ksVolts = -0.036789;
+      public static final double kvVoltSecondsPerMeter = 3.5825;
+      public static final double kaVoltSecondsSquaredPerMeter = 3.0836;
+      public static final double kPDriveVel = 8.5;
+
       // public static final double kPDriveVel = 1.1109;
       public static final double kRamseteB_radSquaredPerMetersSquared = 2;
       public static final double kRamseteZeta_PerRad = 1;
