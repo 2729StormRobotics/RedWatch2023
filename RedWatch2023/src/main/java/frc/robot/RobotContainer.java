@@ -57,7 +57,7 @@ import static frc.robot.Constants.TelescopingConstants.*;
 public class RobotContainer {
   // Controller
   private final XboxController m_driver = new XboxController(Constants.DrivetrainConstants.kDriverControllerPort);
-  private final XboxController m_weapons = new XboxController(Constants.DrivetrainConstants.kWeaponsControllerPort);
+//   private final XboxController m_weapons = new XboxController(Constants.DrivetrainConstants.kWeaponsControllerPort);
 
   private SlewRateLimiter m_forwardLimiter = new SlewRateLimiter(2); // controls acceleration of forward speed
   private SlewRateLimiter m_rotationLimiter = new SlewRateLimiter(1.5); // controls acceleration of rotational speed
@@ -126,7 +126,7 @@ public class RobotContainer {
     // new JoystickButton(m_driver, Button.kX.value).onTrue(new EjectItem(m_gripper));
     // new JoystickButton(m_driver, Button.kY.value).onTrue(new StopGripper(m_gripper));
     // new JoystickButton(m_driver, Button.kA.value).onTrue(new BalanceFromDistance(m_drivetrain, false));
-    new JoystickButton(m_driver, Button.kB.value).onTrue(new ChangeGear());
+    // new JoystickButton(m_driver, Button.kB.value).onTrue(new ChangeGear());
 //    new JoystickButton(m_weapons, Button.kLeftStick.value).onTrue(new animateCandle(m_lights, m_weapons));   
     // new JoystickButton(m_weapons, Button.kY.value).toggleOnTrue(new ExtendVal( TelescopingConstants.HighExtendCube, m_arm));
     // new JoystickButton(m_weapons, Button.kX.value).toggleOnTrue(new ExtendVal( TelescopingConstants.MidExtendCube, m_arm));
